@@ -2,9 +2,9 @@
 
 These samples are provided to boost your integration of Decentlab sensor devices.
 
-Supported languages are JavaScript, C#, and Python.
+Supported languages are *JavaScript*, *C#*, and *Python*.
 
-We would be more than happy to merge pull requests fixing issues, improving the quality or even supporting new language/environments. Although we do not require specific guidelines, following general coding guidelines is a good idea.
+We would be more than happy to merge pull requests fixing issues, improving the quality or even supporting new language/environments.
 
 Please browse the devices in the corresponding directories.
 
@@ -12,7 +12,7 @@ Please browse the devices in the corresponding directories.
 
 ## The Things Network
 
-Take the JavaScript implementation and paste into the `Payload Formats`'s `decoder` window in the TTN Console (overwrite its content). Remove the main() function and its call.
+Take the JavaScript implementation and paste into the `Payload Formats`'s `decoder` window in the TTN Console by overwriting its content. Remove the `main()` function and its call.
 ```js
 function main() {
     ...
@@ -28,7 +28,7 @@ function Decoder(bytes, port) {
 }
 ```
 
-That's all.
+Test and save the decoder. That's all.
 
 ## ELEMENT IoT
 TODO

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-import logging
+# -*- coding: utf-8 -*-
+import logging
 import os
 import struct
 from base64 import binascii
@@ -23,11 +24,9 @@ SENSORS = [
 
 def decode(msg):
     """msg: payload as one of hex string, list, or bytearray"""
-    bytes_ = (binascii.a2b_hex(msg)
-              if isinstance(msg, str)
-              else bytearray(msg)
-                   if isinstance(msg, list)
-                   else msg)
+    bytes_ = bytearray(binascii.a2b_hex(msg)
+                       if isinstance(msg, str)
+                        else msg)
 
     if bytes_[0] != 2:
         raise ValueError("protocol version {} doesn't match v2".format(bytes_[0]))
