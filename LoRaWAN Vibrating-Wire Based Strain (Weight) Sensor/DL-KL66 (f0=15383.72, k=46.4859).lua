@@ -1,4 +1,7 @@
 
+-- https://www.decentlab.com/support
+
+
 -- sensor definitions
 local SENSORS = {
   {["length"] = 3,

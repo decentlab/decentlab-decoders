@@ -1,3 +1,5 @@
+/* https://www.decentlab.com/support */
+
 var decentlab_decoder = {
   SENSORS: [
     {length: 3,
