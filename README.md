@@ -2,7 +2,7 @@
 
 These samples are provided to boost your integration of Decentlab sensor devices.
 
-Supported languages are *JavaScript*, *C#*, and *Python*.
+Supported languages are *JavaScript*, *C#*, *Lua*, and *Python*.
 
 We would be more than happy to merge pull requests fixing issues, improving the quality or even supporting new language/environments.
 
@@ -12,7 +12,7 @@ Please browse the devices in the corresponding directories.
 
 ## The Things Network
 
-Go to your application on the TTN Console and select `Payload Formats` and . Take the *JavaScript* implementation and paste into the `decoder` window by overwriting its content. Remove the `main()` function and its call.
+Go to your application on *TTN Console* and select `Payload Formats`. Take the *JavaScript* implementation and paste into the `decoder` window by overwriting its content. Remove the `main()` function and its call.
 ```js
 function main() {
     ...
@@ -28,7 +28,7 @@ function Decoder(bytes, port) {
 }
 ```
 
-Test and save the decoder. That's all.
+Copy example payload message from the datasheet, paste into `Payload`, and click `Test`. Make sure the output values match against the datasheet example and  save the decoder.
 
 ## ELEMENT IoT
 TODO
@@ -44,6 +44,25 @@ local function main()
 end
 
 main()
+```
+
+Replace the spaces in the field names with `_`. For example:
+```lua
+  ...
+   ["values"] = {
+     {["name"] = "Battery voltage",
+      ["convert"] = function (x) return x[0 + 1] / 1000 end,
+      ["unit"] = "V"}
+  ...
+```
+becomes
+```lua
+  ...
+   ["values"] = {
+     {["name"] = "Battery_voltage",
+      ["convert"] = function (x) return x[0 + 1] / 1000 end,
+      ["unit"] = "V"}
+  ...
 ```
 
 Append the following lines.
@@ -82,4 +101,4 @@ for k, v in pairs(decoded) do
 end
 ```
 
-Test by clicking `Run` and make sure the values match against the datasheet. Configure the fields in `Node fields` accordingly and press `Save` icon. That's all.
+Test by clicking `Run` and make sure the output values match against the datasheet. Configure the fields in `Node fields` accordingly and press `Save` icon.
