@@ -2,7 +2,7 @@
 
 These samples are provided to boost your integration of Decentlab sensor devices.
 
-Supported languages are *JavaScript*, *C#*, *Lua*, and *Python*.
+Supported languages are *JavaScript*, *C#*, *Lua*, *Elixir*, *ELEMENT IoT Elixir* and *Python*.
 
 We would be more than happy to merge pull requests fixing issues, improving the quality or even supporting new language/environments.
 
@@ -31,7 +31,8 @@ function Decoder(bytes, port) {
 Copy example payload message from the datasheet, paste into `Payload`, and click `Test`. Make sure the output values match against the datasheet example and  save the decoder.
 
 ## ELEMENT IoT
-TODO
+
+Go to `Automation`, `Parser`, and create a new parser. Take *ELEMENT-IoT Elixir* implementation and paste into the `Code` window by overwriting its content. Test the provided payloads against the datasheet and save.
 
 ## ResIOT
 
