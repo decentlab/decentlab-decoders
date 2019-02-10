@@ -9,7 +9,7 @@ import struct
 from base64 import binascii
 import json
 
-
+PROTOCOL_VERSION = 2
 SENSORS = [
     {'length': 3,
      'values': [{'name': 'Counter reading',
@@ -40,9 +40,9 @@ def decode(msg):
     bytes_ = bytearray(binascii.a2b_hex(msg)
                        if isinstance(msg, str)
                         else msg)
-
-    if bytes_[0] != 2:
-        raise ValueError("protocol version {} doesn't match v2".format(bytes_[0]))
+    version = bytes_[0]
+    if version != PROTOCOL_VERSION:
+        raise ValueError("protocol version {} doesn't match v2".format(version))
 
     devid = struct.unpack('>H', bytes_[1:3])[0]
     bin_flags = bin(struct.unpack('>H', bytes_[3:5])[0])

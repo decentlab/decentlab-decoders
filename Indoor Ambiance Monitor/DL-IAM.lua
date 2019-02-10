@@ -3,6 +3,7 @@
 
 
 -- sensor definitions
+local PROTOCOL_VERSION = 2
 local SENSORS = {
   {["length"] = 1,
    ["values"] = {
@@ -82,7 +83,7 @@ local function decentlab_decode(msg)
   end
 
   local version = bytes[1]
-  if version ~= 2 then
+  if version ~= PROTOCOL_VERSION then
     error("protocol version " .. version .. " doesn't match v2")
   end
 

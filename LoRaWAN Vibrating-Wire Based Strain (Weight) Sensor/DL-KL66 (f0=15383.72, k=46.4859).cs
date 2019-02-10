@@ -8,6 +8,7 @@ using System.Collections.Generic;
 public class DecentlabDecoder
 {
   private delegate double conversion(double[] x);
+  public const int PROTOCOL_VERSION = 2;
 
   private class Sensor
   {
@@ -71,7 +72,7 @@ public class DecentlabDecoder
   public static Dictionary<string, Tuple<double, string>> Decode(Stream msg)
   {
     var version = msg.ReadByte();
-    if (version != 2)
+    if (version != PROTOCOL_VERSION)
     {
       throw new InvalidDataException("protocol version " + version + " doesn't match v2");
     }

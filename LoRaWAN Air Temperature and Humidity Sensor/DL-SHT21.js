@@ -1,6 +1,7 @@
 /* https://www.decentlab.com/support */
 
 var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
   SENSORS: [
     {length: 2,
      values: [{name: 'Air temperature',
@@ -30,7 +31,7 @@ var decentlab_decoder = {
     }
 
     var version = bytes.shift();
-    if (version != 2) {
+    if (version != this.PROTOCOL_VERSION) {
       return {error: "protocol version " + version + " doesn't match v2"};
     }
 

@@ -1,6 +1,7 @@
 /* https://www.decentlab.com/support */
 
 var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
   SENSORS: [
     {length: 8,
      values: [{name: 'Wind speed',
@@ -48,7 +49,7 @@ var decentlab_decoder = {
     }
 
     var version = bytes.shift();
-    if (version != 2) {
+    if (version != this.PROTOCOL_VERSION) {
       return {error: "protocol version " + version + " doesn't match v2"};
     }
 
