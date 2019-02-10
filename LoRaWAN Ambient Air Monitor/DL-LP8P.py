@@ -90,10 +90,13 @@ def decode(msg):
 
 
 if __name__ == '__main__':
+
+    import pprint
     payloads = [
         '020578000f67bd618d1cedbd1081d981f4895b0bd80bb50000959895390c25',
         '020578000b67bd618d1cedbd100c25',
         '02057800080c25',
     ]
     for pl in payloads:
-        print(json.dumps(decode(pl), indent=True) + "\n")
+        pprint.pprint(decode(pl))
+        print("")

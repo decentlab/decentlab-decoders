@@ -60,9 +60,12 @@ def decode(msg):
 
 
 if __name__ == '__main__':
+
+    import pprint
     payloads = [
         '02012f000304d200010bb1',
         '02012f00020bb1',
     ]
     for pl in payloads:
-        print(json.dumps(decode(pl), indent=True) + "\n")
+        pprint.pprint(decode(pl))
+        print("")
