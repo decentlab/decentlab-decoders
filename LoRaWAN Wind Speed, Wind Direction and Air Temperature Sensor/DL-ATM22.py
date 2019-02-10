@@ -61,7 +61,7 @@ def decode(msg):
              in range(5, len(bytes_), 2)]
 
     cur = 0
-    result = {}
+    result = {'Device ID': devid, 'Protocol version': version}
     for flag, sensor in zip(flags, SENSORS):
         if flag != '1':
             continue
