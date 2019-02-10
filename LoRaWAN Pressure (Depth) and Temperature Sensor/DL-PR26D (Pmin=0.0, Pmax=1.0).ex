@@ -1,3 +1,6 @@
+
+# https://www.decentlab.com/support
+
 defmodule DecentlabDecoder do
   @protocol_version 2
 

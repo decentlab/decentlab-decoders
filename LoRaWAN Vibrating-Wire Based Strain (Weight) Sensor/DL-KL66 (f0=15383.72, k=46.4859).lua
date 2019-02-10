@@ -1,7 +1,6 @@
 
 -- https://www.decentlab.com/support
 
-
 -- sensor definitions
 local PROTOCOL_VERSION = 2
 local SENSORS = {

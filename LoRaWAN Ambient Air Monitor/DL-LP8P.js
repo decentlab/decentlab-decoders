@@ -1,3 +1,4 @@
+
 /* https://www.decentlab.com/support */
 
 var decentlab_decoder = {
