@@ -1,13 +1,9 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # https://www.decentlab.com/support
 
-import logging
-import os
 import struct
 from base64 import binascii
-import json
 
 PROTOCOL_VERSION = 2
 SENSORS = [
@@ -39,7 +35,7 @@ def decode(msg):
     """msg: payload as one of hex string, list, or bytearray"""
     bytes_ = bytearray(binascii.a2b_hex(msg)
                        if isinstance(msg, str)
-                        else msg)
+                       else msg)
     version = bytes_[0]
     if version != PROTOCOL_VERSION:
         raise ValueError("protocol version {} doesn't match v2".format(version))
