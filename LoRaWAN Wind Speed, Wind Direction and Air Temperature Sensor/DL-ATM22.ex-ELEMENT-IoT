@@ -27,6 +27,7 @@ defmodule Parser do
       {words, %{"Device ID" => device_id, "Protocol version" => 2}}
       |> sensor0(flags)
       |> sensor1(flags)
+
     result
   end
   

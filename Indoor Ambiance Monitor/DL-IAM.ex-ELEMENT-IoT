@@ -36,6 +36,7 @@ defmodule Parser do
       |> sensor4(flags)
       |> sensor5(flags)
       |> sensor6(flags)
+
     result
   end
   
