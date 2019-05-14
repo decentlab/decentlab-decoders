@@ -10,17 +10,17 @@ defmodule Parser do
   
   def fields do
     [
-      %{field: "Pressure", display: "Pressure", unit: "bar"},
-      %{field: "Temperature (electronics)", display: "Temperature (electronics)", unit: "°C"},
-      %{field: "Temperature (PT1000)", display: "Temperature (PT1000)", unit: "°C"},
-      %{field: "Electrical conductivity", display: "Electrical conductivity", unit: "mS⋅cm⁻¹"},
-      %{field: "Battery voltage", display: "Battery voltage", unit: "V"}
+      %{field: "pressure", display: "Pressure", unit: "bar"},
+      %{field: "temperature_electronics", display: "Temperature (electronics)", unit: "°C"},
+      %{field: "temperature_pt1000", display: "Temperature (PT1000)", unit: "°C"},
+      %{field: "electrical_conductivity", display: "Electrical conductivity", unit: "mS⋅cm⁻¹"},
+      %{field: "battery_voltage", display: "Battery voltage", unit: "V"}
     ]
   end
 
   def parse(<<2, device_id::size(16), flags::binary-size(2), words::binary>>, _meta) do
     {_remaining, result} =
-      {words, %{"Device ID" => device_id, "Protocol version" => 2}}
+      {words, %{:device_id => device_id, :protocol_version => 2}}
       |> sensor0(flags)
       |> sensor1(flags)
 
@@ -32,10 +32,10 @@ defmodule Parser do
     {remaining,
      Map.merge(result,
                %{
-                 "Pressure" => (x0 - 32768) / 8192,
-                 "Temperature (electronics)" => (x1 - 32768) / 256,
-                 "Temperature (PT1000)" => (x2 - 32768) / 256,
-                 "Electrical conductivity" => (x3 - 32768) / 1024
+                 :pressure => (x0 - 32768) / 8192,
+                 :temperature_electronics => (x1 - 32768) / 256,
+                 :temperature_pt1000 => (x2 - 32768) / 256,
+                 :electrical_conductivity => (x3 - 32768) / 1024
                })}
   end
   defp sensor0(result, _flags), do: result
@@ -45,7 +45,7 @@ defmodule Parser do
     {remaining,
      Map.merge(result,
                %{
-                 "Battery voltage" => x0 / 1000
+                 :battery_voltage => x0 / 1000
                })}
   end
   defp sensor1(result, _flags), do: result

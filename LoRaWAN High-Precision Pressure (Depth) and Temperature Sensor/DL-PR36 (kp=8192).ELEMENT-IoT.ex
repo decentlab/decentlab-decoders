@@ -10,15 +10,15 @@ defmodule Parser do
   
   def fields do
     [
-      %{field: "Pressure", display: "Pressure", unit: "bar"},
-      %{field: "Temperature", display: "Temperature", unit: "°C"},
-      %{field: "Battery voltage", display: "Battery voltage", unit: "V"}
+      %{field: "pressure", display: "Pressure", unit: "bar"},
+      %{field: "temperature", display: "Temperature", unit: "°C"},
+      %{field: "battery_voltage", display: "Battery voltage", unit: "V"}
     ]
   end
 
   def parse(<<2, device_id::size(16), flags::binary-size(2), words::binary>>, _meta) do
     {_remaining, result} =
-      {words, %{"Device ID" => device_id, "Protocol version" => 2}}
+      {words, %{:device_id => device_id, :protocol_version => 2}}
       |> sensor0(flags)
       |> sensor1(flags)
 
@@ -30,8 +30,8 @@ defmodule Parser do
     {remaining,
      Map.merge(result,
                %{
-                 "Pressure" => (x0 - 32768) / (8192),
-                 "Temperature" => (x1 - 32768) / 256
+                 :pressure => (x0 - 32768) / (8192),
+                 :temperature => (x1 - 32768) / 256
                })}
   end
   defp sensor0(result, _flags), do: result
@@ -41,7 +41,7 @@ defmodule Parser do
     {remaining,
      Map.merge(result,
                %{
-                 "Battery voltage" => x0 / 1000
+                 :battery_voltage => x0 / 1000
                })}
   end
   defp sensor1(result, _flags), do: result

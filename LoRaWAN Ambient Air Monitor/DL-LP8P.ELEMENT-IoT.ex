@@ -11,25 +11,25 @@ defmodule Parser do
   
   def fields do
     [
-      %{field: "Air temperature", display: "Air temperature", unit: "°C"},
-      %{field: "Air humidity", display: "Air humidity", unit: "%"},
-      %{field: "Barometer temperature", display: "Barometer temperature", unit: "°C"},
-      %{field: "Barometric pressure", display: "Barometric pressure", unit: "Pa"},
-      %{field: "CO2 concentration", display: "CO2 concentration", unit: "ppm"},
-      %{field: "CO2 concentration LPF", display: "CO2 concentration LPF", unit: "ppm"},
-      %{field: "CO2 sensor temperature", display: "CO2 sensor temperature", unit: "°C"},
-      %{field: "Capacitor voltage 1", display: "Capacitor voltage 1", unit: "V"},
-      %{field: "Capacitor voltage 2", display: "Capacitor voltage 2", unit: "V"},
-      %{field: "CO2 sensor status", display: "CO2 sensor status", unit: ""},
-      %{field: "Raw IR reading", display: "Raw IR reading", unit: ""},
-      %{field: "Raw IR reading LPF", display: "Raw IR reading LPF", unit: ""},
-      %{field: "Battery voltage", display: "Battery voltage", unit: "V"}
+      %{field: "air_temperature", display: "Air temperature", unit: "°C"},
+      %{field: "air_humidity", display: "Air humidity", unit: "%"},
+      %{field: "barometer_temperature", display: "Barometer temperature", unit: "°C"},
+      %{field: "barometric_pressure", display: "Barometric pressure", unit: "Pa"},
+      %{field: "co2_concentration", display: "CO2 concentration", unit: "ppm"},
+      %{field: "co2_concentration_lpf", display: "CO2 concentration LPF", unit: "ppm"},
+      %{field: "co2_sensor_temperature", display: "CO2 sensor temperature", unit: "°C"},
+      %{field: "capacitor_voltage_1", display: "Capacitor voltage 1", unit: "V"},
+      %{field: "capacitor_voltage_2", display: "Capacitor voltage 2", unit: "V"},
+      %{field: "co2_sensor_status", display: "CO2 sensor status", unit: ""},
+      %{field: "raw_ir_reading", display: "Raw IR reading", unit: ""},
+      %{field: "raw_ir_reading_lpf", display: "Raw IR reading LPF", unit: ""},
+      %{field: "battery_voltage", display: "Battery voltage", unit: "V"}
     ]
   end
 
   def parse(<<2, device_id::size(16), flags::binary-size(2), words::binary>>, _meta) do
     {_remaining, result} =
-      {words, %{"Device ID" => device_id, "Protocol version" => 2}}
+      {words, %{:device_id => device_id, :protocol_version => 2}}
       |> sensor0(flags)
       |> sensor1(flags)
       |> sensor2(flags)
@@ -43,8 +43,8 @@ defmodule Parser do
     {remaining,
      Map.merge(result,
                %{
-                 "Air temperature" => 175.72 * x0 / 65536 - 46.85,
-                 "Air humidity" => 125 * x1 / 65536 - 6
+                 :air_temperature => 175.72 * x0 / 65536 - 46.85,
+                 :air_humidity => 125 * x1 / 65536 - 6
                })}
   end
   defp sensor0(result, _flags), do: result
@@ -54,8 +54,8 @@ defmodule Parser do
     {remaining,
      Map.merge(result,
                %{
-                 "Barometer temperature" => (x0 - 5000) / 100,
-                 "Barometric pressure" => x1 * 2
+                 :barometer_temperature => (x0 - 5000) / 100,
+                 :barometric_pressure => x1 * 2
                })}
   end
   defp sensor1(result, _flags), do: result
@@ -65,14 +65,14 @@ defmodule Parser do
     {remaining,
      Map.merge(result,
                %{
-                 "CO2 concentration" => x0 - 32768,
-                 "CO2 concentration LPF" => x1 - 32768,
-                 "CO2 sensor temperature" => (x2 - 32768) / 100,
-                 "Capacitor voltage 1" => x3 / 1000,
-                 "Capacitor voltage 2" => x4 / 1000,
-                 "CO2 sensor status" => x5,
-                 "Raw IR reading" => x6,
-                 "Raw IR reading LPF" => x7
+                 :co2_concentration => x0 - 32768,
+                 :co2_concentration_lpf => x1 - 32768,
+                 :co2_sensor_temperature => (x2 - 32768) / 100,
+                 :capacitor_voltage_1 => x3 / 1000,
+                 :capacitor_voltage_2 => x4 / 1000,
+                 :co2_sensor_status => x5,
+                 :raw_ir_reading => x6,
+                 :raw_ir_reading_lpf => x7
                })}
   end
   defp sensor2(result, _flags), do: result
@@ -82,7 +82,7 @@ defmodule Parser do
     {remaining,
      Map.merge(result,
                %{
-                 "Battery voltage" => x0 / 1000
+                 :battery_voltage => x0 / 1000
                })}
   end
   defp sensor3(result, _flags), do: result

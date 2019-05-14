@@ -10,21 +10,21 @@ defmodule Parser do
   
   def fields do
     [
-      %{field: "Wind speed", display: "Wind speed", unit: "m⋅s⁻¹"},
-      %{field: "Wind direction", display: "Wind direction", unit: "°"},
-      %{field: "Maximum wind speed", display: "Maximum wind speed", unit: "m⋅s⁻¹"},
-      %{field: "Air temperature", display: "Air temperature", unit: "°C"},
-      %{field: "X orientation angle", display: "X orientation angle", unit: "°"},
-      %{field: "Y orientation angle", display: "Y orientation angle", unit: "°"},
-      %{field: "North wind speed", display: "North wind speed", unit: "m⋅s⁻¹"},
-      %{field: "East wind speed", display: "East wind speed", unit: "m⋅s⁻¹"},
-      %{field: "Battery voltage", display: "Battery voltage", unit: "V"}
+      %{field: "wind_speed", display: "Wind speed", unit: "m⋅s⁻¹"},
+      %{field: "wind_direction", display: "Wind direction", unit: "°"},
+      %{field: "maximum_wind_speed", display: "Maximum wind speed", unit: "m⋅s⁻¹"},
+      %{field: "air_temperature", display: "Air temperature", unit: "°C"},
+      %{field: "x_orientation_angle", display: "X orientation angle", unit: "°"},
+      %{field: "y_orientation_angle", display: "Y orientation angle", unit: "°"},
+      %{field: "north_wind_speed", display: "North wind speed", unit: "m⋅s⁻¹"},
+      %{field: "east_wind_speed", display: "East wind speed", unit: "m⋅s⁻¹"},
+      %{field: "battery_voltage", display: "Battery voltage", unit: "V"}
     ]
   end
 
   def parse(<<2, device_id::size(16), flags::binary-size(2), words::binary>>, _meta) do
     {_remaining, result} =
-      {words, %{"Device ID" => device_id, "Protocol version" => 2}}
+      {words, %{:device_id => device_id, :protocol_version => 2}}
       |> sensor0(flags)
       |> sensor1(flags)
 
@@ -36,14 +36,14 @@ defmodule Parser do
     {remaining,
      Map.merge(result,
                %{
-                 "Wind speed" => (x0 - 32768) / 100,
-                 "Wind direction" => (x1 - 32768) / 10,
-                 "Maximum wind speed" => (x2 - 32768) / 100,
-                 "Air temperature" => (x3 - 32768) / 10,
-                 "X orientation angle" => (x4 - 32768) / 10,
-                 "Y orientation angle" => (x5 - 32768) / 10,
-                 "North wind speed" => (x6 - 32768) / 100,
-                 "East wind speed" => (x7 - 32768) / 100
+                 :wind_speed => (x0 - 32768) / 100,
+                 :wind_direction => (x1 - 32768) / 10,
+                 :maximum_wind_speed => (x2 - 32768) / 100,
+                 :air_temperature => (x3 - 32768) / 10,
+                 :x_orientation_angle => (x4 - 32768) / 10,
+                 :y_orientation_angle => (x5 - 32768) / 10,
+                 :north_wind_speed => (x6 - 32768) / 100,
+                 :east_wind_speed => (x7 - 32768) / 100
                })}
   end
   defp sensor0(result, _flags), do: result
@@ -53,7 +53,7 @@ defmodule Parser do
     {remaining,
      Map.merge(result,
                %{
-                 "Battery voltage" => x0 / 1000
+                 :battery_voltage => x0 / 1000
                })}
   end
   defp sensor1(result, _flags), do: result
