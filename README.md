@@ -10,17 +10,17 @@ Please browse the devices in the corresponding directories:
 
 Device | Name
 ---|---
-DL-LP8P | [CO2, Temperature, Humidity and Barometric Pressure Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/co2-temperature-humidity-and-barometric-pressure-sensor-for-lorawan)
-DL-PR26 | [Pressure / Liquid Level and Temperature Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/pressure-/-liquid-level-and-temperature-sensor-for-lorawan)
-DL-PR21 | [Pressure / Liquid Level and Temperature Sensor with Pipe Thread for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/pressure-/-liquid-level-and-temperature-sensor-with-g1/4-pipe-thread-for-lorawan)
-DL-PR36 | [High-Precision Pressure / Liquid Level and Temperature Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/support)
-DL-PR36CTD | [High-Precision Pressure / Liquid Level, Temperature and Electrical Conductivity Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/high-precision-pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan)
-DL-IAM | [Indoor Ambiance Monitor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/indoor-ambiance-monitor-including-co2-tvoc-and-motion-sensor-for-lorawan)
-DL-SHT21 | [Air Temperature and Humidity Sensor with Radiation Shield for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/support)
-DL-KL66 | [Strain / Weight Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/strain-/-weight-sensor-for-lorawan)
-DL-ATM22 | [Wind Speed, Wind Direction and Temperature Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/wind-speed-wind-direction-and-temperature-sensor-for-lorawan)
-DL-MBX | [Ultrasonic Distance / Level Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/ultrasonic-distance-/-level-sensor-for-lorawan)
-DL-DLR2-004 | [Analog 4 … 20mA sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
+[DL-LP8P](DL-LP8P) | [CO2, Temperature, Humidity and Barometric Pressure Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/co2-temperature-humidity-and-barometric-pressure-sensor-for-lorawan)
+[DL-PR26](DL-PR26) | [Pressure / Liquid Level and Temperature Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/pressure-/-liquid-level-and-temperature-sensor-for-lorawan)
+[DL-PR21](DL-PR21) | [Pressure / Liquid Level and Temperature Sensor with Pipe Thread for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/pressure-/-liquid-level-and-temperature-sensor-with-g1/4-pipe-thread-for-lorawan)
+[DL-PR36](DL-PR36) | [High-Precision Pressure / Liquid Level and Temperature Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/support)
+[DL-PR36CTD](DL-PR36CTD) | [High-Precision Pressure / Liquid Level, Temperature and Electrical Conductivity Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/high-precision-pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan)
+[DL-IAM](DL-IAM) | [Indoor Ambiance Monitor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/indoor-ambiance-monitor-including-co2-tvoc-and-motion-sensor-for-lorawan)
+[DL-SHT21](DL-SHT21) | [Air Temperature and Humidity Sensor with Radiation Shield for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/support)
+[DL-KL66](DL-KL66) | [Strain / Weight Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/strain-/-weight-sensor-for-lorawan)
+[DL-ATM22](DL-ATM22) | [Wind Speed, Wind Direction and Temperature Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/wind-speed-wind-direction-and-temperature-sensor-for-lorawan)
+[DL-MBX](DL-MBX) | [Ultrasonic Distance / Level Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/ultrasonic-distance-/-level-sensor-for-lorawan)
+[DL-DLR2-004](DL-DLR2-004) | [Analog 4 … 20mA sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
 
 # Integration guide for some platforms
 
