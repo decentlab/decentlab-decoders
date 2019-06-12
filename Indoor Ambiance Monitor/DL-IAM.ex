@@ -4,6 +4,8 @@
 defmodule DecentlabDecoder do
   @protocol_version 2
 
+  # Device specific parameters
+
   defp sensor_defs do
     [
       %{

@@ -1,8 +1,11 @@
 
 -- https://www.decentlab.com/support
 
--- sensor definitions
 local PROTOCOL_VERSION = 2
+-- Device-specific parameters
+local PARAMETERS = {
+}
+-- sensor definitions
 local SENSORS = {
   {["length"] = 8,
    ["values"] = {

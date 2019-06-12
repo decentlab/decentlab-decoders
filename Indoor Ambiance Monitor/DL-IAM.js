@@ -3,6 +3,9 @@
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
+  /* Device-specific parameters */
+  PARAMETERS: {
+  },
   SENSORS: [
     {length: 1,
      values: [{name: 'Battery voltage',

@@ -3,6 +3,8 @@
 
 defmodule Parser do
   use Platform.Parsing.Behaviour
+
+  # Device specific parameters
   
   ## Test payloads
   # 020578000f67bd618d1cedbd1081d981f4895b0bd80bb50000959895390c25
@@ -37,6 +39,7 @@ defmodule Parser do
 
     result
   end
+
   
   defp sensor0({<<x0::size(16), x1::size(16), remaining::binary>>, result},
                <<_::size(15), 1::size(1), _::size(0)>>) do

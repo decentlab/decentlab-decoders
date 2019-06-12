@@ -9,6 +9,7 @@ public class DecentlabDecoder
 {
   private delegate double conversion(double[] x);
   public const int PROTOCOL_VERSION = 2;
+  /* Device-specific parameters */
 
   private class Sensor
   {
