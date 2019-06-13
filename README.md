@@ -21,6 +21,7 @@ Device | Name
 [DL-ATM22](DL-ATM22) | [Wind Speed, Wind Direction and Temperature Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/wind-speed-wind-direction-and-temperature-sensor-for-lorawan)
 [DL-MBX](DL-MBX) | [Ultrasonic Distance / Level Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/ultrasonic-distance-/-level-sensor-for-lorawan)
 [DL-DLR2-004](DL-DLR2-004) | [Analog 4 … 20mA sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
+[DL-AC](DL-AC) | [Air Quality Station NO2, NO, CO, Ox for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/air-quality-station-no2-no-co-ox-for-lorawan)
 
 # Integration guide for some platforms
 
