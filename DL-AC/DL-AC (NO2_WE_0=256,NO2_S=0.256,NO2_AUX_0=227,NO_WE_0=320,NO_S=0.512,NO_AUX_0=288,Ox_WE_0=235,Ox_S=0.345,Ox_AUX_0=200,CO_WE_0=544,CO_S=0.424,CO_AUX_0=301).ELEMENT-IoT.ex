@@ -26,22 +26,22 @@ defmodule Parser do
     [
       %{field: "air_temperature", display: "Air temperature", unit: "°C"},
       %{field: "air_humidity", display: "Air humidity", unit: "%"},
-      %{field: "ch4:_no2_we", display: "CH4: NO2 (we)", unit: "mV"},
-      %{field: "ch4:_no2_we_aux", display: "CH4: NO2 (we-aux)", unit: "mV"},
-      %{field: "ch4:_no2_concentration_we", display: "CH4: NO2 concentration (we)", unit: "ppb"},
-      %{field: "ch4:_no2_concentration_we_aux", display: "CH4: NO2 concentration (we-aux)", unit: "ppb"},
-      %{field: "ch5:_no_we", display: "CH5: NO (we)", unit: "mV"},
-      %{field: "ch5:_no_we_aux", display: "CH5: NO (we-aux)", unit: "mV"},
-      %{field: "ch5:_no_concentration_we", display: "CH5: NO concentration (we)", unit: "ppb"},
-      %{field: "ch5:_no_concentration_we_aux", display: "CH5: NO concentration (we-aux)", unit: "ppb"},
-      %{field: "ch6:_ox_we", display: "CH6: Ox (we)", unit: "mV"},
-      %{field: "ch6:_ox_we_aux", display: "CH6: Ox (we-aux)", unit: "mV"},
-      %{field: "ch6:_ox_concentration_we", display: "CH6: Ox concentration (we)", unit: "ppb"},
-      %{field: "ch6:_ox_concentration_we_aux", display: "CH6: Ox concentration (we-aux)", unit: "ppb"},
-      %{field: "ch7:_co_we", display: "CH7: CO (we)", unit: "mV"},
-      %{field: "ch7:_co_we_aux", display: "CH7: CO (we-aux)", unit: "mV"},
-      %{field: "ch7:_co_concentration_we", display: "CH7: CO concentration (we)", unit: "ppb"},
-      %{field: "ch7:_co_concentration_we_aux", display: "CH7: CO concentration (we-aux)", unit: "ppb"},
+      %{field: "ch4_no2_we", display: "CH4: NO2 (we)", unit: "mV"},
+      %{field: "ch4_no2_we_aux", display: "CH4: NO2 (we-aux)", unit: "mV"},
+      %{field: "ch4_no2_concentration_we", display: "CH4: NO2 concentration (we)", unit: "ppb"},
+      %{field: "ch4_no2_concentration_we_aux", display: "CH4: NO2 concentration (we-aux)", unit: "ppb"},
+      %{field: "ch5_no_we", display: "CH5: NO (we)", unit: "mV"},
+      %{field: "ch5_no_we_aux", display: "CH5: NO (we-aux)", unit: "mV"},
+      %{field: "ch5_no_concentration_we", display: "CH5: NO concentration (we)", unit: "ppb"},
+      %{field: "ch5_no_concentration_we_aux", display: "CH5: NO concentration (we-aux)", unit: "ppb"},
+      %{field: "ch6_ox_we", display: "CH6: Ox (we)", unit: "mV"},
+      %{field: "ch6_ox_we_aux", display: "CH6: Ox (we-aux)", unit: "mV"},
+      %{field: "ch6_ox_concentration_we", display: "CH6: Ox concentration (we)", unit: "ppb"},
+      %{field: "ch6_ox_concentration_we_aux", display: "CH6: Ox concentration (we-aux)", unit: "ppb"},
+      %{field: "ch7_co_we", display: "CH7: CO (we)", unit: "mV"},
+      %{field: "ch7_co_we_aux", display: "CH7: CO (we-aux)", unit: "mV"},
+      %{field: "ch7_co_concentration_we", display: "CH7: CO concentration (we)", unit: "ppb"},
+      %{field: "ch7_co_concentration_we_aux", display: "CH7: CO concentration (we-aux)", unit: "ppb"},
       %{field: "battery_voltage", display: "Battery voltage", unit: "V"}
     ]
   end
@@ -76,10 +76,10 @@ defmodule Parser do
     {remaining,
      Map.merge(result,
                %{
-                 :ch4:_no2_we => 3 * (x0 / 32768 - 1) * 1000,
-                 :ch4:_no2_we_aux => 3 * (x1 / 32768 - 1) * 1000,
-                 :ch4:_no2_concentration_we => (3 * (x0 / 32768 - 1) * 1000 - no2_we_0()) / no2_s(),
-                 :ch4:_no2_concentration_we_aux => (3 * (x1 / 32768 - 1) * 1000 - no2_we_0() + no2_aux_0()) / no2_s()
+                 :ch4_no2_we => 3 * (x0 / 32768 - 1) * 1000,
+                 :ch4_no2_we_aux => 3 * (x1 / 32768 - 1) * 1000,
+                 :ch4_no2_concentration_we => (3 * (x0 / 32768 - 1) * 1000 - no2_we_0()) / no2_s(),
+                 :ch4_no2_concentration_we_aux => (3 * (x1 / 32768 - 1) * 1000 - no2_we_0() + no2_aux_0()) / no2_s()
                })}
   end
   defp sensor1(result, _flags), do: result
@@ -89,10 +89,10 @@ defmodule Parser do
     {remaining,
      Map.merge(result,
                %{
-                 :ch5:_no_we => 3 * (x0 / 32768 - 1) * 1000,
-                 :ch5:_no_we_aux => 3 * (x1 / 32768 - 1) * 1000,
-                 :ch5:_no_concentration_we => (3 * (x0 / 32768 - 1) * 1000 - no_we_0()) / no_s(),
-                 :ch5:_no_concentration_we_aux => (3 * (x1 / 32768 - 1) * 1000 - no_we_0() + no_aux_0()) / no_s()
+                 :ch5_no_we => 3 * (x0 / 32768 - 1) * 1000,
+                 :ch5_no_we_aux => 3 * (x1 / 32768 - 1) * 1000,
+                 :ch5_no_concentration_we => (3 * (x0 / 32768 - 1) * 1000 - no_we_0()) / no_s(),
+                 :ch5_no_concentration_we_aux => (3 * (x1 / 32768 - 1) * 1000 - no_we_0() + no_aux_0()) / no_s()
                })}
   end
   defp sensor2(result, _flags), do: result
@@ -102,10 +102,10 @@ defmodule Parser do
     {remaining,
      Map.merge(result,
                %{
-                 :ch6:_ox_we => 3 * (x0 / 32768 - 1) * 1000,
-                 :ch6:_ox_we_aux => 3 * (x1 / 32768 - 1) * 1000,
-                 :ch6:_ox_concentration_we => (3 * (x0 / 32768 - 1) * 1000 - ox_we_0()) / ox_s(),
-                 :ch6:_ox_concentration_we_aux => (3 * (x1 / 32768 - 1) * 1000 - ox_we_0() + ox_aux_0()) / ox_s()
+                 :ch6_ox_we => 3 * (x0 / 32768 - 1) * 1000,
+                 :ch6_ox_we_aux => 3 * (x1 / 32768 - 1) * 1000,
+                 :ch6_ox_concentration_we => (3 * (x0 / 32768 - 1) * 1000 - ox_we_0()) / ox_s(),
+                 :ch6_ox_concentration_we_aux => (3 * (x1 / 32768 - 1) * 1000 - ox_we_0() + ox_aux_0()) / ox_s()
                })}
   end
   defp sensor3(result, _flags), do: result
@@ -115,10 +115,10 @@ defmodule Parser do
     {remaining,
      Map.merge(result,
                %{
-                 :ch7:_co_we => 3 * (x0 / 32768 - 1) * 1000,
-                 :ch7:_co_we_aux => 3 * (x1 / 32768 - 1) * 1000,
-                 :ch7:_co_concentration_we => (3 * (x0 / 32768 - 1) * 1000 - co_we_0()) / co_s(),
-                 :ch7:_co_concentration_we_aux => (3 * (x1 / 32768 - 1) * 1000 - co_we_0() + co_aux_0()) / co_s()
+                 :ch7_co_we => 3 * (x0 / 32768 - 1) * 1000,
+                 :ch7_co_we_aux => 3 * (x1 / 32768 - 1) * 1000,
+                 :ch7_co_concentration_we => (3 * (x0 / 32768 - 1) * 1000 - co_we_0()) / co_s(),
+                 :ch7_co_concentration_we_aux => (3 * (x1 / 32768 - 1) * 1000 - co_we_0() + co_aux_0()) / co_s()
                })}
   end
   defp sensor4(result, _flags), do: result
