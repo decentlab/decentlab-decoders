@@ -2,9 +2,7 @@
 -- https://www.decentlab.com/products/wind-speed-wind-direction-and-temperature-sensor-for-lorawan
 
 local PROTOCOL_VERSION = 2
--- Device-specific parameters
-local PARAMETERS = {
-}
+
 -- sensor definitions
 local SENSORS = {
   {["length"] = 8,

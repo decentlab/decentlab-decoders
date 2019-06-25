@@ -2,9 +2,7 @@
 -- https://www.decentlab.com/products/indoor-ambiance-monitor-including-co2-tvoc-and-motion-sensor-for-lorawan
 
 local PROTOCOL_VERSION = 2
--- Device-specific parameters
-local PARAMETERS = {
-}
+
 -- sensor definitions
 local SENSORS = {
   {["length"] = 1,

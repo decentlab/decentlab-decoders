@@ -4,7 +4,7 @@
 defmodule Parser do
   use Platform.Parsing.Behaviour
 
-  # Device specific parameters
+  # device-specific parameters
   defp no2_we_0(), do: 256
   defp no2_s(), do: 0.256
   defp no2_aux_0(), do: 227
@@ -18,7 +18,7 @@ defmodule Parser do
   defp co_s(), do: 0.424
   defp co_aux_0(), do: 301
   
-  ## Test payloads
+  ## test payloads
   # 020fa0003f66b49b8c8966803c8cf580238a68804c903783f4158a
   # 020fa00020158a
   

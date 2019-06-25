@@ -4,11 +4,11 @@
 defmodule Parser do
   use Platform.Parsing.Behaviour
 
-  # Device specific parameters
+  # device-specific parameters
   defp pmin(), do: 0.0
   defp pmax(), do: 1.0
   
-  ## Test payloads
+  ## test payloads
   # 02016700033e8060170c7f
   # 02016700020c7f
   

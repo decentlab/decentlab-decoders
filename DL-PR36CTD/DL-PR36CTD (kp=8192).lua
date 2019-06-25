@@ -2,10 +2,12 @@
 -- https://www.decentlab.com/products/high-precision-pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan
 
 local PROTOCOL_VERSION = 2
--- Device-specific parameters
+
+-- device-specific parameters
 local PARAMETERS = {
   ["kp"] = 8192
 }
+
 -- sensor definitions
 local SENSORS = {
   {["length"] = 4,

@@ -4,7 +4,7 @@
 defmodule DecentlabDecoder do
   @protocol_version 2
 
-  # Device specific parameters
+  # device-specific parameters
   @kp 8192
 
   defp sensor_defs do

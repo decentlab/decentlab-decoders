@@ -9,7 +9,8 @@ public class DecentlabDecoder
 {
   private delegate double conversion(double[] x);
   public const int PROTOCOL_VERSION = 2;
-  /* Device-specific parameters */
+
+  /* device-specific parameters */
   public const double NO2_WE_0 = 256;
   public const double NO2_S = 0.256;
   public const double NO2_AUX_0 = 227;

@@ -2,10 +2,12 @@
 -- https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan
 
 local PROTOCOL_VERSION = 2
--- Device-specific parameters
+
+-- device-specific parameters
 local PARAMETERS = {
   ["R"] = 10.0
 }
+
 -- sensor definitions
 local SENSORS = {
   {["length"] = 1,

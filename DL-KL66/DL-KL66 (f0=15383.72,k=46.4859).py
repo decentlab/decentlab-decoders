@@ -6,11 +6,13 @@ import struct
 from base64 import binascii
 
 PROTOCOL_VERSION = 2
-# Device-specific parameters
+
+# device-specific parameters
 PARAMETERS = {
   'f0': 15383.72,
   'k': 46.4859
 }
+
 SENSORS = [
     {'length': 3,
      'values': [{'name': 'Counter reading',

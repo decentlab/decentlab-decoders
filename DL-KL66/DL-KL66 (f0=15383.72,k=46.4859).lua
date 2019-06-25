@@ -2,11 +2,13 @@
 -- https://www.decentlab.com/products/strain-/-weight-sensor-for-lorawan
 
 local PROTOCOL_VERSION = 2
--- Device-specific parameters
+
+-- device-specific parameters
 local PARAMETERS = {
   ["f0"] = 15383.72,
   ["k"] = 46.4859
 }
+
 -- sensor definitions
 local SENSORS = {
   {["length"] = 3,

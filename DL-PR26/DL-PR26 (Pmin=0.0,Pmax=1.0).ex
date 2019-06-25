@@ -4,7 +4,7 @@
 defmodule DecentlabDecoder do
   @protocol_version 2
 
-  # Device specific parameters
+  # device-specific parameters
   @pmin 0.0
   @pmax 1.0
 

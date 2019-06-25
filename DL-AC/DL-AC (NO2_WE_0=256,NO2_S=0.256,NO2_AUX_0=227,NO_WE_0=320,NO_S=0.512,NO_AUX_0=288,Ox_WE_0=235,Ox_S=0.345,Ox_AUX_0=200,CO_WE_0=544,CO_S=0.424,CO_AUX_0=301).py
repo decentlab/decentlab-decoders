@@ -6,7 +6,8 @@ import struct
 from base64 import binascii
 
 PROTOCOL_VERSION = 2
-# Device-specific parameters
+
+# device-specific parameters
 PARAMETERS = {
   'NO2_WE_0': 256,
   'NO2_S': 0.256,
@@ -21,6 +22,7 @@ PARAMETERS = {
   'CO_S': 0.424,
   'CO_AUX_0': 301
 }
+
 SENSORS = [
     {'length': 2,
      'values': [{'name': 'Air temperature',

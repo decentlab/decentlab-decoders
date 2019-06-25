@@ -6,10 +6,12 @@ import struct
 from base64 import binascii
 
 PROTOCOL_VERSION = 2
-# Device-specific parameters
+
+# device-specific parameters
 PARAMETERS = {
   'R': 10.0
 }
+
 SENSORS = [
     {'length': 1,
      'values': [{'name': 'Current',

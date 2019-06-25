@@ -3,7 +3,7 @@
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  /* Device-specific parameters */
+  /* device-specific parameters */
   PARAMETERS: {
     kp: 8192
   },

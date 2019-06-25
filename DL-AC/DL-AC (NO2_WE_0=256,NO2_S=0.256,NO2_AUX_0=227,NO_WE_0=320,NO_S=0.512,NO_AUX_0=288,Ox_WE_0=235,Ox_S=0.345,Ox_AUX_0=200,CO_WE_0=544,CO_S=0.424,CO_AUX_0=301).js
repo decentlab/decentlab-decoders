@@ -3,7 +3,7 @@
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  /* Device-specific parameters */
+  /* device-specific parameters */
   PARAMETERS: {
     NO2_WE_0: 256,
     NO2_S: 0.256,

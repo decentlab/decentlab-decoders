@@ -4,10 +4,10 @@
 defmodule Parser do
   use Platform.Parsing.Behaviour
 
-  # Device specific parameters
+  # device-specific parameters
   defp kp(), do: 8192
   
-  ## Test payloads
+  ## test payloads
   # 020a17000380079786978180060c2b
   # 020a1700020c2b
   

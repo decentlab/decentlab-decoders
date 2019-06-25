@@ -3,10 +3,8 @@
 
 defmodule Parser do
   use Platform.Parsing.Behaviour
-
-  # Device specific parameters
   
-  ## Test payloads
+  ## test payloads
   # 0208c900038009812b8014810880027fe8800880040bf5
   # 0208c900020bf5
   

@@ -9,7 +9,8 @@ public class DecentlabDecoder
 {
   private delegate double conversion(double[] x);
   public const int PROTOCOL_VERSION = 2;
-  /* Device-specific parameters */
+
+  /* device-specific parameters */
   public const double f0 = 15383.72;
   public const double k = 46.4859;
 

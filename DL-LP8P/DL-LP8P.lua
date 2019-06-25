@@ -2,9 +2,7 @@
 -- https://www.decentlab.com/products/co2-temperature-humidity-and-barometric-pressure-sensor-for-lorawan
 
 local PROTOCOL_VERSION = 2
--- Device-specific parameters
-local PARAMETERS = {
-}
+
 -- sensor definitions
 local SENSORS = {
   {["length"] = 2,

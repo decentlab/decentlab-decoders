@@ -2,11 +2,13 @@
 -- https://www.decentlab.com/products/pressure-/-liquid-level-and-temperature-sensor-with-g1/4-pipe-thread-for-lorawan
 
 local PROTOCOL_VERSION = 2
--- Device-specific parameters
+
+-- device-specific parameters
 local PARAMETERS = {
   ["Pmin"] = -1.0,
   ["Pmax"] = 10.0
 }
+
 -- sensor definitions
 local SENSORS = {
   {["length"] = 2,

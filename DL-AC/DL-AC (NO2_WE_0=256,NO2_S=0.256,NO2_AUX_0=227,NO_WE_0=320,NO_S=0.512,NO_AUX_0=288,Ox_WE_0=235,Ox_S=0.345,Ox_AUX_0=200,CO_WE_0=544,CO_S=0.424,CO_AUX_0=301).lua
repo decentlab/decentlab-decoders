@@ -2,7 +2,8 @@
 -- https://www.decentlab.com/products/air-quality-station-no2-no-co-ox-for-lorawan
 
 local PROTOCOL_VERSION = 2
--- Device-specific parameters
+
+-- device-specific parameters
 local PARAMETERS = {
   ["NO2_WE_0"] = 256,
   ["NO2_S"] = 0.256,
@@ -17,6 +18,7 @@ local PARAMETERS = {
   ["CO_S"] = 0.424,
   ["CO_AUX_0"] = 301
 }
+
 -- sensor definitions
 local SENSORS = {
   {["length"] = 2,

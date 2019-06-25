@@ -3,7 +3,7 @@
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  /* Device-specific parameters */
+  /* device-specific parameters */
   PARAMETERS: {
     Pmin: -1.0,
     Pmax: 10.0
