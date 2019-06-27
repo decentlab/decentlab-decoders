@@ -15,7 +15,7 @@ abstract class DecentlabDecoder
         $this->parts['version'] = ord($this->bytes[0]);
         if ($this->parts['version'] != self::PROTOCOL_VERSION) {
             $this->parts['error'] = sprintf("protocol version %u doesn't match v2", $this->parts['version']);
-            return;
+            return $this->parts;
         }
 
         $this->parts['device_id'] = unpack('n', substr($this->bytes, 1))[1];
