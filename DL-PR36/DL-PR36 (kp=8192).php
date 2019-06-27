@@ -5,7 +5,7 @@ abstract class DecentlabDecoder
 {
     const PROTOCOL_VERSION = 2;
 
-    private static $SENSORS;
+    protected $sensors;
 
     public function decode($payload = '')
     {
@@ -14,25 +14,25 @@ abstract class DecentlabDecoder
 
         $this->parts['version'] = ord($this->bytes[0]);
         if ($this->parts['version'] != self::PROTOCOL_VERSION) {
-            $this->parts['error'] = sprintf('protocol version %u doesn\'t match v2', $this->parts[version]);
+            $this->parts['error'] = sprintf("protocol version %u doesn't match v2", $this->parts['version']);
             return;
         }
 
-        $this->parts['device_id'] = unpack('n', $this->bytes, 1)[1];
-        $flags = unpack('n', $this->bytes, 3)[1];
+        $this->parts['device_id'] = unpack('n', substr($this->bytes, 1))[1];
+        $flags = unpack('n', substr($this->bytes, 3))[1];
 
-        // decode payload
+        /* decode payload */
         $k = 5;
-        foreach ($this->SENSORS as $sensor) {
+        foreach ($this->sensors as $sensor) {
             if (($flags & 1) == 1) {
                 $x = [];
-                // convert data to 16-bit integer array
+                /* convert data to 16-bit integer array */
                 for ($j = 0; $j < $sensor['length']; $j++) {
-                    array_push($x, unpack('n', $this->bytes, $k)[1]);
+                    array_push($x, unpack('n', substr($this->bytes, $k))[1]);
                     $k += 2;
                 }
 
-                // decode sensor values
+                /* decode sensor values */
                 foreach ($sensor['values'] as $value) {
                     if ($value['convert'] != NULL) {
                         $this->parts[$value['name'] . '_value'] = $value['convert']($x);
@@ -44,6 +44,8 @@ abstract class DecentlabDecoder
             }
             $flags >>= 1;
         }
+
+        return $this->parts;
     }
 }
 
@@ -51,7 +53,7 @@ class DL_PR36_Decoder extends DecentlabDecoder {
     /* device-specific parameters */
     public function __construct($kp)
     {
-        $this->SENSORS = [
+        $this->sensors = [
             [
                 'length' => 2,
                 'values' => [
@@ -89,6 +91,5 @@ $payloads = [
 ];
 
 foreach($payloads as $payload) {
-    $decoder->decode($payload);
-    var_dump($decoder->parts);
+    var_dump($decoder->decode($payload));
 }
