@@ -2,6 +2,11 @@
 
 # https://www.decentlab.com/products/high-precision-pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan
 
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
 import struct
 from base64 import binascii
 
@@ -33,10 +38,10 @@ SENSORS = [
 ]
 
 
-def decode(msg):
+def decode(msg, hex=False):
     """msg: payload as one of hex string, list, or bytearray"""
     bytes_ = bytearray(binascii.a2b_hex(msg)
-                       if isinstance(msg, str)
+                       if hex
                        else msg)
     version = bytes_[0]
     if version != PROTOCOL_VERSION:
@@ -72,9 +77,9 @@ if __name__ == '__main__':
 
     import pprint
     payloads = [
-        '020a17000380079786978180060c2b',
-        '020a1700020c2b',
+        b'020a17000380079786978180060c2b',
+        b'020a1700020c2b',
     ]
     for pl in payloads:
-        pprint.pprint(decode(pl))
+        pprint.pprint(decode(pl, hex=True))
         print("")

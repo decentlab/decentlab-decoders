@@ -2,6 +2,11 @@
 
 # https://www.decentlab.com/products/indoor-ambiance-monitor-including-co2-tvoc-and-motion-sensor-for-lorawan
 
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
 import struct
 from base64 import binascii
 
@@ -49,10 +54,10 @@ SENSORS = [
 ]
 
 
-def decode(msg):
+def decode(msg, hex=False):
     """msg: payload as one of hex string, list, or bytearray"""
     bytes_ = bytearray(binascii.a2b_hex(msg)
-                       if isinstance(msg, str)
+                       if hex
                        else msg)
     version = bytes_[0]
     if version != PROTOCOL_VERSION:
@@ -88,10 +93,10 @@ if __name__ == '__main__':
 
     import pprint
     payloads = [
-        '020bbd007f0b926a515d48bc4e0262006981c7000093d4000b0111',
-        '020bbd006f0b926a515d48bc4e02620069000b0111',
-        '020bbd00010b92',
+        b'020bbd007f0b926a515d48bc4e0262006981c7000093d4000b0111',
+        b'020bbd006f0b926a515d48bc4e02620069000b0111',
+        b'020bbd00010b92',
     ]
     for pl in payloads:
-        pprint.pprint(decode(pl))
+        pprint.pprint(decode(pl, hex=True))
         print("")

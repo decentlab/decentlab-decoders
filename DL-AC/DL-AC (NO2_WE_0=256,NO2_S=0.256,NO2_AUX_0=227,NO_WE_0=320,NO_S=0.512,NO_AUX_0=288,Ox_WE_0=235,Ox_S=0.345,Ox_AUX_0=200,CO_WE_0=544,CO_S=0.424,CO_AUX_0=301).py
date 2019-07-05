@@ -2,6 +2,11 @@
 
 # https://www.decentlab.com/products/air-quality-station-no2-no-co-ox-for-lorawan
 
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
 import struct
 from base64 import binascii
 
@@ -90,10 +95,10 @@ SENSORS = [
 ]
 
 
-def decode(msg):
+def decode(msg, hex=False):
     """msg: payload as one of hex string, list, or bytearray"""
     bytes_ = bytearray(binascii.a2b_hex(msg)
-                       if isinstance(msg, str)
+                       if hex
                        else msg)
     version = bytes_[0]
     if version != PROTOCOL_VERSION:
@@ -129,9 +134,9 @@ if __name__ == '__main__':
 
     import pprint
     payloads = [
-        '020fa0003f66b49b8c8966803c8cf580238a68804c903783f4158a',
-        '020fa00020158a',
+        b'020fa0003f66b49b8c8966803c8cf580238a68804c903783f4158a',
+        b'020fa00020158a',
     ]
     for pl in payloads:
-        pprint.pprint(decode(pl))
+        pprint.pprint(decode(pl, hex=True))
         print("")

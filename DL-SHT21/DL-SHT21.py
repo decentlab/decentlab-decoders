@@ -2,6 +2,11 @@
 
 # https://www.decentlab.com/support
 
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
 import struct
 from base64 import binascii
 
@@ -22,10 +27,10 @@ SENSORS = [
 ]
 
 
-def decode(msg):
+def decode(msg, hex=False):
     """msg: payload as one of hex string, list, or bytearray"""
     bytes_ = bytearray(binascii.a2b_hex(msg)
-                       if isinstance(msg, str)
+                       if hex
                        else msg)
     version = bytes_[0]
     if version != PROTOCOL_VERSION:
@@ -61,9 +66,9 @@ if __name__ == '__main__':
 
     import pprint
     payloads = [
-        '02030e000364a079b10c60',
-        '02030e00020c60',
+        b'02030e000364a079b10c60',
+        b'02030e00020c60',
     ]
     for pl in payloads:
-        pprint.pprint(decode(pl))
+        pprint.pprint(decode(pl, hex=True))
         print("")

@@ -2,6 +2,11 @@
 
 # https://www.decentlab.com/products/wind-speed-wind-direction-and-temperature-sensor-for-lorawan
 
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
 import struct
 from base64 import binascii
 
@@ -40,10 +45,10 @@ SENSORS = [
 ]
 
 
-def decode(msg):
+def decode(msg, hex=False):
     """msg: payload as one of hex string, list, or bytearray"""
     bytes_ = bytearray(binascii.a2b_hex(msg)
-                       if isinstance(msg, str)
+                       if hex
                        else msg)
     version = bytes_[0]
     if version != PROTOCOL_VERSION:
@@ -79,9 +84,9 @@ if __name__ == '__main__':
 
     import pprint
     payloads = [
-        '0208c900038009812b8014810880027fe8800880040bf5',
-        '0208c900020bf5',
+        b'0208c900038009812b8014810880027fe8800880040bf5',
+        b'0208c900020bf5',
     ]
     for pl in payloads:
-        pprint.pprint(decode(pl))
+        pprint.pprint(decode(pl, hex=True))
         print("")
