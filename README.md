@@ -22,6 +22,19 @@ Device | Name
 [DL-MBX](DL-MBX) | [Ultrasonic Distance / Level Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/ultrasonic-distance-/-level-sensor-for-lorawan)
 [DL-DLR2-004](DL-DLR2-004) | [Analog 4 … 20mA sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
 [DL-AC](DL-AC) | [Air Quality Station NO2, NO, CO, Ox for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/air-quality-station-no2-no-co-ox-for-lorawan)
+[DL-SHT35](DL-SHT35) | [Air Temperature and Humidity Sensor with Radiation Shield for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/air-temperature-and-humidity-sensor-with-radiation-shield-for-lorawan)
+[DL-PAR](DL-PAR) | [Photosynthetically Active Radiation Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/photosynthetically-active-radiation-sensor-for-lorawan)
+[DL-PYR](DL-PYR) | [Total Solar Radiation Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/total-solar-radiation-sensor-for-lorawan)
+[DL-TRS12](DL-TRS12) | [Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/support)
+[DL-TRS21](DL-TRS21) | [Soil Water Potential and Temperature Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/support)
+[DL-TBRG](DL-TBRG) | [Tipping Bucket Rain Gauge for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/support)
+[DL-DS18](DL-DS18) | [Temperature Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/temperature-sensor-for-lorawan)
+[DL-CTD10](DL-CTD10) | [Pressure / Liquid Level, Temperature and Electrical Conductivity Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan)
+[DL-SMTP](DL-SMTP) | [Soil Moisture and Temperature Profile for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/soil-moisture-and-temperature-profile-for-lorawan)
+[DL-10HS](DL-10HS) | [Legacy Large Soil Moisture Sensor  for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/support)
+[DL-GS3](DL-GS3) | [Legacy Ruggedized Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/support)
+[DL-5TM](DL-5TM) | [Legacy Soil Moisture, Temperature Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/support)
+[DL-5TE](DL-5TE) | [Legacy Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/support)
 
 # Integration guide for some platforms
 

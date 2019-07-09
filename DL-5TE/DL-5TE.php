@@ -1,5 +1,5 @@
 <?php
-/* https://www.decentlab.com/products/air-temperature-and-humidity-sensor-with-radiation-shield-for-lorawan */
+/* https://www.decentlab.com/support */
 
 abstract class DecentlabDecoder
 {
@@ -49,23 +49,33 @@ abstract class DecentlabDecoder
     }
 }
 
-class DL_SHT3x_Decoder extends DecentlabDecoder {
+class DL_5TE_Decoder extends DecentlabDecoder {
     
     public function __construct()
     {
         $this->sensors = [
             [
-                'length' => 2,
+                'length' => 3,
                 'values' => [
                     [
-                        'name' => 'air_temperature',
-                        'convert' => function ($x) { return 175 * $x[0] / 65535 - 45; },
+                        'name' => 'dielectric_permittivity',
+                        'convert' => function ($x) { return $x[0] / 50; },
+                        'unit' => NULL,
+                    ],
+                    [
+                        'name' => 'volumetric_water_content',
+                        'convert' => function ($x) { return 0.0000043 * pow($x[0]/50, 3) - 0.00055 * pow($x[0]/50, 2) + 0.0292 * ($x[0]/50) - 0.053; },
+                        'unit' => 'm³⋅m⁻³',
+                    ],
+                    [
+                        'name' => 'soil_temperature',
+                        'convert' => function ($x) { return ($x[1] - 400) / 10; },
                         'unit' => '°C',
                     ],
                     [
-                        'name' => 'air_humidity',
-                        'convert' => function ($x) { return 100 * $x[1] / 65535; },
-                        'unit' => '%',
+                        'name' => 'electrical_conductivity',
+                        'convert' => function ($x) { return $x[2] * 10; },
+                        'unit' => 'µS⋅cm⁻¹',
                     ],
                 ],
             ],
@@ -84,10 +94,10 @@ class DL_SHT3x_Decoder extends DecentlabDecoder {
 }
 
 
-$decoder = new DL_SHT3x_Decoder();
+$decoder = new DL_5TE_Decoder();
 $payloads = [
-    '02030e000364a079b10c60',
-    '02030e00020c60',
+    '02031c00030037027100000c60',
+    '02031c00020c60',
 ];
 
 foreach($payloads as $payload) {
