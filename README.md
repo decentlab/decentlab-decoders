@@ -1,8 +1,16 @@
 # Payload decoders for Decentlab sensor devices
 
-These samples are provided to boost your integration of Decentlab sensor devices.
+These samples are provided for integrating Decentlab sensor devices into your system.
 
-Supported languages are *JavaScript*, *C#*, *Lua*, *Elixir*, *ELEMENT IoT Elixir* and *Python*.
+Supported platforms are:
+
+- C#
+- ELEMENT-IoT Elixir
+- Elixir
+- JavaScript
+- Lua
+- PHP
+- Python
 
 Pull requests fixing issues, improving the quality or supporting new language/environments are welcome.
 
