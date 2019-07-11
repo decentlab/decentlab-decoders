@@ -12,8 +12,7 @@
       values => [
         #{
           name => <<"Dielectric permittivity">>,
-          convert => fun(X) -> math:pow(0.000000002887 * math:pow(lists:nth(0 + 1, X)/10, 3) - 0.0000208 * math:pow(lists:nth(0 + 1, X)/10, 2) + 0.05276 * (lists:nth(0 + 1, X)/10) - 43.39, 2) end,
-          unit => <<"None"/utf8>>
+          convert => fun(X) -> math:pow(0.000000002887 * math:pow(lists:nth(0 + 1, X)/10, 3) - 0.0000208 * math:pow(lists:nth(0 + 1, X)/10, 2) + 0.05276 * (lists:nth(0 + 1, X)/10) - 43.39, 2) end
         },
         #{
           name => <<"Volumetric water content">>,

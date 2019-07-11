@@ -15,8 +15,7 @@ PROTOCOL_VERSION = 2
 SENSORS = [
     {'length': 3,
      'values': [{'name': 'Dielectric permittivity',
-                 'convert': lambda x: pow(0.000000002887 * pow(x[0]/10, 3) - 0.0000208 * pow(x[0]/10, 2) + 0.05276 * (x[0]/10) - 43.39, 2),
-                 'unit': 'None'},
+                 'convert': lambda x: pow(0.000000002887 * pow(x[0]/10, 3) - 0.0000208 * pow(x[0]/10, 2) + 0.05276 * (x[0]/10) - 43.39, 2)},
                 {'name': 'Volumetric water content',
                  'convert': lambda x: x[0]/10 * 0.0003879 - 0.6956,
                  'unit': 'm³⋅m⁻³'},

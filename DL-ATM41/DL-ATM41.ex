@@ -22,7 +22,7 @@ defmodule DecentlabDecoder do
           %{
             :name => "Lightning strike count",
             :convert => fn x -> Enum.at(x, 2) - 32768 end,
-            :unit => "None"
+            :unit => nil
           },
           %{
             :name => "Lightning average distance",

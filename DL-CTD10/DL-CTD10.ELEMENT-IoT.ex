@@ -13,7 +13,7 @@ defmodule Parser do
       %{field: "water_depth", display: "Water depth", unit: "mm"},
       %{field: "temperature", display: "Temperature", unit: "°C"},
       %{field: "electrical_conductivity", display: "Electrical conductivity", unit: "µS⋅cm⁻¹"},
-      %{field: "freezing_flag", display: "Freezing flag", unit: "None"},
+      %{field: "freezing_flag", display: "Freezing flag", unit: ""},
       %{field: "battery_voltage", display: "Battery voltage", unit: "V"}
     ]
   end

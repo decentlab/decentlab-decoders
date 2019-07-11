@@ -10,21 +10,21 @@ defmodule Parser do
   
   def fields do
     [
-      %{field: "soil_moisture_at_depth_0", display: "Soil moisture at depth 0", unit: "None"},
+      %{field: "soil_moisture_at_depth_0", display: "Soil moisture at depth 0", unit: ""},
       %{field: "soil_temperature_at_depth_0", display: "Soil temperature at depth 0", unit: "°C"},
-      %{field: "soil_moisture_at_depth_1", display: "Soil moisture at depth 1", unit: "None"},
+      %{field: "soil_moisture_at_depth_1", display: "Soil moisture at depth 1", unit: ""},
       %{field: "soil_temperature_at_depth_1", display: "Soil temperature at depth 1", unit: "°C"},
-      %{field: "soil_moisture_at_depth_2", display: "Soil moisture at depth 2", unit: "None"},
+      %{field: "soil_moisture_at_depth_2", display: "Soil moisture at depth 2", unit: ""},
       %{field: "soil_temperature_at_depth_2", display: "Soil temperature at depth 2", unit: "°C"},
-      %{field: "soil_moisture_at_depth_3", display: "Soil moisture at depth 3", unit: "None"},
+      %{field: "soil_moisture_at_depth_3", display: "Soil moisture at depth 3", unit: ""},
       %{field: "soil_temperature_at_depth_3", display: "Soil temperature at depth 3", unit: "°C"},
-      %{field: "soil_moisture_at_depth_4", display: "Soil moisture at depth 4", unit: "None"},
+      %{field: "soil_moisture_at_depth_4", display: "Soil moisture at depth 4", unit: ""},
       %{field: "soil_temperature_at_depth_4", display: "Soil temperature at depth 4", unit: "°C"},
-      %{field: "soil_moisture_at_depth_5", display: "Soil moisture at depth 5", unit: "None"},
+      %{field: "soil_moisture_at_depth_5", display: "Soil moisture at depth 5", unit: ""},
       %{field: "soil_temperature_at_depth_5", display: "Soil temperature at depth 5", unit: "°C"},
-      %{field: "soil_moisture_at_depth_6", display: "Soil moisture at depth 6", unit: "None"},
+      %{field: "soil_moisture_at_depth_6", display: "Soil moisture at depth 6", unit: ""},
       %{field: "soil_temperature_at_depth_6", display: "Soil temperature at depth 6", unit: "°C"},
-      %{field: "soil_moisture_at_depth_7", display: "Soil moisture at depth 7", unit: "None"},
+      %{field: "soil_moisture_at_depth_7", display: "Soil moisture at depth 7", unit: ""},
       %{field: "soil_temperature_at_depth_7", display: "Soil temperature at depth 7", unit: "°C"},
       %{field: "battery_voltage", display: "Battery voltage", unit: "V"}
     ]

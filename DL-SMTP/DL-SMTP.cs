@@ -36,21 +36,21 @@ public class DecentlabDecoder
 
   private static readonly List<Sensor> SENSORS = new List<Sensor>() {
     new Sensor(16, new List<SensorValue>() {
-      new SensorValue("Soil moisture at depth 0", "None", x => (x[0] - 2500) / 500),
+      new SensorValue("Soil moisture at depth 0", null, x => (x[0] - 2500) / 500),
       new SensorValue("Soil temperature at depth 0", "°C", x => (x[1] - 32768) / 100),
-      new SensorValue("Soil moisture at depth 1", "None", x => (x[2] - 2500) / 500),
+      new SensorValue("Soil moisture at depth 1", null, x => (x[2] - 2500) / 500),
       new SensorValue("Soil temperature at depth 1", "°C", x => (x[3] - 32768) / 100),
-      new SensorValue("Soil moisture at depth 2", "None", x => (x[4] - 2500) / 500),
+      new SensorValue("Soil moisture at depth 2", null, x => (x[4] - 2500) / 500),
       new SensorValue("Soil temperature at depth 2", "°C", x => (x[5] - 32768) / 100),
-      new SensorValue("Soil moisture at depth 3", "None", x => (x[6] - 2500) / 500),
+      new SensorValue("Soil moisture at depth 3", null, x => (x[6] - 2500) / 500),
       new SensorValue("Soil temperature at depth 3", "°C", x => (x[7] - 32768) / 100),
-      new SensorValue("Soil moisture at depth 4", "None", x => (x[8] - 2500) / 500),
+      new SensorValue("Soil moisture at depth 4", null, x => (x[8] - 2500) / 500),
       new SensorValue("Soil temperature at depth 4", "°C", x => (x[9] - 32768) / 100),
-      new SensorValue("Soil moisture at depth 5", "None", x => (x[10] - 2500) / 500),
+      new SensorValue("Soil moisture at depth 5", null, x => (x[10] - 2500) / 500),
       new SensorValue("Soil temperature at depth 5", "°C", x => (x[11] - 32768) / 100),
-      new SensorValue("Soil moisture at depth 6", "None", x => (x[12] - 2500) / 500),
+      new SensorValue("Soil moisture at depth 6", null, x => (x[12] - 2500) / 500),
       new SensorValue("Soil temperature at depth 6", "°C", x => (x[13] - 32768) / 100),
-      new SensorValue("Soil moisture at depth 7", "None", x => (x[14] - 2500) / 500),
+      new SensorValue("Soil moisture at depth 7", null, x => (x[14] - 2500) / 500),
       new SensorValue("Soil temperature at depth 7", "°C", x => (x[15] - 32768) / 100)
     }),
     new Sensor(1, new List<SensorValue>() {

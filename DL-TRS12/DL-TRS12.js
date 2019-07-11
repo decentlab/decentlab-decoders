@@ -6,8 +6,7 @@ var decentlab_decoder = {
   SENSORS: [
     {length: 3,
      values: [{name: 'Dielectric permittivity',
-               convert: function (x) { return Math.pow(0.000000002887 * Math.pow(x[0]/10, 3) - 0.0000208 * Math.pow(x[0]/10, 2) + 0.05276 * (x[0]/10) - 43.39, 2); },
-               unit: 'None'},
+               convert: function (x) { return Math.pow(0.000000002887 * Math.pow(x[0]/10, 3) - 0.0000208 * Math.pow(x[0]/10, 2) + 0.05276 * (x[0]/10) - 43.39, 2); }},
               {name: 'Volumetric water content',
                convert: function (x) { return x[0]/10 * 0.0003879 - 0.6956; },
                unit: 'm³⋅m⁻³'},

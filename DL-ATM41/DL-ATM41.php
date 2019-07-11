@@ -70,7 +70,7 @@ class DL_ATM41_Decoder extends DecentlabDecoder {
                     [
                         'name' => 'lightning_strike_count',
                         'convert' => function ($x) { return $x[2] - 32768; },
-                        'unit' => 'None',
+                        'unit' => NULL,
                     ],
                     [
                         'name' => 'lightning_average_distance',

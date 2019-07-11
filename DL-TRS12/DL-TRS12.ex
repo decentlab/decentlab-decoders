@@ -12,7 +12,7 @@ defmodule DecentlabDecoder do
           %{
             :name => "Dielectric permittivity",
             :convert => fn x -> :math.pow(0.000000002887 * :math.pow(Enum.at(x, 0)/10, 3) - 0.0000208 * :math.pow(Enum.at(x, 0)/10, 2) + 0.05276 * (Enum.at(x, 0)/10) - 43.39, 2) end,
-            :unit => "None"
+            :unit => nil
           },
           %{
             :name => "Volumetric water content",

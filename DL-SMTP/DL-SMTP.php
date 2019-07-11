@@ -60,7 +60,7 @@ class DL_SMTP_Decoder extends DecentlabDecoder {
                     [
                         'name' => 'soil_moisture_at_depth_0',
                         'convert' => function ($x) { return ($x[0] - 2500) / 500; },
-                        'unit' => 'None',
+                        'unit' => NULL,
                     ],
                     [
                         'name' => 'soil_temperature_at_depth_0',
@@ -70,7 +70,7 @@ class DL_SMTP_Decoder extends DecentlabDecoder {
                     [
                         'name' => 'soil_moisture_at_depth_1',
                         'convert' => function ($x) { return ($x[2] - 2500) / 500; },
-                        'unit' => 'None',
+                        'unit' => NULL,
                     ],
                     [
                         'name' => 'soil_temperature_at_depth_1',
@@ -80,7 +80,7 @@ class DL_SMTP_Decoder extends DecentlabDecoder {
                     [
                         'name' => 'soil_moisture_at_depth_2',
                         'convert' => function ($x) { return ($x[4] - 2500) / 500; },
-                        'unit' => 'None',
+                        'unit' => NULL,
                     ],
                     [
                         'name' => 'soil_temperature_at_depth_2',
@@ -90,7 +90,7 @@ class DL_SMTP_Decoder extends DecentlabDecoder {
                     [
                         'name' => 'soil_moisture_at_depth_3',
                         'convert' => function ($x) { return ($x[6] - 2500) / 500; },
-                        'unit' => 'None',
+                        'unit' => NULL,
                     ],
                     [
                         'name' => 'soil_temperature_at_depth_3',
@@ -100,7 +100,7 @@ class DL_SMTP_Decoder extends DecentlabDecoder {
                     [
                         'name' => 'soil_moisture_at_depth_4',
                         'convert' => function ($x) { return ($x[8] - 2500) / 500; },
-                        'unit' => 'None',
+                        'unit' => NULL,
                     ],
                     [
                         'name' => 'soil_temperature_at_depth_4',
@@ -110,7 +110,7 @@ class DL_SMTP_Decoder extends DecentlabDecoder {
                     [
                         'name' => 'soil_moisture_at_depth_5',
                         'convert' => function ($x) { return ($x[10] - 2500) / 500; },
-                        'unit' => 'None',
+                        'unit' => NULL,
                     ],
                     [
                         'name' => 'soil_temperature_at_depth_5',
@@ -120,7 +120,7 @@ class DL_SMTP_Decoder extends DecentlabDecoder {
                     [
                         'name' => 'soil_moisture_at_depth_6',
                         'convert' => function ($x) { return ($x[12] - 2500) / 500; },
-                        'unit' => 'None',
+                        'unit' => NULL,
                     ],
                     [
                         'name' => 'soil_temperature_at_depth_6',
@@ -130,7 +130,7 @@ class DL_SMTP_Decoder extends DecentlabDecoder {
                     [
                         'name' => 'soil_moisture_at_depth_7',
                         'convert' => function ($x) { return ($x[14] - 2500) / 500; },
-                        'unit' => 'None',
+                        'unit' => NULL,
                     ],
                     [
                         'name' => 'soil_temperature_at_depth_7',

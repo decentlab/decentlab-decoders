@@ -22,8 +22,7 @@
         },
         #{
           name => <<"Lightning strike count">>,
-          convert => fun(X) -> lists:nth(2 + 1, X) - 32768 end,
-          unit => <<"None"/utf8>>
+          convert => fun(X) -> lists:nth(2 + 1, X) - 32768 end
         },
         #{
           name => <<"Lightning average distance">>,

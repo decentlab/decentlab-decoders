@@ -12,8 +12,7 @@
       values => [
         #{
           name => <<"Soil moisture at depth 0">>,
-          convert => fun(X) -> (lists:nth(0 + 1, X) - 2500) / 500 end,
-          unit => <<"None"/utf8>>
+          convert => fun(X) -> (lists:nth(0 + 1, X) - 2500) / 500 end
         },
         #{
           name => <<"Soil temperature at depth 0">>,
@@ -22,8 +21,7 @@
         },
         #{
           name => <<"Soil moisture at depth 1">>,
-          convert => fun(X) -> (lists:nth(2 + 1, X) - 2500) / 500 end,
-          unit => <<"None"/utf8>>
+          convert => fun(X) -> (lists:nth(2 + 1, X) - 2500) / 500 end
         },
         #{
           name => <<"Soil temperature at depth 1">>,
@@ -32,8 +30,7 @@
         },
         #{
           name => <<"Soil moisture at depth 2">>,
-          convert => fun(X) -> (lists:nth(4 + 1, X) - 2500) / 500 end,
-          unit => <<"None"/utf8>>
+          convert => fun(X) -> (lists:nth(4 + 1, X) - 2500) / 500 end
         },
         #{
           name => <<"Soil temperature at depth 2">>,
@@ -42,8 +39,7 @@
         },
         #{
           name => <<"Soil moisture at depth 3">>,
-          convert => fun(X) -> (lists:nth(6 + 1, X) - 2500) / 500 end,
-          unit => <<"None"/utf8>>
+          convert => fun(X) -> (lists:nth(6 + 1, X) - 2500) / 500 end
         },
         #{
           name => <<"Soil temperature at depth 3">>,
@@ -52,8 +48,7 @@
         },
         #{
           name => <<"Soil moisture at depth 4">>,
-          convert => fun(X) -> (lists:nth(8 + 1, X) - 2500) / 500 end,
-          unit => <<"None"/utf8>>
+          convert => fun(X) -> (lists:nth(8 + 1, X) - 2500) / 500 end
         },
         #{
           name => <<"Soil temperature at depth 4">>,
@@ -62,8 +57,7 @@
         },
         #{
           name => <<"Soil moisture at depth 5">>,
-          convert => fun(X) -> (lists:nth(10 + 1, X) - 2500) / 500 end,
-          unit => <<"None"/utf8>>
+          convert => fun(X) -> (lists:nth(10 + 1, X) - 2500) / 500 end
         },
         #{
           name => <<"Soil temperature at depth 5">>,
@@ -72,8 +66,7 @@
         },
         #{
           name => <<"Soil moisture at depth 6">>,
-          convert => fun(X) -> (lists:nth(12 + 1, X) - 2500) / 500 end,
-          unit => <<"None"/utf8>>
+          convert => fun(X) -> (lists:nth(12 + 1, X) - 2500) / 500 end
         },
         #{
           name => <<"Soil temperature at depth 6">>,
@@ -82,8 +75,7 @@
         },
         #{
           name => <<"Soil moisture at depth 7">>,
-          convert => fun(X) -> (lists:nth(14 + 1, X) - 2500) / 500 end,
-          unit => <<"None"/utf8>>
+          convert => fun(X) -> (lists:nth(14 + 1, X) - 2500) / 500 end
         },
         #{
           name => <<"Soil temperature at depth 7">>,

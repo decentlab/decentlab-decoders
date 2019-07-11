@@ -10,7 +10,7 @@ defmodule Parser do
   
   def fields do
     [
-      %{field: "dielectric_permittivity", display: "Dielectric permittivity", unit: "None"},
+      %{field: "dielectric_permittivity", display: "Dielectric permittivity", unit: ""},
       %{field: "volumetric_water_content", display: "Volumetric water content", unit: "m³⋅m⁻³"},
       %{field: "soil_temperature", display: "Soil temperature", unit: "°C"},
       %{field: "electrical_conductivity", display: "Electrical conductivity", unit: "µS⋅cm⁻¹"},

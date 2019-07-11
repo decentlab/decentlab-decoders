@@ -27,7 +27,7 @@ defmodule DecentlabDecoder do
           %{
             :name => "Freezing flag",
             :convert => fn x -> Enum.at(x, 3) end,
-            :unit => "None"
+            :unit => nil
           }
         ]
       },

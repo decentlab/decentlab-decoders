@@ -27,8 +27,7 @@
         },
         #{
           name => <<"Freezing flag">>,
-          convert => fun(X) -> lists:nth(3 + 1, X) end,
-          unit => <<"None"/utf8>>
+          convert => fun(X) -> lists:nth(3 + 1, X) end
         }
       ]
     },

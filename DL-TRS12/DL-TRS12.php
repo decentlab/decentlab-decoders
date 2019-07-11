@@ -60,7 +60,7 @@ class DL_TRS12_Decoder extends DecentlabDecoder {
                     [
                         'name' => 'dielectric_permittivity',
                         'convert' => function ($x) { return pow(0.000000002887 * pow($x[0]/10, 3) - 0.0000208 * pow($x[0]/10, 2) + 0.05276 * ($x[0]/10) - 43.39, 2); },
-                        'unit' => 'None',
+                        'unit' => NULL,
                     ],
                     [
                         'name' => 'volumetric_water_content',

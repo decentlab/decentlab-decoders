@@ -36,7 +36,7 @@ public class DecentlabDecoder
 
   private static readonly List<Sensor> SENSORS = new List<Sensor>() {
     new Sensor(3, new List<SensorValue>() {
-      new SensorValue("Dielectric permittivity", "None", x => Math.Pow(0.000000002887 * Math.Pow(x[0]/10, 3) - 0.0000208 * Math.Pow(x[0]/10, 2) + 0.05276 * (x[0]/10) - 43.39, 2)),
+      new SensorValue("Dielectric permittivity", null, x => Math.Pow(0.000000002887 * Math.Pow(x[0]/10, 3) - 0.0000208 * Math.Pow(x[0]/10, 2) + 0.05276 * (x[0]/10) - 43.39, 2)),
       new SensorValue("Volumetric water content", "m³⋅m⁻³", x => x[0]/10 * 0.0003879 - 0.6956),
       new SensorValue("Soil temperature", "°C", x => (x[1] - 32768) / 10),
       new SensorValue("Electrical conductivity", "µS⋅cm⁻¹", x => x[2])

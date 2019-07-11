@@ -39,7 +39,7 @@ public class DecentlabDecoder
       new SensorValue("Water depth", "mm", x => x[0] - 32768),
       new SensorValue("Temperature", "°C", x => (x[1] - 32768) / 10),
       new SensorValue("Electrical conductivity", "µS⋅cm⁻¹", x => x[2]),
-      new SensorValue("Freezing flag", "None", x => x[3])
+      new SensorValue("Freezing flag", null, x => x[3])
     }),
     new Sensor(1, new List<SensorValue>() {
       new SensorValue("Battery voltage", "V", x => x[0] / 1000)

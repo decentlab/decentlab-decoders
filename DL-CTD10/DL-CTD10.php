@@ -75,7 +75,7 @@ class DL_CTD10_Decoder extends DecentlabDecoder {
                     [
                         'name' => 'freezing_flag',
                         'convert' => function ($x) { return $x[3]; },
-                        'unit' => 'None',
+                        'unit' => NULL,
                     ],
                 ],
             ],

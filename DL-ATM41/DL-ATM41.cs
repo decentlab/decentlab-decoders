@@ -38,7 +38,7 @@ public class DecentlabDecoder
     new Sensor(17, new List<SensorValue>() {
       new SensorValue("Solar radiation", "W⋅m⁻²", x => x[0] - 32768),
       new SensorValue("Precipitation", "mm", x => (x[1] - 32768) / 1000),
-      new SensorValue("Lightning strike count", "None", x => x[2] - 32768),
+      new SensorValue("Lightning strike count", null, x => x[2] - 32768),
       new SensorValue("Lightning average distance", "km", x => x[3] - 32768),
       new SensorValue("Wind speed", "m⋅s⁻¹", x => (x[4] - 32768) / 100),
       new SensorValue("Wind direction", "°", x => (x[5] - 32768) / 10),

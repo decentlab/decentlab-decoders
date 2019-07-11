@@ -12,7 +12,7 @@ defmodule DecentlabDecoder do
           %{
             :name => "Soil moisture at depth 0",
             :convert => fn x -> (Enum.at(x, 0) - 2500) / 500 end,
-            :unit => "None"
+            :unit => nil
           },
           %{
             :name => "Soil temperature at depth 0",
@@ -22,7 +22,7 @@ defmodule DecentlabDecoder do
           %{
             :name => "Soil moisture at depth 1",
             :convert => fn x -> (Enum.at(x, 2) - 2500) / 500 end,
-            :unit => "None"
+            :unit => nil
           },
           %{
             :name => "Soil temperature at depth 1",
@@ -32,7 +32,7 @@ defmodule DecentlabDecoder do
           %{
             :name => "Soil moisture at depth 2",
             :convert => fn x -> (Enum.at(x, 4) - 2500) / 500 end,
-            :unit => "None"
+            :unit => nil
           },
           %{
             :name => "Soil temperature at depth 2",
@@ -42,7 +42,7 @@ defmodule DecentlabDecoder do
           %{
             :name => "Soil moisture at depth 3",
             :convert => fn x -> (Enum.at(x, 6) - 2500) / 500 end,
-            :unit => "None"
+            :unit => nil
           },
           %{
             :name => "Soil temperature at depth 3",
@@ -52,7 +52,7 @@ defmodule DecentlabDecoder do
           %{
             :name => "Soil moisture at depth 4",
             :convert => fn x -> (Enum.at(x, 8) - 2500) / 500 end,
-            :unit => "None"
+            :unit => nil
           },
           %{
             :name => "Soil temperature at depth 4",
@@ -62,7 +62,7 @@ defmodule DecentlabDecoder do
           %{
             :name => "Soil moisture at depth 5",
             :convert => fn x -> (Enum.at(x, 10) - 2500) / 500 end,
-            :unit => "None"
+            :unit => nil
           },
           %{
             :name => "Soil temperature at depth 5",
@@ -72,7 +72,7 @@ defmodule DecentlabDecoder do
           %{
             :name => "Soil moisture at depth 6",
             :convert => fn x -> (Enum.at(x, 12) - 2500) / 500 end,
-            :unit => "None"
+            :unit => nil
           },
           %{
             :name => "Soil temperature at depth 6",
@@ -82,7 +82,7 @@ defmodule DecentlabDecoder do
           %{
             :name => "Soil moisture at depth 7",
             :convert => fn x -> (Enum.at(x, 14) - 2500) / 500 end,
-            :unit => "None"
+            :unit => nil
           },
           %{
             :name => "Soil temperature at depth 7",

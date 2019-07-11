@@ -17,8 +17,7 @@ local SENSORS = {
       ["convert"] = function (x) return x[2 + 1] end,
       ["unit"] = "µS⋅cm⁻¹"},
      {["name"] = "Freezing flag",
-      ["convert"] = function (x) return x[3 + 1] end,
-      ["unit"] = "None"}
+      ["convert"] = function (x) return x[3 + 1] end}
    }},
   {["length"] = 1,
    ["values"] = {
