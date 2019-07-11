@@ -7,6 +7,7 @@ Supported platforms are:
 - C#
 - ELEMENT-IoT Elixir
 - Elixir
+- Erlang
 - JavaScript
 - Lua
 - PHP
