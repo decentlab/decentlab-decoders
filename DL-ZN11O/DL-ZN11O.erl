@@ -31,10 +31,10 @@
 ).
 
 
-decode(<<ProtocolVersion, DeviceId:16,
+decode(<<?PROTOCOL_VERSION, DeviceId:16,
          Flags:16/bitstring, Bytes/binary>> = Binary) when is_binary(Binary) ->
   Words = bytes_to_words(Bytes),
-  maps:merge(#{<<"Protocol version">> => ProtocolVersion,
+  maps:merge(#{<<"Protocol version">> => ?PROTOCOL_VERSION,
                <<"Device Id">> => DeviceId},
              sensor(Words, Flags, ?SENSOR_DEFS));
 decode(HexStr) ->
