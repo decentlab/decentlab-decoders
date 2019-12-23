@@ -1,5 +1,5 @@
 <?php
-/* https://www.decentlab.com/support */
+/* https://www.decentlab.com/products/soil-water-potential-and-temperature-sensor-for-lorawan */
 
 abstract class DecentlabDecoder
 {

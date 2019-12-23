@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# https://www.decentlab.com/support
+# https://www.decentlab.com/products/soil-water-potential-and-temperature-sensor-for-lorawan
 
 from __future__ import absolute_import
 from __future__ import division

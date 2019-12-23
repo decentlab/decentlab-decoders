@@ -1,5 +1,5 @@
 
-# https://www.decentlab.com/support
+# https://www.decentlab.com/products/soil-moisture-temperature-and-electrical-conductivity-sensor-for-lorawan
 
 defmodule DecentlabDecoder do
   @protocol_version 2

@@ -1,5 +1,5 @@
 <?php
-/* https://www.decentlab.com/support */
+/* https://www.decentlab.com/products/legacy-soil-moisture-and-temperature-sensor-for-lorawan */
 
 abstract class DecentlabDecoder
 {

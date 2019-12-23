@@ -1,5 +1,5 @@
 
-/* https://www.decentlab.com/support */
+/* https://www.decentlab.com/products/infrared-thermometer-/-surface-temperature-sensor-for-lorawan */
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
