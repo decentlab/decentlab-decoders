@@ -40,6 +40,7 @@ Device | Name
 [DL-PR36](DL-PR36) | [High-Precision Pressure / Liquid Level and Temperature Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/support)
 [DL-PR36CTD](DL-PR36CTD) | [High-Precision Pressure / Liquid Level, Temperature and Electrical Conductivity Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/high-precision-pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan)
 [DL-PYR](DL-PYR) | [Total Solar Radiation Sensor for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/total-solar-radiation-sensor-for-lorawan)
+[DL-RHC](DL-RHC) | [High-Precision Air Temperature and Humidity Sensor with Radiation Shield for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/high-precision-air-temperature-and-humidity-sensor-with-radiation-shield-for-lorawan)
 [DL-SHT21](DL-SHT21) | [Air Temperature and Humidity Sensor with Radiation Shield for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/support)
 [DL-SHT35](DL-SHT35) | [Air Temperature and Humidity Sensor with Radiation Shield for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/air-temperature-and-humidity-sensor-with-radiation-shield-for-lorawan)
 [DL-SMTP](DL-SMTP) | [Soil Moisture and Temperature Profile for LoRaWAN<sup>TM</sup>](https://www.decentlab.com/products/soil-moisture-and-temperature-profile-for-lorawan)
