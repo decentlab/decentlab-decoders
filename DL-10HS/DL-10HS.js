@@ -5,14 +5,17 @@ var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
   SENSORS: [
     {length: 1,
-     values: [{name: 'Raw sensor reading',
+     values: [{name: 'raw_sensor_reading',
+               displayName: 'Raw sensor reading',
                convert: function (x) { return 3 * (x[0] - 32768) / 32768 * 1000; },
                unit: 'mV'},
-              {name: 'Volumetric water content',
+              {name: 'volumetric_water_content',
+               displayName: 'Volumetric water content',
                convert: function (x) { return 2.97*Math.pow(10, -9) * Math.pow(3000*(x[0]-32768)/32768, 3) - 7.37*Math.pow(10, -6) * Math.pow(3000*(x[0]-32768)/32768, 2) + 6.69*Math.pow(10, -3) * (3000*(x[0]-32768)/32768) - 1.92; },
                unit: 'm³⋅m⁻³'}]},
     {length: 1,
-     values: [{name: 'Battery voltage',
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
                convert: function (x) { return x[0] / 1000; },
                unit: 'V'}]}
   ],
@@ -57,7 +60,8 @@ var decentlab_decoder = {
       for (j = 0; j < sensor.values.length; j++) {
         var value = sensor.values[j];
         if ('convert' in value) {
-          result[value.name] = {value: value.convert(x),
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert(x),
                                 unit: value.unit};
         }
       }

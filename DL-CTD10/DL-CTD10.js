@@ -5,19 +5,24 @@ var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
   SENSORS: [
     {length: 4,
-     values: [{name: 'Water depth',
+     values: [{name: 'water_depth',
+               displayName: 'Water depth',
                convert: function (x) { return x[0] - 32768; },
                unit: 'mm'},
-              {name: 'Temperature',
+              {name: 'temperature',
+               displayName: 'Temperature',
                convert: function (x) { return (x[1] - 32768) / 10; },
                unit: '°C'},
-              {name: 'Electrical conductivity',
+              {name: 'electrical_conductivity',
+               displayName: 'Electrical conductivity',
                convert: function (x) { return x[2]; },
                unit: 'µS⋅cm⁻¹'},
-              {name: 'Freezing flag',
+              {name: 'freezing_flag',
+               displayName: 'Freezing flag',
                convert: function (x) { return x[3]; }}]},
     {length: 1,
-     values: [{name: 'Battery voltage',
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
                convert: function (x) { return x[0] / 1000; },
                unit: 'V'}]}
   ],
@@ -62,7 +67,8 @@ var decentlab_decoder = {
       for (j = 0; j < sensor.values.length; j++) {
         var value = sensor.values[j];
         if ('convert' in value) {
-          result[value.name] = {value: value.convert(x),
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert(x),
                                 unit: value.unit};
         }
       }

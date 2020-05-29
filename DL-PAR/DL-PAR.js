@@ -5,11 +5,13 @@ var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
   SENSORS: [
     {length: 1,
-     values: [{name: 'Photosynthetically active radiation',
+     values: [{name: 'photosynthetically_active_radiation',
+               displayName: 'Photosynthetically active radiation',
                convert: function (x) { return 3 * (x[0] / 32768 - 1) * 1000 * 5; },
                unit: 'µmol⋅m⁻²⋅s⁻¹'}]},
     {length: 1,
-     values: [{name: 'Battery voltage',
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
                convert: function (x) { return x[0] / 1000; },
                unit: 'V'}]}
   ],
@@ -54,7 +56,8 @@ var decentlab_decoder = {
       for (j = 0; j < sensor.values.length; j++) {
         var value = sensor.values[j];
         if ('convert' in value) {
-          result[value.name] = {value: value.convert(x),
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert(x),
                                 unit: value.unit};
         }
       }

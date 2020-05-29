@@ -5,16 +5,20 @@ var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
   SENSORS: [
     {length: 4,
-     values: [{name: 'Sensor ID',
+     values: [{name: 'sensor_id',
+               displayName: 'Sensor ID',
                convert: function (x) { return x[0] + x[1] * 65536; }},
-              {name: 'Air humidity',
+              {name: 'air_humidity',
+               displayName: 'Air humidity',
                convert: function (x) { return x[2] / 100; },
                unit: '%'},
-              {name: 'Air temperature',
+              {name: 'air_temperature',
+               displayName: 'Air temperature',
                convert: function (x) { return (x[3] - 32768) / 100; },
                unit: '°C'}]},
     {length: 1,
-     values: [{name: 'Battery voltage',
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
                convert: function (x) { return x[0] / 1000; },
                unit: 'V'}]}
   ],
@@ -59,7 +63,8 @@ var decentlab_decoder = {
       for (j = 0; j < sensor.values.length; j++) {
         var value = sensor.values[j];
         if ('convert' in value) {
-          result[value.name] = {value: value.convert(x),
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert(x),
                                 unit: value.unit};
         }
       }

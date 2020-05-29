@@ -5,14 +5,17 @@ var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
   SENSORS: [
     {length: 2,
-     values: [{name: 'Temperature target',
+     values: [{name: 'temperature_target',
+               displayName: 'Temperature target',
                convert: function (x) { return (x[0] - 1000) / 10; },
                unit: '°C'},
-              {name: 'Temperature head',
+              {name: 'temperature_head',
+               displayName: 'Temperature head',
                convert: function (x) { return (x[1] - 1000) / 10; },
                unit: '°C'}]},
     {length: 1,
-     values: [{name: 'Battery voltage',
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
                convert: function (x) { return x[0] / 1000; },
                unit: 'V'}]}
   ],
@@ -57,7 +60,8 @@ var decentlab_decoder = {
       for (j = 0; j < sensor.values.length; j++) {
         var value = sensor.values[j];
         if ('convert' in value) {
-          result[value.name] = {value: value.convert(x),
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert(x),
                                 unit: value.unit};
         }
       }

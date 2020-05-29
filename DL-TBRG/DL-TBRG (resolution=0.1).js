@@ -9,17 +9,21 @@ var decentlab_decoder = {
   },
   SENSORS: [
     {length: 4,
-     values: [{name: 'Precipitation in interval',
+     values: [{name: 'precipitation_in_interval',
+               displayName: 'Precipitation in interval',
                convert: function (x) { return x[0] * decentlab_decoder.PARAMETERS.resolution; },
                unit: 'mm'},
-              {name: 'Interval',
+              {name: 'interval',
+               displayName: 'Interval',
                convert: function (x) { return x[1]; },
                unit: 's'},
-              {name: 'Total accumulated precipitation',
+              {name: 'total_accumulated_precipitation',
+               displayName: 'Total accumulated precipitation',
                convert: function (x) { return (x[2] + x[3] * 65536) * decentlab_decoder.PARAMETERS.resolution; },
                unit: 'mm'}]},
     {length: 1,
-     values: [{name: 'Battery voltage',
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
                convert: function (x) { return x[0] / 1000; },
                unit: 'V'}]}
   ],
@@ -64,7 +68,8 @@ var decentlab_decoder = {
       for (j = 0; j < sensor.values.length; j++) {
         var value = sensor.values[j];
         if ('convert' in value) {
-          result[value.name] = {value: value.convert(x),
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert(x),
                                 unit: value.unit};
         }
       }

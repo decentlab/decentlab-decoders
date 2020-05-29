@@ -9,20 +9,25 @@ var decentlab_decoder = {
   },
   SENSORS: [
     {length: 4,
-     values: [{name: 'Pressure',
+     values: [{name: 'pressure',
+               displayName: 'Pressure',
                convert: function (x) { return (x[0] - 32768) / decentlab_decoder.PARAMETERS.kp; },
                unit: 'bar'},
-              {name: 'Temperature (electronics)',
+              {name: 'temperature_electronics',
+               displayName: 'Temperature (electronics)',
                convert: function (x) { return (x[1] - 32768) / 256; },
                unit: '°C'},
-              {name: 'Temperature (PT1000)',
+              {name: 'temperature_pt1000',
+               displayName: 'Temperature (PT1000)',
                convert: function (x) { return (x[2] - 32768) / 256; },
                unit: '°C'},
-              {name: 'Electrical conductivity',
+              {name: 'electrical_conductivity',
+               displayName: 'Electrical conductivity',
                convert: function (x) { return (x[3] - 32768) / 1024; },
                unit: 'mS⋅cm⁻¹'}]},
     {length: 1,
-     values: [{name: 'Battery voltage',
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
                convert: function (x) { return x[0] / 1000; },
                unit: 'V'}]}
   ],
@@ -67,7 +72,8 @@ var decentlab_decoder = {
       for (j = 0; j < sensor.values.length; j++) {
         var value = sensor.values[j];
         if ('convert' in value) {
-          result[value.name] = {value: value.convert(x),
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert(x),
                                 unit: value.unit};
         }
       }

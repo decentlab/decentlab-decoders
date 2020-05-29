@@ -5,13 +5,16 @@ var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
   SENSORS: [
     {length: 2,
-     values: [{name: 'Distance',
+     values: [{name: 'distance',
+               displayName: 'Distance',
                convert: function (x) { return x[0]; },
                unit: 'mm'},
-              {name: 'Number of valid samples',
+              {name: 'number_of_valid_samples',
+               displayName: 'Number of valid samples',
                convert: function (x) { return x[1]; }}]},
     {length: 1,
-     values: [{name: 'Battery voltage',
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
                convert: function (x) { return x[0] / 1000; },
                unit: 'V'}]}
   ],
@@ -56,7 +59,8 @@ var decentlab_decoder = {
       for (j = 0; j < sensor.values.length; j++) {
         var value = sensor.values[j];
         if ('convert' in value) {
-          result[value.name] = {value: value.convert(x),
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert(x),
                                 unit: value.unit};
         }
       }

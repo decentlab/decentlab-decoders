@@ -5,19 +5,24 @@ var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
   SENSORS: [
     {length: 3,
-     values: [{name: 'Dielectric permittivity',
+     values: [{name: 'dielectric_permittivity',
+               displayName: 'Dielectric permittivity',
                convert: function (x) { return x[0] / 50; }},
-              {name: 'Volumetric water content',
+              {name: 'volumetric_water_content',
+               displayName: 'Volumetric water content',
                convert: function (x) { return 0.0000043 * Math.pow(x[0]/50, 3) - 0.00055 * Math.pow(x[0]/50, 2) + 0.0292 * (x[0]/50) - 0.053; },
                unit: 'm³⋅m⁻³'},
-              {name: 'Soil temperature',
+              {name: 'soil_temperature',
+               displayName: 'Soil temperature',
                convert: function (x) { return (x[1] - 400) / 10; },
                unit: '°C'},
-              {name: 'Electrical conductivity',
+              {name: 'electrical_conductivity',
+               displayName: 'Electrical conductivity',
                convert: function (x) { return x[2] * 10; },
                unit: 'µS⋅cm⁻¹'}]},
     {length: 1,
-     values: [{name: 'Battery voltage',
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
                convert: function (x) { return x[0] / 1000; },
                unit: 'V'}]}
   ],
@@ -62,7 +67,8 @@ var decentlab_decoder = {
       for (j = 0; j < sensor.values.length; j++) {
         var value = sensor.values[j];
         if ('convert' in value) {
-          result[value.name] = {value: value.convert(x),
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert(x),
                                 unit: value.unit};
         }
       }

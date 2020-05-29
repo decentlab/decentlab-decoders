@@ -10,24 +10,31 @@ var decentlab_decoder = {
   },
   SENSORS: [
     {length: 3,
-     values: [{name: 'Counter reading',
+     values: [{name: 'counter_reading',
+               displayName: 'Counter reading',
                convert: function (x) { return x[0]; }},
-              {name: 'Measurement interval',
+              {name: 'measurement_interval',
+               displayName: 'Measurement interval',
                convert: function (x) { return x[1] / 32768; }},
-              {name: 'Frequency',
+              {name: 'frequency',
+               displayName: 'Frequency',
                convert: function (x) { return x[0] / x[1] * 32768; },
                unit: 'Hz'},
-              {name: 'Weight',
+              {name: 'weight',
+               displayName: 'Weight',
                convert: function (x) { return (Math.pow(x[0] / x[1] * 32768, 2) - Math.pow(decentlab_decoder.PARAMETERS.f0, 2)) * decentlab_decoder.PARAMETERS.k / 1000000; },
                unit: 'g'},
-              {name: 'Elongation',
+              {name: 'elongation',
+               displayName: 'Elongation',
                convert: function (x) { return (Math.pow(x[0] / x[1] * 32768, 2) - Math.pow(decentlab_decoder.PARAMETERS.f0, 2)) * decentlab_decoder.PARAMETERS.k / 1000000 * (-1.5) / 1000 * 9.8067; },
                unit: 'µm'},
-              {name: 'Strain',
+              {name: 'strain',
+               displayName: 'Strain',
                convert: function (x) { return (Math.pow(x[0] / x[1] * 32768, 2) - Math.pow(decentlab_decoder.PARAMETERS.f0, 2)) * decentlab_decoder.PARAMETERS.k / 1000000 * (-1.5) / 1000 * 9.8067 / 0.066; },
                unit: 'µm⋅m⁻¹'}]},
     {length: 1,
-     values: [{name: 'Battery voltage',
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
                convert: function (x) { return x[0] / 1000; },
                unit: 'V'}]}
   ],
@@ -72,7 +79,8 @@ var decentlab_decoder = {
       for (j = 0; j < sensor.values.length; j++) {
         var value = sensor.values[j];
         if ('convert' in value) {
-          result[value.name] = {value: value.convert(x),
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert(x),
                                 unit: value.unit};
         }
       }

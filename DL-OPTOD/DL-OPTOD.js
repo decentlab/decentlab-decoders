@@ -2,22 +2,28 @@ var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
   SENSORS: [
     {length: 5,
-     values: [{name: 'Status',
+     values: [{name: 'status',
+               displayName: 'Status',
                convert: function (x) { return x[0]; }},
-              {name: 'Temperature',
+              {name: 'temperature',
+               displayName: 'Temperature',
                convert: function (x) { return (x[1] - 32768) / 100; },
                unit: '°C'},
-              {name: 'Oxygen saturation',
+              {name: 'oxygen_saturation',
+               displayName: 'Oxygen saturation',
                convert: function (x) { return (x[2] - 32768) / 100; },
                unit: '%'},
-              {name: 'Oxygen concentration',
+              {name: 'oxygen_concentration',
+               displayName: 'Oxygen concentration',
                convert: function (x) { return (x[3] - 32768) / 100; },
                unit: 'mg⋅L⁻¹'},
-              {name: 'Oxygen concentration (alt)',
+              {name: 'oxygen_concentration_alt',
+               displayName: 'Oxygen concentration (alt)',
                convert: function (x) { return (x[4] - 32768) / 100; },
                unit: 'ppm'}]},
     {length: 1,
-     values: [{name: 'Battery voltage',
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
                convert: function (x) { return x[0] / 1000; },
                unit: 'V'}]}
   ],
@@ -62,7 +68,8 @@ var decentlab_decoder = {
       for (j = 0; j < sensor.values.length; j++) {
         var value = sensor.values[j];
         if ('convert' in value) {
-          result[value.name] = {value: value.convert(x),
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert(x),
                                 unit: value.unit};
         }
       }
