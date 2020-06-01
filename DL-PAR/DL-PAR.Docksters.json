@@ -1,0 +1,30 @@
+{
+  "createdUTC": "2020-05-29T18:06:30.651Z",
+  "definitionIsPublic": false,
+  "definitionName": "Photosynthetically Active Radiation Sensor for LoRaWAN\u00ae",
+  "displayName": "DL-PAR",
+  "manufacturer": "Decentlab",
+  "organizationId": "9f014719-4add-4989-ba0f-fc7edc44d893",
+  "parser": "\n/* https://www.decentlab.com/products/photosynthetically-active-radiation-sensor-for-lorawan */\n\nvar decentlab_decoder = {\n  PROTOCOL_VERSION: 2,\n  SENSORS: [\n    {length: 1,\n     values: [{name: \u0027photosynthetically_active_radiation\u0027,\n               displayName: \u0027Photosynthetically active radiation\u0027,\n               convert: function (x) { return 3 * (x[0] / 32768 - 1) * 1000 * 5; },\n               unit: \u0027\u00b5mol\u22c5m\u207b\u00b2\u22c5s\u207b\u00b9\u0027}]},\n    {length: 1,\n     values: [{name: \u0027battery_voltage\u0027,\n               displayName: \u0027Battery voltage\u0027,\n               convert: function (x) { return x[0] / 1000; },\n               unit: \u0027V\u0027}]}\n  ],\n\n  read_int: function (bytes, pos) {\n    return (bytes[pos] \u003c\u003c 8) + bytes[pos + 1];\n  },\n\n  decode: function (msg) {\n    var bytes = msg;\n    var i, j;\n    if (typeof msg === \u0027string\u0027) {\n      bytes = [];\n      for (i = 0; i \u003c msg.length; i += 2) {\n        bytes.push(parseInt(msg.substring(i, i + 2), 16));\n      }\n    }\n\n    var version = bytes[0];\n    if (version != this.PROTOCOL_VERSION) {\n      return {error: \"protocol version \" + version + \" doesn\u0027t match v2\"};\n    }\n\n    var deviceId = this.read_int(bytes, 1);\n    var flags = this.read_int(bytes, 3);\n    var result = {\u0027Protocol version\u0027: version, \u0027Device ID\u0027: deviceId};\n    // decode payload\n    var pos = 5;\n    for (i = 0; i \u003c this.SENSORS.length; i++, flags \u003e\u003e= 1) {\n      if ((flags \u0026 1) !== 1)\n        continue;\n\n      var sensor = this.SENSORS[i];\n      var x = [];\n      // convert data to 16-bit integer array\n      for (j = 0; j \u003c sensor.length; j++) {\n        x.push(this.read_int(bytes, pos));\n        pos += 2;\n      }\n\n      // decode sensor values\n      for (j = 0; j \u003c sensor.values.length; j++) {\n        var value = sensor.values[j];\n        if (\u0027convert\u0027 in value) {\n          result[value.name] = {displayName: value.displayName,\n                                value: value.convert(x),\n                                unit: value.unit};\n        }\n      }\n    }\n    return result;\n  }\n};\n\nfunction parsePayload(payload) {\n  var decoded = decentlab_decoder.decode(payload);\n  Object.keys(decoded).map(function(key, index) { decoded[key] = decoded[key][\u0027value\u0027];});\n  return decoded;\n}",
+  "sensors": [
+    {
+      "name": "photosynthetically_active_radiation",
+      "displayName": "Photosynthetically active radiation /µmol⋅m⁻²⋅s⁻¹/",
+      "type": "float"
+    },
+    {
+      "displayName": "Battery voltage",
+      "name": "battery_voltage",
+      "thresholds": [
+        {
+          "name": "Battery voltage is low",
+          "type": "lessthan",
+          "warning": "2.2"
+        }
+      ],
+      "type": "volts"
+    }
+  ],
+  "updatedUTC": "2020-06-02T15:55:36.459Z",
+  "version": "post-aa4c6c9"
+}

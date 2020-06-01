@@ -5,6 +5,7 @@ These samples are provided for integrating Decentlab sensor devices into your sy
 Supported platforms are:
 
 - C#
+- Docksters
 - ELEMENT-IoT Elixir
 - Elixir
 - Erlang
@@ -22,11 +23,11 @@ Device | Name
 [DL-10HS](DL-10HS) | [Legacy Large Soil Moisture Sensor  for LoRaWAN&reg;](https://www.decentlab.com/support)
 [DL-5TE](DL-5TE) | [Legacy Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/support)
 [DL-5TM](DL-5TM) | [Legacy Soil Moisture and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/legacy-soil-moisture-and-temperature-sensor-for-lorawan)
-[DL-AC](DL-AC) | [Air Quality Station NO2 , NO, CO, Ox for LoRaWAN&reg;](https://www.decentlab.com/products/air-quality-station-no2-no-co-ox-for-lorawan)
+[DL-AC](DL-AC) | [Air Quality Station NO2, NO, CO, Ox for LoRaWAN&reg;](https://www.decentlab.com/products/air-quality-station-no2-no-co-ox-for-lorawan)
 [DL-ATM22](DL-ATM22) | [Wind Speed, Wind Direction and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/wind-speed-wind-direction-and-temperature-sensor-for-lorawan)
 [DL-ATM41](DL-ATM41) | [Eleven Parameter Weather Station for LoRaWAN&reg;](https://www.decentlab.com/products/eleven-parameter-weather-station-for-lorawan)
 [DL-CTD10](DL-CTD10) | [Pressure / Liquid Level, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan)
-[DL-DLR2-004](DL-DLR2-004) | [Analog or Digital Sensor Device for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
+[DL-DLR2-004](DL-DLR2-004) | [Analog 4 … 20mA sensor for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
 [DL-DS18](DL-DS18) | [Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/temperature-sensor-for-lorawan)
 [DL-GS3](DL-GS3) | [Legacy Ruggedized Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/support)
 [DL-IAM](DL-IAM) | [Indoor Ambiance Monitor including CO2 , TVOC and Motion Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/indoor-ambiance-monitor-including-co2-tvoc-and-motion-sensor-for-lorawan)
@@ -145,3 +146,63 @@ end
 ```
 
 Test by clicking `Run` and make sure the output values match against the datasheet. Configure the fields in `Node fields` accordingly and press `Save` icon.
+
+## Docksters
+
+In the Docksters app portal, go to `Developer`, `Device Definitions`, and `Your Definitions`. The JSON-encoded device definitions can be directly uploaded with `Upload Device Definition` button. However, depending on the use case, you may want to use the following `pre-parser` to normalize the data format for the device definitions. This pre-parser also determines the device ID from the payload.
+
+```js
+function parseProvider(payload, time, encoding) {
+    var data = {};
+    var buf = Buffer.from(payload, encoding);
+
+    if (buf[0] !== 2) {
+        return null;
+    }
+
+    data.deviceName = 'DL-' + String((buf[1] << 8) + buf[2]).padStart(5, '0');
+    data.payload = buf.toString("hex");
+    data.time = time;
+
+    return data;
+}
+
+function parseTTN(obj) {
+    return parseProvider(obj.payload_raw, obj.metadata.time, "base64");
+}
+
+function parseChirpstack(obj) {
+    return parseProvider(obj.data, obj.time, "base64");
+}
+
+function parseActility(obj) {
+    return parseProvider(obj.DevEUI_uplink.payload_hex, obj.DevEUI_uplink.Time, "hex");
+}
+
+function preParse(payloadStr)
+{
+    // use payloadStr to look up the device name and some other values
+    try
+    {
+        var obj = JSON.parse(payloadStr);
+
+        if ('applicationID' in obj) {
+            return parseChirpstack(obj);
+        }
+
+        if ('app_id' in obj) {
+            return parseTTN(obj);
+        }
+
+        if ('DevEUI_uplink' in obj) {
+            return parseActility(obj)
+        }
+
+    }
+    catch (err) {}  //some description of err would be nice
+
+    return null;
+}
+```
+
+Once you have a device sending data to `Docksters`, you will see it in `Devices` and `Pending Devices`. Select the matching definition from the list and add it.
