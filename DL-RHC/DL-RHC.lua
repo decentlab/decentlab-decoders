@@ -7,18 +7,22 @@ local PROTOCOL_VERSION = 2
 local SENSORS = {
   {["length"] = 4,
    ["values"] = {
-     {["name"] = "Sensor ID",
+     {["name"] = "sensor_id",
+      ["display_name"] = "Sensor ID",
       ["convert"] = function (x) return x[0 + 1] + x[1 + 1] * 65536 end},
-     {["name"] = "Air humidity",
+     {["name"] = "air_humidity",
+      ["display_name"] = "Air humidity",
       ["convert"] = function (x) return x[2 + 1] / 100 end,
       ["unit"] = "%"},
-     {["name"] = "Air temperature",
+     {["name"] = "air_temperature",
+      ["display_name"] = "Air temperature",
       ["convert"] = function (x) return (x[3 + 1] - 32768) / 100 end,
       ["unit"] = "°C"}
    }},
   {["length"] = 1,
    ["values"] = {
-     {["name"] = "Battery voltage",
+     {["name"] = "battery_voltage",
+      ["display_name"] = "Battery voltage",
       ["convert"] = function (x) return x[0 + 1] / 1000 end,
       ["unit"] = "V"}
    }}
@@ -54,7 +58,7 @@ local function decentlab_decode(msg)
 
   local device_id = toint(bytes[2], bytes[3])
   local flags = toint(bytes[4], bytes[5])
-  local result = {["Device ID"] = device_id, ["Protocol version"] = version}
+  local result = {["device_id"] = device_id, ["protocol_version"] = version}
   local k = 6
   -- decode sensors
   for _, sensor in ipairs(SENSORS) do
@@ -70,6 +74,7 @@ local function decentlab_decode(msg)
         if value["convert"] then
           result[value["name"]] = {
             ["value"] = value["convert"](x),
+            ["display_name"] = value["display_name"],
             ["unit"] = value["unit"]
           }
         end -- if sensor value used

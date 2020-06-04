@@ -7,60 +7,78 @@ local PROTOCOL_VERSION = 2
 local SENSORS = {
   {["length"] = 17,
    ["values"] = {
-     {["name"] = "Solar radiation",
+     {["name"] = "solar_radiation",
+      ["display_name"] = "Solar radiation",
       ["convert"] = function (x) return x[0 + 1] - 32768 end,
       ["unit"] = "W⋅m⁻²"},
-     {["name"] = "Precipitation",
+     {["name"] = "precipitation",
+      ["display_name"] = "Precipitation",
       ["convert"] = function (x) return (x[1 + 1] - 32768) / 1000 end,
       ["unit"] = "mm"},
-     {["name"] = "Lightning strike count",
+     {["name"] = "lightning_strike_count",
+      ["display_name"] = "Lightning strike count",
       ["convert"] = function (x) return x[2 + 1] - 32768 end},
-     {["name"] = "Lightning average distance",
+     {["name"] = "lightning_average_distance",
+      ["display_name"] = "Lightning average distance",
       ["convert"] = function (x) return x[3 + 1] - 32768 end,
       ["unit"] = "km"},
-     {["name"] = "Wind speed",
+     {["name"] = "wind_speed",
+      ["display_name"] = "Wind speed",
       ["convert"] = function (x) return (x[4 + 1] - 32768) / 100 end,
       ["unit"] = "m⋅s⁻¹"},
-     {["name"] = "Wind direction",
+     {["name"] = "wind_direction",
+      ["display_name"] = "Wind direction",
       ["convert"] = function (x) return (x[5 + 1] - 32768) / 10 end,
       ["unit"] = "°"},
-     {["name"] = "Maximum wind speed",
+     {["name"] = "maximum_wind_speed",
+      ["display_name"] = "Maximum wind speed",
       ["convert"] = function (x) return (x[6 + 1] - 32768) / 100 end,
       ["unit"] = "m⋅s⁻¹"},
-     {["name"] = "Air temperature",
+     {["name"] = "air_temperature",
+      ["display_name"] = "Air temperature",
       ["convert"] = function (x) return (x[7 + 1] - 32768) / 10 end,
       ["unit"] = "°C"},
-     {["name"] = "Vapor pressure",
+     {["name"] = "vapor_pressure",
+      ["display_name"] = "Vapor pressure",
       ["convert"] = function (x) return (x[8 + 1] - 32768) / 100 end,
       ["unit"] = "kPa"},
-     {["name"] = "Atmospheric pressure",
+     {["name"] = "atmospheric_pressure",
+      ["display_name"] = "Atmospheric pressure",
       ["convert"] = function (x) return (x[9 + 1] - 32768) / 100 end,
       ["unit"] = "kPa"},
-     {["name"] = "Relative humidity",
+     {["name"] = "relative_humidity",
+      ["display_name"] = "Relative humidity",
       ["convert"] = function (x) return (x[10 + 1] - 32768) / 10 end,
       ["unit"] = "%"},
-     {["name"] = "Sensor temperature (internal)",
+     {["name"] = "sensor_temperature_internal",
+      ["display_name"] = "Sensor temperature (internal)",
       ["convert"] = function (x) return (x[11 + 1] - 32768) / 10 end,
       ["unit"] = "°C"},
-     {["name"] = "X orientation angle",
+     {["name"] = "x_orientation_angle",
+      ["display_name"] = "X orientation angle",
       ["convert"] = function (x) return (x[12 + 1] - 32768) / 10 end,
       ["unit"] = "°"},
-     {["name"] = "Y orientation angle",
+     {["name"] = "y_orientation_angle",
+      ["display_name"] = "Y orientation angle",
       ["convert"] = function (x) return (x[13 + 1] - 32768) / 10 end,
       ["unit"] = "°"},
-     {["name"] = "Compass heading",
+     {["name"] = "compass_heading",
+      ["display_name"] = "Compass heading",
       ["convert"] = function (x) return x[14 + 1] - 32768 end,
       ["unit"] = "°"},
-     {["name"] = "North wind speed",
+     {["name"] = "north_wind_speed",
+      ["display_name"] = "North wind speed",
       ["convert"] = function (x) return (x[15 + 1] - 32768) / 100 end,
       ["unit"] = "m⋅s⁻¹"},
-     {["name"] = "East wind speed",
+     {["name"] = "east_wind_speed",
+      ["display_name"] = "East wind speed",
       ["convert"] = function (x) return (x[16 + 1] - 32768) / 100 end,
       ["unit"] = "m⋅s⁻¹"}
    }},
   {["length"] = 1,
    ["values"] = {
-     {["name"] = "Battery voltage",
+     {["name"] = "battery_voltage",
+      ["display_name"] = "Battery voltage",
       ["convert"] = function (x) return x[0 + 1] / 1000 end,
       ["unit"] = "V"}
    }}
@@ -96,7 +114,7 @@ local function decentlab_decode(msg)
 
   local device_id = toint(bytes[2], bytes[3])
   local flags = toint(bytes[4], bytes[5])
-  local result = {["Device ID"] = device_id, ["Protocol version"] = version}
+  local result = {["device_id"] = device_id, ["protocol_version"] = version}
   local k = 6
   -- decode sensors
   for _, sensor in ipairs(SENSORS) do
@@ -112,6 +130,7 @@ local function decentlab_decode(msg)
         if value["convert"] then
           result[value["name"]] = {
             ["value"] = value["convert"](x),
+            ["display_name"] = value["display_name"],
             ["unit"] = value["unit"]
           }
         end -- if sensor value used

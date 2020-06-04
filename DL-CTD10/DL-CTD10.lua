@@ -7,21 +7,26 @@ local PROTOCOL_VERSION = 2
 local SENSORS = {
   {["length"] = 4,
    ["values"] = {
-     {["name"] = "Water depth",
+     {["name"] = "water_depth",
+      ["display_name"] = "Water depth",
       ["convert"] = function (x) return x[0 + 1] - 32768 end,
       ["unit"] = "mm"},
-     {["name"] = "Temperature",
+     {["name"] = "temperature",
+      ["display_name"] = "Temperature",
       ["convert"] = function (x) return (x[1 + 1] - 32768) / 10 end,
       ["unit"] = "°C"},
-     {["name"] = "Electrical conductivity",
+     {["name"] = "electrical_conductivity",
+      ["display_name"] = "Electrical conductivity",
       ["convert"] = function (x) return x[2 + 1] end,
       ["unit"] = "µS⋅cm⁻¹"},
-     {["name"] = "Freezing flag",
+     {["name"] = "freezing_flag",
+      ["display_name"] = "Freezing flag",
       ["convert"] = function (x) return x[3 + 1] end}
    }},
   {["length"] = 1,
    ["values"] = {
-     {["name"] = "Battery voltage",
+     {["name"] = "battery_voltage",
+      ["display_name"] = "Battery voltage",
       ["convert"] = function (x) return x[0 + 1] / 1000 end,
       ["unit"] = "V"}
    }}
@@ -57,7 +62,7 @@ local function decentlab_decode(msg)
 
   local device_id = toint(bytes[2], bytes[3])
   local flags = toint(bytes[4], bytes[5])
-  local result = {["Device ID"] = device_id, ["Protocol version"] = version}
+  local result = {["device_id"] = device_id, ["protocol_version"] = version}
   local k = 6
   -- decode sensors
   for _, sensor in ipairs(SENSORS) do
@@ -73,6 +78,7 @@ local function decentlab_decode(msg)
         if value["convert"] then
           result[value["name"]] = {
             ["value"] = value["convert"](x),
+            ["display_name"] = value["display_name"],
             ["unit"] = value["unit"]
           }
         end -- if sensor value used

@@ -4,24 +4,30 @@ local PROTOCOL_VERSION = 2
 local SENSORS = {
   {["length"] = 5,
    ["values"] = {
-     {["name"] = "Status",
+     {["name"] = "status",
+      ["display_name"] = "Status",
       ["convert"] = function (x) return x[0 + 1] end},
-     {["name"] = "Temperature",
+     {["name"] = "temperature",
+      ["display_name"] = "Temperature",
       ["convert"] = function (x) return (x[1 + 1] - 32768) / 100 end,
       ["unit"] = "°C"},
-     {["name"] = "Oxygen saturation",
+     {["name"] = "oxygen_saturation",
+      ["display_name"] = "Oxygen saturation",
       ["convert"] = function (x) return (x[2 + 1] - 32768) / 100 end,
       ["unit"] = "%"},
-     {["name"] = "Oxygen concentration",
+     {["name"] = "oxygen_concentration",
+      ["display_name"] = "Oxygen concentration",
       ["convert"] = function (x) return (x[3 + 1] - 32768) / 100 end,
       ["unit"] = "mg⋅L⁻¹"},
-     {["name"] = "Oxygen concentration (alt)",
+     {["name"] = "oxygen_concentration_alt",
+      ["display_name"] = "Oxygen concentration (alt)",
       ["convert"] = function (x) return (x[4 + 1] - 32768) / 100 end,
       ["unit"] = "ppm"}
    }},
   {["length"] = 1,
    ["values"] = {
-     {["name"] = "Battery voltage",
+     {["name"] = "battery_voltage",
+      ["display_name"] = "Battery voltage",
       ["convert"] = function (x) return x[0 + 1] / 1000 end,
       ["unit"] = "V"}
    }}
@@ -57,7 +63,7 @@ local function decentlab_decode(msg)
 
   local device_id = toint(bytes[2], bytes[3])
   local flags = toint(bytes[4], bytes[5])
-  local result = {["Device ID"] = device_id, ["Protocol version"] = version}
+  local result = {["device_id"] = device_id, ["protocol_version"] = version}
   local k = 6
   -- decode sensors
   for _, sensor in ipairs(SENSORS) do
@@ -73,6 +79,7 @@ local function decentlab_decode(msg)
         if value["convert"] then
           result[value["name"]] = {
             ["value"] = value["convert"](x),
+            ["display_name"] = value["display_name"],
             ["unit"] = value["unit"]
           }
         end -- if sensor value used

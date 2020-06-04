@@ -7,50 +7,67 @@ local PROTOCOL_VERSION = 2
 local SENSORS = {
   {["length"] = 16,
    ["values"] = {
-     {["name"] = "Soil moisture at depth 0",
+     {["name"] = "soil_moisture_at_depth_0",
+      ["display_name"] = "Soil moisture at depth 0",
       ["convert"] = function (x) return (x[0 + 1] - 2500) / 500 end},
-     {["name"] = "Soil temperature at depth 0",
+     {["name"] = "soil_temperature_at_depth_0",
+      ["display_name"] = "Soil temperature at depth 0",
       ["convert"] = function (x) return (x[1 + 1] - 32768) / 100 end,
       ["unit"] = "°C"},
-     {["name"] = "Soil moisture at depth 1",
+     {["name"] = "soil_moisture_at_depth_1",
+      ["display_name"] = "Soil moisture at depth 1",
       ["convert"] = function (x) return (x[2 + 1] - 2500) / 500 end},
-     {["name"] = "Soil temperature at depth 1",
+     {["name"] = "soil_temperature_at_depth_1",
+      ["display_name"] = "Soil temperature at depth 1",
       ["convert"] = function (x) return (x[3 + 1] - 32768) / 100 end,
       ["unit"] = "°C"},
-     {["name"] = "Soil moisture at depth 2",
+     {["name"] = "soil_moisture_at_depth_2",
+      ["display_name"] = "Soil moisture at depth 2",
       ["convert"] = function (x) return (x[4 + 1] - 2500) / 500 end},
-     {["name"] = "Soil temperature at depth 2",
+     {["name"] = "soil_temperature_at_depth_2",
+      ["display_name"] = "Soil temperature at depth 2",
       ["convert"] = function (x) return (x[5 + 1] - 32768) / 100 end,
       ["unit"] = "°C"},
-     {["name"] = "Soil moisture at depth 3",
+     {["name"] = "soil_moisture_at_depth_3",
+      ["display_name"] = "Soil moisture at depth 3",
       ["convert"] = function (x) return (x[6 + 1] - 2500) / 500 end},
-     {["name"] = "Soil temperature at depth 3",
+     {["name"] = "soil_temperature_at_depth_3",
+      ["display_name"] = "Soil temperature at depth 3",
       ["convert"] = function (x) return (x[7 + 1] - 32768) / 100 end,
       ["unit"] = "°C"},
-     {["name"] = "Soil moisture at depth 4",
+     {["name"] = "soil_moisture_at_depth_4",
+      ["display_name"] = "Soil moisture at depth 4",
       ["convert"] = function (x) return (x[8 + 1] - 2500) / 500 end},
-     {["name"] = "Soil temperature at depth 4",
+     {["name"] = "soil_temperature_at_depth_4",
+      ["display_name"] = "Soil temperature at depth 4",
       ["convert"] = function (x) return (x[9 + 1] - 32768) / 100 end,
       ["unit"] = "°C"},
-     {["name"] = "Soil moisture at depth 5",
+     {["name"] = "soil_moisture_at_depth_5",
+      ["display_name"] = "Soil moisture at depth 5",
       ["convert"] = function (x) return (x[10 + 1] - 2500) / 500 end},
-     {["name"] = "Soil temperature at depth 5",
+     {["name"] = "soil_temperature_at_depth_5",
+      ["display_name"] = "Soil temperature at depth 5",
       ["convert"] = function (x) return (x[11 + 1] - 32768) / 100 end,
       ["unit"] = "°C"},
-     {["name"] = "Soil moisture at depth 6",
+     {["name"] = "soil_moisture_at_depth_6",
+      ["display_name"] = "Soil moisture at depth 6",
       ["convert"] = function (x) return (x[12 + 1] - 2500) / 500 end},
-     {["name"] = "Soil temperature at depth 6",
+     {["name"] = "soil_temperature_at_depth_6",
+      ["display_name"] = "Soil temperature at depth 6",
       ["convert"] = function (x) return (x[13 + 1] - 32768) / 100 end,
       ["unit"] = "°C"},
-     {["name"] = "Soil moisture at depth 7",
+     {["name"] = "soil_moisture_at_depth_7",
+      ["display_name"] = "Soil moisture at depth 7",
       ["convert"] = function (x) return (x[14 + 1] - 2500) / 500 end},
-     {["name"] = "Soil temperature at depth 7",
+     {["name"] = "soil_temperature_at_depth_7",
+      ["display_name"] = "Soil temperature at depth 7",
       ["convert"] = function (x) return (x[15 + 1] - 32768) / 100 end,
       ["unit"] = "°C"}
    }},
   {["length"] = 1,
    ["values"] = {
-     {["name"] = "Battery voltage",
+     {["name"] = "battery_voltage",
+      ["display_name"] = "Battery voltage",
       ["convert"] = function (x) return x[0 + 1] / 1000 end,
       ["unit"] = "V"}
    }}
@@ -86,7 +103,7 @@ local function decentlab_decode(msg)
 
   local device_id = toint(bytes[2], bytes[3])
   local flags = toint(bytes[4], bytes[5])
-  local result = {["Device ID"] = device_id, ["Protocol version"] = version}
+  local result = {["device_id"] = device_id, ["protocol_version"] = version}
   local k = 6
   -- decode sensors
   for _, sensor in ipairs(SENSORS) do
@@ -102,6 +119,7 @@ local function decentlab_decode(msg)
         if value["convert"] then
           result[value["name"]] = {
             ["value"] = value["convert"](x),
+            ["display_name"] = value["display_name"],
             ["unit"] = value["unit"]
           }
         end -- if sensor value used

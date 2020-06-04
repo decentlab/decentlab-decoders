@@ -7,53 +7,65 @@ local PROTOCOL_VERSION = 2
 local SENSORS = {
   {["length"] = 1,
    ["values"] = {
-     {["name"] = "Battery voltage",
+     {["name"] = "battery_voltage",
+      ["display_name"] = "Battery voltage",
       ["convert"] = function (x) return x[0 + 1] / 1000 end,
       ["unit"] = "V"}
    }},
   {["length"] = 2,
    ["values"] = {
-     {["name"] = "Air temperature",
+     {["name"] = "air_temperature",
+      ["display_name"] = "Air temperature",
       ["convert"] = function (x) return 175 * x[0 + 1] / 65535 - 45 end,
       ["unit"] = "°C"},
-     {["name"] = "Air humidity",
+     {["name"] = "air_humidity",
+      ["display_name"] = "Air humidity",
       ["convert"] = function (x) return 100 * x[1 + 1] / 65535 end,
       ["unit"] = "%"}
    }},
   {["length"] = 1,
    ["values"] = {
-     {["name"] = "Barometric pressure",
+     {["name"] = "barometric_pressure",
+      ["display_name"] = "Barometric pressure",
       ["convert"] = function (x) return x[0 + 1] * 2 end,
       ["unit"] = "Pa"}
    }},
   {["length"] = 2,
    ["values"] = {
-     {["name"] = "Ambient light (visible + infrared)",
+     {["name"] = "ambient_light_visible_infrared",
+      ["display_name"] = "Ambient light (visible + infrared)",
       ["convert"] = function (x) return x[0 + 1] end},
-     {["name"] = "Ambient light (infrared)",
+     {["name"] = "ambient_light_infrared",
+      ["display_name"] = "Ambient light (infrared)",
       ["convert"] = function (x) return x[1 + 1] end},
-     {["name"] = "Illuminance",
+     {["name"] = "illuminance",
+      ["display_name"] = "Illuminance",
       ["convert"] = function (x) return math.max(math.max(1.0 * x[0 + 1] - 1.64 * x[1 + 1], 0.59 * x[0 + 1] - 0.86 * x[1 + 1]), 0) * 1.5504 end,
       ["unit"] = "lx"}
    }},
   {["length"] = 3,
    ["values"] = {
-     {["name"] = "CO2 concentration",
+     {["name"] = "co2_concentration",
+      ["display_name"] = "CO2 concentration",
       ["convert"] = function (x) return x[0 + 1] - 32768 end,
       ["unit"] = "ppm"},
-     {["name"] = "CO2 sensor status",
+     {["name"] = "co2_sensor_status",
+      ["display_name"] = "CO2 sensor status",
       ["convert"] = function (x) return x[1 + 1] end},
-     {["name"] = "Raw IR reading",
+     {["name"] = "raw_ir_reading",
+      ["display_name"] = "Raw IR reading",
       ["convert"] = function (x) return x[2 + 1] end}
    }},
   {["length"] = 1,
    ["values"] = {
-     {["name"] = "Activity counter",
+     {["name"] = "activity_counter",
+      ["display_name"] = "Activity counter",
       ["convert"] = function (x) return x[0 + 1] end}
    }},
   {["length"] = 1,
    ["values"] = {
-     {["name"] = "Total VOC",
+     {["name"] = "total_voc",
+      ["display_name"] = "Total VOC",
       ["convert"] = function (x) return x[0 + 1] end,
       ["unit"] = "ppb"}
    }}
@@ -89,7 +101,7 @@ local function decentlab_decode(msg)
 
   local device_id = toint(bytes[2], bytes[3])
   local flags = toint(bytes[4], bytes[5])
-  local result = {["Device ID"] = device_id, ["Protocol version"] = version}
+  local result = {["device_id"] = device_id, ["protocol_version"] = version}
   local k = 6
   -- decode sensors
   for _, sensor in ipairs(SENSORS) do
@@ -105,6 +117,7 @@ local function decentlab_decode(msg)
         if value["convert"] then
           result[value["name"]] = {
             ["value"] = value["convert"](x),
+            ["display_name"] = value["display_name"],
             ["unit"] = value["unit"]
           }
         end -- if sensor value used

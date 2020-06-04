@@ -89,7 +89,7 @@ var decentlab_decoder = {
 
     var deviceId = this.read_int(bytes, 1);
     var flags = this.read_int(bytes, 3);
-    var result = {'Protocol version': version, 'Device ID': deviceId};
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
     for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {

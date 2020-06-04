@@ -23,76 +23,95 @@ local PARAMETERS = {
 local SENSORS = {
   {["length"] = 2,
    ["values"] = {
-     {["name"] = "Air temperature",
+     {["name"] = "air_temperature",
+      ["display_name"] = "Air temperature",
       ["convert"] = function (x) return 175.72 * x[0 + 1] / 65536 - 46.85 end,
       ["unit"] = "°C"},
-     {["name"] = "Air humidity",
+     {["name"] = "air_humidity",
+      ["display_name"] = "Air humidity",
       ["convert"] = function (x) return 125 * x[1 + 1] / 65536 - 6 end,
       ["unit"] = "%"}
    }},
   {["length"] = 2,
    ["values"] = {
-     {["name"] = "CH4: NO2 (we)",
+     {["name"] = "ch4_no2_we",
+      ["display_name"] = "CH4: NO2 (we)",
       ["convert"] = function (x) return 3 * (x[0 + 1] / 32768 - 1) * 1000 end,
       ["unit"] = "mV"},
-     {["name"] = "CH4: NO2 (we-aux)",
+     {["name"] = "ch4_no2_we_aux",
+      ["display_name"] = "CH4: NO2 (we-aux)",
       ["convert"] = function (x) return 3 * (x[1 + 1] / 32768 - 1) * 1000 end,
       ["unit"] = "mV"},
-     {["name"] = "CH4: NO2 concentration (we)",
+     {["name"] = "ch4_no2_concentration_we",
+      ["display_name"] = "CH4: NO2 concentration (we)",
       ["convert"] = function (x) return (3 * (x[0 + 1] / 32768 - 1) * 1000 - PARAMETERS["NO2_WE_0"]) / PARAMETERS["NO2_S"] end,
       ["unit"] = "ppb"},
-     {["name"] = "CH4: NO2 concentration (we-aux)",
+     {["name"] = "ch4_no2_concentration_we_aux",
+      ["display_name"] = "CH4: NO2 concentration (we-aux)",
       ["convert"] = function (x) return (3 * (x[1 + 1] / 32768 - 1) * 1000 - PARAMETERS["NO2_WE_0"] + PARAMETERS["NO2_AUX_0"]) / PARAMETERS["NO2_S"] end,
       ["unit"] = "ppb"}
    }},
   {["length"] = 2,
    ["values"] = {
-     {["name"] = "CH5: NO (we)",
+     {["name"] = "ch5_no_we",
+      ["display_name"] = "CH5: NO (we)",
       ["convert"] = function (x) return 3 * (x[0 + 1] / 32768 - 1) * 1000 end,
       ["unit"] = "mV"},
-     {["name"] = "CH5: NO (we-aux)",
+     {["name"] = "ch5_no_we_aux",
+      ["display_name"] = "CH5: NO (we-aux)",
       ["convert"] = function (x) return 3 * (x[1 + 1] / 32768 - 1) * 1000 end,
       ["unit"] = "mV"},
-     {["name"] = "CH5: NO concentration (we)",
+     {["name"] = "ch5_no_concentration_we",
+      ["display_name"] = "CH5: NO concentration (we)",
       ["convert"] = function (x) return (3 * (x[0 + 1] / 32768 - 1) * 1000 - PARAMETERS["NO_WE_0"]) / PARAMETERS["NO_S"] end,
       ["unit"] = "ppb"},
-     {["name"] = "CH5: NO concentration (we-aux)",
+     {["name"] = "ch5_no_concentration_we_aux",
+      ["display_name"] = "CH5: NO concentration (we-aux)",
       ["convert"] = function (x) return (3 * (x[1 + 1] / 32768 - 1) * 1000 - PARAMETERS["NO_WE_0"] + PARAMETERS["NO_AUX_0"]) / PARAMETERS["NO_S"] end,
       ["unit"] = "ppb"}
    }},
   {["length"] = 2,
    ["values"] = {
-     {["name"] = "CH6: Ox (we)",
+     {["name"] = "ch6_ox_we",
+      ["display_name"] = "CH6: Ox (we)",
       ["convert"] = function (x) return 3 * (x[0 + 1] / 32768 - 1) * 1000 end,
       ["unit"] = "mV"},
-     {["name"] = "CH6: Ox (we-aux)",
+     {["name"] = "ch6_ox_we_aux",
+      ["display_name"] = "CH6: Ox (we-aux)",
       ["convert"] = function (x) return 3 * (x[1 + 1] / 32768 - 1) * 1000 end,
       ["unit"] = "mV"},
-     {["name"] = "CH6: Ox concentration (we)",
+     {["name"] = "ch6_ox_concentration_we",
+      ["display_name"] = "CH6: Ox concentration (we)",
       ["convert"] = function (x) return (3 * (x[0 + 1] / 32768 - 1) * 1000 - PARAMETERS["Ox_WE_0"]) / PARAMETERS["Ox_S"] end,
       ["unit"] = "ppb"},
-     {["name"] = "CH6: Ox concentration (we-aux)",
+     {["name"] = "ch6_ox_concentration_we_aux",
+      ["display_name"] = "CH6: Ox concentration (we-aux)",
       ["convert"] = function (x) return (3 * (x[1 + 1] / 32768 - 1) * 1000 - PARAMETERS["Ox_WE_0"] + PARAMETERS["Ox_AUX_0"]) / PARAMETERS["Ox_S"] end,
       ["unit"] = "ppb"}
    }},
   {["length"] = 2,
    ["values"] = {
-     {["name"] = "CH7: CO (we)",
+     {["name"] = "ch7_co_we",
+      ["display_name"] = "CH7: CO (we)",
       ["convert"] = function (x) return 3 * (x[0 + 1] / 32768 - 1) * 1000 end,
       ["unit"] = "mV"},
-     {["name"] = "CH7: CO (we-aux)",
+     {["name"] = "ch7_co_we_aux",
+      ["display_name"] = "CH7: CO (we-aux)",
       ["convert"] = function (x) return 3 * (x[1 + 1] / 32768 - 1) * 1000 end,
       ["unit"] = "mV"},
-     {["name"] = "CH7: CO concentration (we)",
+     {["name"] = "ch7_co_concentration_we",
+      ["display_name"] = "CH7: CO concentration (we)",
       ["convert"] = function (x) return (3 * (x[0 + 1] / 32768 - 1) * 1000 - PARAMETERS["CO_WE_0"]) / PARAMETERS["CO_S"] end,
       ["unit"] = "ppb"},
-     {["name"] = "CH7: CO concentration (we-aux)",
+     {["name"] = "ch7_co_concentration_we_aux",
+      ["display_name"] = "CH7: CO concentration (we-aux)",
       ["convert"] = function (x) return (3 * (x[1 + 1] / 32768 - 1) * 1000 - PARAMETERS["CO_WE_0"] + PARAMETERS["CO_AUX_0"]) / PARAMETERS["CO_S"] end,
       ["unit"] = "ppb"}
    }},
   {["length"] = 1,
    ["values"] = {
-     {["name"] = "Battery voltage",
+     {["name"] = "battery_voltage",
+      ["display_name"] = "Battery voltage",
       ["convert"] = function (x) return x[0 + 1] / 1000 end,
       ["unit"] = "V"}
    }}
@@ -128,7 +147,7 @@ local function decentlab_decode(msg)
 
   local device_id = toint(bytes[2], bytes[3])
   local flags = toint(bytes[4], bytes[5])
-  local result = {["Device ID"] = device_id, ["Protocol version"] = version}
+  local result = {["device_id"] = device_id, ["protocol_version"] = version}
   local k = 6
   -- decode sensors
   for _, sensor in ipairs(SENSORS) do
@@ -144,6 +163,7 @@ local function decentlab_decode(msg)
         if value["convert"] then
           result[value["name"]] = {
             ["value"] = value["convert"](x),
+            ["display_name"] = value["display_name"],
             ["unit"] = value["unit"]
           }
         end -- if sensor value used

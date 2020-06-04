@@ -7,49 +7,62 @@ local PROTOCOL_VERSION = 2
 local SENSORS = {
   {["length"] = 2,
    ["values"] = {
-     {["name"] = "Air temperature",
+     {["name"] = "air_temperature",
+      ["display_name"] = "Air temperature",
       ["convert"] = function (x) return 175.72 * x[0 + 1] / 65536 - 46.85 end,
       ["unit"] = "°C"},
-     {["name"] = "Air humidity",
+     {["name"] = "air_humidity",
+      ["display_name"] = "Air humidity",
       ["convert"] = function (x) return 125 * x[1 + 1] / 65536 - 6 end,
       ["unit"] = "%"}
    }},
   {["length"] = 2,
    ["values"] = {
-     {["name"] = "Barometer temperature",
+     {["name"] = "barometer_temperature",
+      ["display_name"] = "Barometer temperature",
       ["convert"] = function (x) return (x[0 + 1] - 5000) / 100 end,
       ["unit"] = "°C"},
-     {["name"] = "Barometric pressure",
+     {["name"] = "barometric_pressure",
+      ["display_name"] = "Barometric pressure",
       ["convert"] = function (x) return x[1 + 1] * 2 end,
       ["unit"] = "Pa"}
    }},
   {["length"] = 8,
    ["values"] = {
-     {["name"] = "CO2 concentration",
+     {["name"] = "co2_concentration",
+      ["display_name"] = "CO2 concentration",
       ["convert"] = function (x) return x[0 + 1] - 32768 end,
       ["unit"] = "ppm"},
-     {["name"] = "CO2 concentration LPF",
+     {["name"] = "co2_concentration_lpf",
+      ["display_name"] = "CO2 concentration LPF",
       ["convert"] = function (x) return x[1 + 1] - 32768 end,
       ["unit"] = "ppm"},
-     {["name"] = "CO2 sensor temperature",
+     {["name"] = "co2_sensor_temperature",
+      ["display_name"] = "CO2 sensor temperature",
       ["convert"] = function (x) return (x[2 + 1] - 32768) / 100 end,
       ["unit"] = "°C"},
-     {["name"] = "Capacitor voltage 1",
+     {["name"] = "capacitor_voltage_1",
+      ["display_name"] = "Capacitor voltage 1",
       ["convert"] = function (x) return x[3 + 1] / 1000 end,
       ["unit"] = "V"},
-     {["name"] = "Capacitor voltage 2",
+     {["name"] = "capacitor_voltage_2",
+      ["display_name"] = "Capacitor voltage 2",
       ["convert"] = function (x) return x[4 + 1] / 1000 end,
       ["unit"] = "V"},
-     {["name"] = "CO2 sensor status",
+     {["name"] = "co2_sensor_status",
+      ["display_name"] = "CO2 sensor status",
       ["convert"] = function (x) return x[5 + 1] end},
-     {["name"] = "Raw IR reading",
+     {["name"] = "raw_ir_reading",
+      ["display_name"] = "Raw IR reading",
       ["convert"] = function (x) return x[6 + 1] end},
-     {["name"] = "Raw IR reading LPF",
+     {["name"] = "raw_ir_reading_lpf",
+      ["display_name"] = "Raw IR reading LPF",
       ["convert"] = function (x) return x[7 + 1] end}
    }},
   {["length"] = 1,
    ["values"] = {
-     {["name"] = "Battery voltage",
+     {["name"] = "battery_voltage",
+      ["display_name"] = "Battery voltage",
       ["convert"] = function (x) return x[0 + 1] / 1000 end,
       ["unit"] = "V"}
    }}
@@ -85,7 +98,7 @@ local function decentlab_decode(msg)
 
   local device_id = toint(bytes[2], bytes[3])
   local flags = toint(bytes[4], bytes[5])
-  local result = {["Device ID"] = device_id, ["Protocol version"] = version}
+  local result = {["device_id"] = device_id, ["protocol_version"] = version}
   local k = 6
   -- decode sensors
   for _, sensor in ipairs(SENSORS) do
@@ -101,6 +114,7 @@ local function decentlab_decode(msg)
         if value["convert"] then
           result[value["name"]] = {
             ["value"] = value["convert"](x),
+            ["display_name"] = value["display_name"],
             ["unit"] = value["unit"]
           }
         end -- if sensor value used
