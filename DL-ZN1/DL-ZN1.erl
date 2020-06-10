@@ -1,5 +1,5 @@
 
-% https://www.decentlab.com/support
+% https://www.decentlab.com/products/dendrometer-for-lorawan
 
 -module(decentlab_decoder).
 -define(PROTOCOL_VERSION, 2).
@@ -43,7 +43,8 @@ decode(HexStr) ->
 
 
 start() ->
-  io:format("~p~n", [decode("02029900036ded00960b63")]).
+  io:format("~p~n", [decode("0211110003409a00860c54")]),
+  io:format("~p~n", [decode("02111100020c54")]).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% PRIVATE FUNCTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,5 +1,5 @@
 
-# https://www.decentlab.com/support
+# https://www.decentlab.com/products/dendrometer-for-lorawan
 
 defmodule DecentlabDecoder do
   @protocol_version 2
@@ -7,11 +7,16 @@ defmodule DecentlabDecoder do
   defp sensor_defs do
     [
       %{
-        length: 2,
+        length: 4,
         values: [
           %{
-            :name => "Dendrometer position",
+            :name => "Dendrometer A Position",
             :convert => fn x -> ((Enum.at(x, 0) + Enum.at(x, 1)*65536) / 8388608 - 1) * 20000 end,
+            :unit => "µm"
+          },
+          %{
+            :name => "Dendrometer B Position",
+            :convert => fn x -> ((Enum.at(x, 0) + Enum.at(x, 1)*65536) / 8388608 - (Enum.at(x, 2) + Enum.at(x, 3)*65536) / 8388608) * 20000 end,
             :unit => "µm"
           }
         ]
@@ -77,4 +82,4 @@ defmodule DecentlabDecoder do
 
 end
 
-IO.inspect(DecentlabDecoder.decode("02029900036ded00960b63", :hex))
+IO.inspect(DecentlabDecoder.decode("0211110003409a00863039003e0c54", :hex))

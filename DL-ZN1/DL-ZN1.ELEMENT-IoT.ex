@@ -1,11 +1,12 @@
 
-# https://www.decentlab.com/support
+# https://www.decentlab.com/products/dendrometer-for-lorawan
 
 defmodule Parser do
   use Platform.Parsing.Behaviour
   
   ## test payloads
-  # 02029900036ded00960b63
+  # 0211110003409a00860c54
+  # 02111100020c54
   
   def fields do
     [

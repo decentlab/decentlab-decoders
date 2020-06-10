@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# https://www.decentlab.com/support
+# https://www.decentlab.com/products/dendrometer-for-lorawan
 
 from __future__ import absolute_import
 from __future__ import division
@@ -13,9 +13,12 @@ from base64 import binascii
 PROTOCOL_VERSION = 2
 
 SENSORS = [
-    {'length': 2,
-     'values': [{'name': 'Dendrometer position',
+    {'length': 4,
+     'values': [{'name': 'Dendrometer A Position',
                  'convert': lambda x: ((x[0] + x[1]*65536) / 8388608 - 1) * 20000,
+                 'unit': 'µm'},
+                {'name': 'Dendrometer B Position',
+                 'convert': lambda x: ((x[0] + x[1]*65536) / 8388608 - (x[2] + x[3]*65536) / 8388608) * 20000,
                  'unit': 'µm'}]},
     {'length': 1,
      'values': [{'name': 'Battery voltage',
@@ -63,7 +66,7 @@ if __name__ == '__main__':
 
     import pprint
     payloads = [
-        b'02029900036ded00960b63',
+        b'0211110003409a00863039003e0c54',
     ]
     for pl in payloads:
         pprint.pprint(decode(pl, hex=True))

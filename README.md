@@ -49,7 +49,8 @@ Device | Name
 [DL-TRS11](DL-TRS11) | [Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/soil-moisture-temperature-and-electrical-conductivity-sensor-for-lorawan)
 [DL-TRS12](DL-TRS12) | [Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/soil-moisture-temperature-and-electrical-conductivity-sensor-for-lorawan)
 [DL-TRS21](DL-TRS21) | [Soil Water Potential and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/soil-water-potential-and-temperature-sensor-for-lorawan)
-[DL-ZN11O](DL-ZN11O) | [Dendrometer for LoRaWAN&reg;](https://www.decentlab.com/support)
+[DL-ZN1](DL-ZN1) | [Dendrometer for LoRaWAN&reg;](https://www.decentlab.com/products/dendrometer-for-lorawan)
+[DL-ZN2](DL-ZN2) | [Dual Dendrometer for LoRaWAN&reg;](https://www.decentlab.com/products/dendrometer-for-lorawan)
 
 # Integration guide for some platforms
 

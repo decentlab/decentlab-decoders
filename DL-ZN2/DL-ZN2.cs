@@ -1,5 +1,5 @@
 
-/* https://www.decentlab.com/support */
+/* https://www.decentlab.com/products/dendrometer-for-lorawan */
 
 using System;
 using System.IO;
@@ -35,8 +35,9 @@ public class DecentlabDecoder
   }
 
   private static readonly List<Sensor> SENSORS = new List<Sensor>() {
-    new Sensor(2, new List<SensorValue>() {
-      new SensorValue("Dendrometer position", "µm", x => ((x[0] + x[1]*65536) / 8388608 - 1) * 20000)
+    new Sensor(4, new List<SensorValue>() {
+      new SensorValue("Dendrometer A Position", "µm", x => ((x[0] + x[1]*65536) / 8388608 - 1) * 20000),
+      new SensorValue("Dendrometer B Position", "µm", x => ((x[0] + x[1]*65536) / 8388608 - (x[2] + x[3]*65536) / 8388608) * 20000)
     }),
     new Sensor(1, new List<SensorValue>() {
       new SensorValue("Battery voltage", "V", x => x[0] / 1000)
@@ -107,7 +108,7 @@ public class Program
   public static void Main()
   {
     var payloads = new string[] {
-      "02029900036ded00960b63"
+      "0211110003409a00863039003e0c54"
     };
 
     foreach (var pl in payloads)

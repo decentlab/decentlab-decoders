@@ -1,5 +1,5 @@
 <?php
-/* https://www.decentlab.com/support */
+/* https://www.decentlab.com/products/dendrometer-for-lorawan */
 
 abstract class DecentlabDecoder
 {
@@ -49,7 +49,7 @@ abstract class DecentlabDecoder
     }
 }
 
-class DL_ZN11O_Decoder extends DecentlabDecoder {
+class DL_ZN1_Decoder extends DecentlabDecoder {
     
     public function __construct()
     {
@@ -79,9 +79,10 @@ class DL_ZN11O_Decoder extends DecentlabDecoder {
 }
 
 
-$decoder = new DL_ZN11O_Decoder();
+$decoder = new DL_ZN1_Decoder();
 $payloads = [
-    '02029900036ded00960b63',
+    '0211110003409a00860c54',
+    '02111100020c54',
 ];
 
 foreach($payloads as $payload) {

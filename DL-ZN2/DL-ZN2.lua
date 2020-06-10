@@ -1,15 +1,19 @@
 
--- https://www.decentlab.com/support
+-- https://www.decentlab.com/products/dendrometer-for-lorawan
 
 local PROTOCOL_VERSION = 2
 
 -- sensor definitions
 local SENSORS = {
-  {["length"] = 2,
+  {["length"] = 4,
    ["values"] = {
-     {["name"] = "dendrometer_position",
-      ["display_name"] = "Dendrometer position",
+     {["name"] = "dendrometer_a_position",
+      ["display_name"] = "Dendrometer A Position",
       ["convert"] = function (x) return ((x[0 + 1] + x[1 + 1]*65536) / 8388608 - 1) * 20000 end,
+      ["unit"] = "µm"},
+     {["name"] = "dendrometer_b_position",
+      ["display_name"] = "Dendrometer B Position",
+      ["convert"] = function (x) return ((x[0 + 1] + x[1 + 1]*65536) / 8388608 - (x[2 + 1] + x[3 + 1]*65536) / 8388608) * 20000 end,
       ["unit"] = "µm"}
    }},
   {["length"] = 1,
@@ -82,7 +86,7 @@ end
 
 -- test
 local payloads = {
-  "02029900036ded00960b63",
+  "0211110003409a00863039003e0c54",
 }
 
 local function main()

@@ -1,13 +1,17 @@
 
-/* https://www.decentlab.com/support */
+/* https://www.decentlab.com/products/dendrometer-for-lorawan */
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
   SENSORS: [
-    {length: 2,
-     values: [{name: 'dendrometer_position',
-               displayName: 'Dendrometer position',
+    {length: 4,
+     values: [{name: 'dendrometer_a_position',
+               displayName: 'Dendrometer A Position',
                convert: function (x) { return ((x[0] + x[1]*65536) / 8388608 - 1) * 20000; },
+               unit: 'µm'},
+              {name: 'dendrometer_b_position',
+               displayName: 'Dendrometer B Position',
+               convert: function (x) { return ((x[0] + x[1]*65536) / 8388608 - (x[2] + x[3]*65536) / 8388608) * 20000; },
                unit: 'µm'}]},
     {length: 1,
      values: [{name: 'battery_voltage',
@@ -67,7 +71,7 @@ var decentlab_decoder = {
 };
 
 function main() {
-  console.log(decentlab_decoder.decode("02029900036ded00960b63"));
+  console.log(decentlab_decoder.decode("0211110003409a00863039003e0c54"));
 }
 
 main();
