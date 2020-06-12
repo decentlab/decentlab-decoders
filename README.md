@@ -30,7 +30,7 @@ Device | Name
 [DL-DLR2-004](DL-DLR2-004) | [Analog or Digital Sensor Device for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
 [DL-DS18](DL-DS18) | [Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/temperature-sensor-for-lorawan)
 [DL-GS3](DL-GS3) | [Legacy Ruggedized Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/support)
-[DL-IAM](DL-IAM) | [Indoor Ambiance Monitor for LoRaWAN&reg;](https://www.decentlab.com/products/indoor-ambiance-monitor-including-co2-tvoc-and-motion-sensor-for-lorawan)
+[DL-IAM](DL-IAM) | [Indoor Ambiance Monitor including CO₂, TVOC and Motion Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/indoor-ambiance-monitor-including-co2-tvoc-and-motion-sensor-for-lorawan)
 [DL-ITST](DL-ITST) | [Infrared Thermometer / Surface Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/infrared-thermometer-/-surface-temperature-sensor-for-lorawan)
 [DL-KL66](DL-KL66) | [Strain / Weight Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/strain-/-weight-sensor-for-lorawan)
 [DL-LP8P](DL-LP8P) | [CO₂, Temperature, Humidity and Barometric Pressure Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/co2-temperature-humidity-and-barometric-pressure-sensor-for-lorawan)
