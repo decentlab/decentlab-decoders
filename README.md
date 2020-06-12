@@ -91,25 +91,6 @@ end
 main()
 ```
 
-Replace the spaces in the field names with `_`. For example:
-```lua
-  ...
-   ["values"] = {
-     {["name"] = "Battery voltage",
-      ["convert"] = function (x) return x[0 + 1] / 1000 end,
-      ["unit"] = "V"}
-  ...
-```
-becomes
-```lua
-  ...
-   ["values"] = {
-     {["name"] = "Battery_voltage",
-      ["convert"] = function (x) return x[0 + 1] / 1000 end,
-      ["unit"] = "V"}
-  ...
-```
-
 Append the following lines.
 ```lua
 -- get payload
@@ -146,7 +127,7 @@ for k, v in pairs(decoded) do
 end
 ```
 
-Test by clicking `Run` and make sure the output values match against the datasheet. Configure the fields in `Node fields` accordingly and press `Save` icon.
+Test the decoder by clicking `Run` and make sure the output values match against the datasheet. Configure the fields in `Node fields` for each sensor name and press `Save` icon.
 
 ## Docksters
 
