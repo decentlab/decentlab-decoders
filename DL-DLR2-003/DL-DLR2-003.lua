@@ -1,3 +1,6 @@
+
+-- https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan
+
 local PROTOCOL_VERSION = 2
 
 -- sensor definitions

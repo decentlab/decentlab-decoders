@@ -1,4 +1,5 @@
 <?php
+/* https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan */
 
 abstract class DecentlabDecoder
 {

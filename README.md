@@ -27,6 +27,8 @@ Device | Name
 [DL-ATM22](DL-ATM22) | [Wind Speed, Wind Direction and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/wind-speed-wind-direction-and-temperature-sensor-for-lorawan)
 [DL-ATM41](DL-ATM41) | [Eleven Parameter Weather Station for LoRaWAN&reg;](https://www.decentlab.com/products/eleven-parameter-weather-station-for-lorawan)
 [DL-CTD10](DL-CTD10) | [Pressure / Liquid Level, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan)
+[DL-DLR2-002](DL-DLR2-002) | [Pulse Counter Dry Contact Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
+[DL-DLR2-003](DL-DLR2-003) | [Digital Input Dry Contact Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
 [DL-DLR2-004](DL-DLR2-004) | [Analog or Digital Sensor Device for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
 [DL-DS18](DL-DS18) | [Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/temperature-sensor-for-lorawan)
 [DL-GS3](DL-GS3) | [Legacy Ruggedized Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/support)

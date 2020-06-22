@@ -1,3 +1,6 @@
+
+# https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan
+
 defmodule Parser do
   use Platform.Parsing.Behaviour
   

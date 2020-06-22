@@ -1,3 +1,6 @@
+
+/* https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan */
+
 using System;
 using System.IO;
 using System.Collections.Generic;
