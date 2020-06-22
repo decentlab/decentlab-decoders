@@ -73,3 +73,5 @@ defmodule DecentlabDecoder do
   end
 
 end
+
+IO.inspect(DecentlabDecoder.decode("02199b000300010c8d", :hex))

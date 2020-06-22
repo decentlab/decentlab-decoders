@@ -1,6 +1,9 @@
 defmodule Parser do
   use Platform.Parsing.Behaviour
   
+  ## test payloads
+  # 02199e000300000258000000000c9b
+  
   def fields do
     [
       %{field: "pulse_count", display: "Pulse count", unit: ""},

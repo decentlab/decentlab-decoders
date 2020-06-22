@@ -38,6 +38,9 @@ decode(HexStr) ->
   decode(Binary).
 
 
+start() ->
+  io:format("~p~n", [decode("02199b000300010c8d")]).
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% PRIVATE FUNCTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

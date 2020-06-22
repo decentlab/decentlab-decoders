@@ -87,3 +87,12 @@ class DL_DLR2_002_Decoder extends DecentlabDecoder {
     }
 }
 
+
+$decoder = new DL_DLR2_002_Decoder();
+$payloads = [
+    '02199e000300000258000000000c9b',
+];
+
+foreach($payloads as $payload) {
+    var_dump($decoder->decode($payload));
+}

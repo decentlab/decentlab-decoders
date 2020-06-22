@@ -1,6 +1,9 @@
 defmodule Parser do
   use Platform.Parsing.Behaviour
   
+  ## test payloads
+  # 02199b000300010c8d
+  
   def fields do
     [
       %{field: "input", display: "Input", unit: ""},

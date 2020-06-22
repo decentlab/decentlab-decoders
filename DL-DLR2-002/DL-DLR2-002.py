@@ -59,3 +59,13 @@ def decode(msg, hex=False):
 
     return result
 
+
+if __name__ == '__main__':
+
+    import pprint
+    payloads = [
+        b'02199e000300000258000000000c9b',
+    ]
+    for pl in payloads:
+        pprint.pprint(decode(pl, hex=True))
+        print("")

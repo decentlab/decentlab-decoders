@@ -68,3 +68,9 @@ var decentlab_decoder = {
     return result;
   }
 };
+
+function main() {
+  console.log(decentlab_decoder.decode("02199e000300000258000000000c9b"));
+}
+
+main();

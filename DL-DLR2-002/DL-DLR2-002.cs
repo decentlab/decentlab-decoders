@@ -101,3 +101,22 @@ public class DecentlabDecoder
     return result;
   }
 }
+public class Program
+{
+  public static void Main()
+  {
+    var payloads = new string[] {
+      "02199e000300000258000000000c9b"
+    };
+
+    foreach (var pl in payloads)
+    {
+      var decoded = DecentlabDecoder.Decode(pl);
+      foreach (var k in decoded.Keys)
+      {
+        Console.WriteLine(k + ": " + decoded[k]);
+      }
+      Console.WriteLine();
+    }
+  }
+}

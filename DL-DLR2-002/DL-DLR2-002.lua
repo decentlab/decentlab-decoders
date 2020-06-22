@@ -82,3 +82,20 @@ local function decentlab_decode(msg)
   return result
 end
 
+
+-- test
+local payloads = {
+  "02199e000300000258000000000c9b",
+}
+
+local function main()
+  for _, pl in ipairs(payloads) do
+    local decoded = decentlab_decode(pl)
+    for k, v in pairs(decoded) do
+      print(k .. ": " .. (type(v) == "table" and (v["value"] .. " " .. (v["unit"]  or "")) or v))
+    end
+    print()
+  end
+end
+
+main()
