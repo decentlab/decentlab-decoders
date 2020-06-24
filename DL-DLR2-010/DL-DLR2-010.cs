@@ -1,0 +1,131 @@
+
+/* https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan */
+
+using System;
+using System.IO;
+using System.Collections.Generic;
+
+public class DecentlabDecoder
+{
+  private delegate double conversion(double[] x);
+  public const int PROTOCOL_VERSION = 2;
+
+  private class Sensor
+  {
+    internal int length { get; set; }
+    internal List<SensorValue> values { get; set; }
+    internal Sensor(int length, List<SensorValue> values)
+    {
+      this.length = length;
+      this.values = values;
+    }
+  }
+
+  private class SensorValue
+  {
+    internal string name { get; set; }
+    internal string unit { get; set; }
+    internal conversion convert;
+    internal SensorValue(string name, string unit, conversion convert)
+    {
+      this.name = name;
+      this.unit = unit;
+      this.convert = convert;
+    }
+  }
+
+  private static readonly List<Sensor> SENSORS = new List<Sensor>() {
+    new Sensor(4, new List<SensorValue>() {
+      new SensorValue("CH0: Pulse count", null, x => x[0]),
+      new SensorValue("CH0: Pulse interval", "s", x => x[1]),
+      new SensorValue("CH0: Cumulative pulse count", null, x => (x[2] + x[3] * 65536))
+    }),
+    new Sensor(4, new List<SensorValue>() {
+      new SensorValue("CH1: Pulse count", null, x => x[0]),
+      new SensorValue("CH1: Pulse interval", "s", x => x[1]),
+      new SensorValue("CH1: Cumulative pulse count", null, x => (x[2] + x[3] * 65536))
+    }),
+    new Sensor(1, new List<SensorValue>() {
+      new SensorValue("Battery voltage", "V", x => x[0] / 1000)
+    })
+  };
+
+  private static int ReadInt(Stream stream)
+  {
+    return (stream.ReadByte() << 8) + stream.ReadByte();
+  }
+
+
+  public static Dictionary<string, Tuple<double, string>> Decode(byte[] msg)
+  {
+    return Decode(new MemoryStream(msg));
+  }
+
+  public static Dictionary<string, Tuple<double, string>> Decode(String msg)
+  {
+    byte[] output = new byte[msg.Length / 2];
+    for (int i = 0, j = 0; i < msg.Length; i += 2, j++)
+    {
+      output[j] = (byte)int.Parse(msg.Substring(i, 2), System.Globalization.NumberStyles.HexNumber);
+    }
+    return Decode(output);
+  }
+
+  public static Dictionary<string, Tuple<double, string>> Decode(Stream msg)
+  {
+    var version = msg.ReadByte();
+    if (version != PROTOCOL_VERSION)
+    {
+      throw new InvalidDataException("protocol version " + version + " doesn't match v2");
+    }
+
+    var result = new Dictionary<string, Tuple<double, string>>();
+    result["Protocol version"] = new Tuple<double, string>(version, null);
+
+    var deviceId = ReadInt(msg);
+    result["Device ID"] = new Tuple<double, string>(deviceId, null);
+
+    var flags = ReadInt(msg);
+    foreach (var sensor in SENSORS)
+    {
+      if ((flags & 1) == 1)
+      {
+        double[] x = new double[sensor.length];
+        for (int i = 0; i < sensor.length; i++)
+        {
+          x[i] = ReadInt(msg);
+        }
+        foreach (var val in sensor.values)
+        {
+          if (val.convert != null)
+          {
+            result[val.name] = new Tuple<double, string>(val.convert(x), val.unit);
+          }
+        }
+      }
+      flags >>= 1;
+    }
+
+    return result;
+  }
+}
+public class Program
+{
+  public static void Main()
+  {
+    var payloads = new string[] {
+      "02198f0007000402580bf0000100000258dece00000c33",
+      "02198f00040c33"
+    };
+
+    foreach (var pl in payloads)
+    {
+      var decoded = DecentlabDecoder.Decode(pl);
+      foreach (var k in decoded.Keys)
+      {
+        Console.WriteLine(k + ": " + decoded[k]);
+      }
+      Console.WriteLine();
+    }
+  }
+}
