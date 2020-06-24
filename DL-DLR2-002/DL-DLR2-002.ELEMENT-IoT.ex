@@ -11,7 +11,7 @@ defmodule Parser do
     [
       %{field: "pulse_count", display: "Pulse count", unit: ""},
       %{field: "pulse_interval", display: "Pulse interval", unit: "s"},
-      %{field: "accumulated_pulse_count", display: "Accumulated pulse count", unit: ""},
+      %{field: "cumulative_pulse_count", display: "Cumulative pulse count", unit: ""},
       %{field: "battery_voltage", display: "Battery voltage", unit: "V"}
     ]
   end
@@ -33,7 +33,7 @@ defmodule Parser do
                %{
                  :pulse_count => x0,
                  :pulse_interval => x1,
-                 :accumulated_pulse_count => (x2 + x3 * 65536)
+                 :cumulative_pulse_count => (x2 + x3 * 65536)
                })}
   end
   defp sensor0(result, _flags), do: result

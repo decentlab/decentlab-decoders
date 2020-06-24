@@ -13,9 +13,9 @@ defmodule Parser do
   
   def fields do
     [
-      %{field: "precipitation_in_interval", display: "Precipitation in interval", unit: "mm"},
-      %{field: "interval", display: "Interval", unit: "s"},
-      %{field: "total_accumulated_precipitation", display: "Total accumulated precipitation", unit: "mm"},
+      %{field: "precipitation", display: "Precipitation", unit: "mm"},
+      %{field: "precipitation_interval", display: "Precipitation interval", unit: "s"},
+      %{field: "cumulative_precipitation", display: "Cumulative precipitation", unit: "mm"},
       %{field: "battery_voltage", display: "Battery voltage", unit: "V"}
     ]
   end
@@ -35,9 +35,9 @@ defmodule Parser do
     {remaining,
      Map.merge(result,
                %{
-                 :precipitation_in_interval => x0 * resolution(),
-                 :interval => x1,
-                 :total_accumulated_precipitation => (x2 + x3 * 65536) * resolution()
+                 :precipitation => x0 * resolution(),
+                 :precipitation_interval => x1,
+                 :cumulative_precipitation => (x2 + x3 * 65536) * resolution()
                })}
   end
   defp sensor0(result, _flags), do: result

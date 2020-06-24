@@ -13,17 +13,17 @@ defmodule DecentlabDecoder do
         length: 4,
         values: [
           %{
-            :name => "Precipitation in interval",
+            :name => "Precipitation",
             :convert => fn x -> Enum.at(x, 0) * @resolution end,
             :unit => "mm"
           },
           %{
-            :name => "Interval",
+            :name => "Precipitation interval",
             :convert => fn x -> Enum.at(x, 1) end,
             :unit => "s"
           },
           %{
-            :name => "Total accumulated precipitation",
+            :name => "Cumulative precipitation",
             :convert => fn x -> (Enum.at(x, 2) + Enum.at(x, 3) * 65536) * @resolution end,
             :unit => "mm"
           }

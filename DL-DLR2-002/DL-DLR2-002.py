@@ -19,7 +19,7 @@ SENSORS = [
                 {'name': 'Pulse interval',
                  'convert': lambda x: x[1],
                  'unit': 's'},
-                {'name': 'Accumulated pulse count',
+                {'name': 'Cumulative pulse count',
                  'convert': lambda x: (x[2] + x[3] * 65536)}]},
     {'length': 1,
      'values': [{'name': 'Battery voltage',

@@ -14,17 +14,17 @@
       length => 4,
       values => [
         #{
-          name => <<"Precipitation in interval">>,
+          name => <<"Precipitation">>,
           convert => fun(X) -> lists:nth(0 + 1, X) * ?resolution end,
           unit => <<"mm"/utf8>>
         },
         #{
-          name => <<"Interval">>,
+          name => <<"Precipitation interval">>,
           convert => fun(X) -> lists:nth(1 + 1, X) end,
           unit => <<"s"/utf8>>
         },
         #{
-          name => <<"Total accumulated precipitation">>,
+          name => <<"Cumulative precipitation">>,
           convert => fun(X) -> (lists:nth(2 + 1, X) + lists:nth(3 + 1, X) * 65536) * ?resolution end,
           unit => <<"mm"/utf8>>
         }

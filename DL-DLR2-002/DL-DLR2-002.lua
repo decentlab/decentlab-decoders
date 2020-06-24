@@ -14,8 +14,8 @@ local SENSORS = {
       ["display_name"] = "Pulse interval",
       ["convert"] = function (x) return x[1 + 1] end,
       ["unit"] = "s"},
-     {["name"] = "accumulated_pulse_count",
-      ["display_name"] = "Accumulated pulse count",
+     {["name"] = "cumulative_pulse_count",
+      ["display_name"] = "Cumulative pulse count",
       ["convert"] = function (x) return (x[2 + 1] + x[3 + 1] * 65536) end}
    }},
   {["length"] = 1,

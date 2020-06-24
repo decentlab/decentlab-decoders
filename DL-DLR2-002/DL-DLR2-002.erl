@@ -20,7 +20,7 @@
           unit => <<"s"/utf8>>
         },
         #{
-          name => <<"Accumulated pulse count">>,
+          name => <<"Cumulative pulse count">>,
           convert => fun(X) -> (lists:nth(2 + 1, X) + lists:nth(3 + 1, X) * 65536) end
         }
       ]

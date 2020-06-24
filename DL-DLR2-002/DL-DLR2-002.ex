@@ -20,7 +20,7 @@ defmodule DecentlabDecoder do
             :unit => "s"
           },
           %{
-            :name => "Accumulated pulse count",
+            :name => "Cumulative pulse count",
             :convert => fn x -> (Enum.at(x, 2) + Enum.at(x, 3) * 65536) end,
             :unit => nil
           }

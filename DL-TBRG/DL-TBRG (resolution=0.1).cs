@@ -39,9 +39,9 @@ public class DecentlabDecoder
 
   private static readonly List<Sensor> SENSORS = new List<Sensor>() {
     new Sensor(4, new List<SensorValue>() {
-      new SensorValue("Precipitation in interval", "mm", x => x[0] * resolution),
-      new SensorValue("Interval", "s", x => x[1]),
-      new SensorValue("Total accumulated precipitation", "mm", x => (x[2] + x[3] * 65536) * resolution)
+      new SensorValue("Precipitation", "mm", x => x[0] * resolution),
+      new SensorValue("Precipitation interval", "s", x => x[1]),
+      new SensorValue("Cumulative precipitation", "mm", x => (x[2] + x[3] * 65536) * resolution)
     }),
     new Sensor(1, new List<SensorValue>() {
       new SensorValue("Battery voltage", "V", x => x[0] / 1000)

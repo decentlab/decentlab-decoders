@@ -19,13 +19,13 @@ PARAMETERS = {
 
 SENSORS = [
     {'length': 4,
-     'values': [{'name': 'Precipitation in interval',
+     'values': [{'name': 'Precipitation',
                  'convert': lambda x: x[0] * PARAMETERS['resolution'],
                  'unit': 'mm'},
-                {'name': 'Interval',
+                {'name': 'Precipitation interval',
                  'convert': lambda x: x[1],
                  'unit': 's'},
-                {'name': 'Total accumulated precipitation',
+                {'name': 'Cumulative precipitation',
                  'convert': lambda x: (x[2] + x[3] * 65536) * PARAMETERS['resolution'],
                  'unit': 'mm'}]},
     {'length': 1,

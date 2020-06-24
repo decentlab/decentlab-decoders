@@ -68,7 +68,7 @@ class DL_DLR2_002_Decoder extends DecentlabDecoder {
                         'unit' => 's',
                     ],
                     [
-                        'name' => 'accumulated_pulse_count',
+                        'name' => 'cumulative_pulse_count',
                         'convert' => function ($x) { return ($x[2] + $x[3] * 65536); },
                         'unit' => NULL,
                     ],

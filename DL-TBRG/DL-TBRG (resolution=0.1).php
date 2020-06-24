@@ -58,17 +58,17 @@ class DL_TBRG_Decoder extends DecentlabDecoder {
                 'length' => 4,
                 'values' => [
                     [
-                        'name' => 'precipitation_in_interval',
+                        'name' => 'precipitation',
                         'convert' => function ($x) use ($resolution) { return $x[0] * $resolution; },
                         'unit' => 'mm',
                     ],
                     [
-                        'name' => 'interval',
+                        'name' => 'precipitation_interval',
                         'convert' => function ($x) use ($resolution) { return $x[1]; },
                         'unit' => 's',
                     ],
                     [
-                        'name' => 'total_accumulated_precipitation',
+                        'name' => 'cumulative_precipitation',
                         'convert' => function ($x) use ($resolution) { return ($x[2] + $x[3] * 65536) * $resolution; },
                         'unit' => 'mm',
                     ],

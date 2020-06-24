@@ -38,7 +38,7 @@ public class DecentlabDecoder
     new Sensor(4, new List<SensorValue>() {
       new SensorValue("Pulse count", null, x => x[0]),
       new SensorValue("Pulse interval", "s", x => x[1]),
-      new SensorValue("Accumulated pulse count", null, x => (x[2] + x[3] * 65536))
+      new SensorValue("Cumulative pulse count", null, x => (x[2] + x[3] * 65536))
     }),
     new Sensor(1, new List<SensorValue>() {
       new SensorValue("Battery voltage", "V", x => x[0] / 1000)
