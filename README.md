@@ -60,6 +60,10 @@ Device | Name
 [DL-ZN1](DL-ZN1) | [Dendrometer for LoRaWAN&reg;](https://www.decentlab.com/products/dendrometer-for-lorawan)
 [DL-ZN2](DL-ZN2) | [Dual Dendrometer for LoRaWAN&reg;](https://www.decentlab.com/products/dendrometer-for-lorawan)
 
+# Testing payload
+
+If you need to test a particular payload received from Decentlab devices, please follow this link: https://htmlpreview.github.io/?https://github.com/decentlab/decentlab-decoders/blob/master/payload-test.html
+
 # Integration guide for some platforms
 
 ## The Things Network

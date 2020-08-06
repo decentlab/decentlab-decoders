@@ -1,0 +1,4366 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Decentlab Payload Test</title>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,500,700,400,700i,400i,300i">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,500,700,400,700i,400i,300i">
+    <style>
+      pre {
+        outline: 1px solid #ccc;
+        padding: 5px; margin:
+        5px;
+      }
+      .string {
+        color: #008000;
+      }
+      .number {
+        color: #0000ff;
+      }
+      .boolean {
+        color: #b22222;
+      }
+      .null {
+        color: #808080;
+      }
+      .key {
+        color: #000000;
+      }
+
+      body, p, ul, ol, button, input, select, textarea {
+          font-weight: normal;
+          font-family: Roboto, Arial, sans-serif;;
+          font-size: 12px;
+          font-style: normal;
+          letter-spacing: 0em;
+          line-height:1.6em
+      }
+      .container {
+        display: flex;
+        flex-flow: row wrap;
+        align-content: space-between;
+        justify-content: space-between;
+      }
+      .break {
+        flex-basis: 100%;
+        height: 0;
+      }
+      .output-container {
+        width: 100%;
+      }
+      .bytes-container {
+        flex-grow: 1;
+      }
+      .bytes-container > input {
+        width: 100%;
+      }
+      .device-container > *,
+      .bytes-container > *,
+      .encoding-container > *,
+      .button-container > * {
+        display: block;
+      }
+      .device-container,
+      .bytes-container,
+      .encoding-container,
+      .output-container,
+      .button-container {
+        margin: 10px 0 0 10px;
+      }
+
+      .title {
+        margin-left: 10px;
+      }
+
+      .button-container {
+        display: flex;
+        align-items: flex-end;
+      }
+      .content {
+        margin: auto;
+        max-width: 600px;
+      }
+      #output {
+        font-family: 'Roboto Mono';
+        margin: 0;
+      }
+      .params-container {
+        margin-right: 1em;
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <h1 class="title">Decentlab Payload Test</h1>
+      <div class="container">
+        <div class="device-container">
+          <label for="device">Device type</label>
+          <select id="device" onchange="updateParams(this.value)">
+            <option value="DL-10HS">DL-10HS</option>
+            <option value="DL-5TE">DL-5TE</option>
+            <option value="DL-5TM">DL-5TM</option>
+            <option value="DL-AC">DL-AC</option>
+            <option value="DL-ATM22">DL-ATM22</option>
+            <option value="DL-ATM41">DL-ATM41</option>
+            <option value="DL-CTD10">DL-CTD10</option>
+            <option value="DL-DLR2-002">DL-DLR2-002</option>
+            <option value="DL-DLR2-003">DL-DLR2-003</option>
+            <option value="DL-DLR2-004">DL-DLR2-004</option>
+            <option value="DL-DLR2-005">DL-DLR2-005</option>
+            <option value="DL-DLR2-006">DL-DLR2-006</option>
+            <option value="DL-DLR2-008">DL-DLR2-008</option>
+            <option value="DL-DLR2-010">DL-DLR2-010</option>
+            <option value="DL-DLR2-012">DL-DLR2-012</option>
+            <option value="DL-DS18">DL-DS18</option>
+            <option value="DL-GS3">DL-GS3</option>
+            <option value="DL-IAM">DL-IAM</option>
+            <option value="DL-ITST">DL-ITST</option>
+            <option value="DL-KL66">DL-KL66</option>
+            <option value="DL-LP8P">DL-LP8P</option>
+            <option value="DL-MBX">DL-MBX</option>
+            <option value="DL-OPTOD">DL-OPTOD</option>
+            <option value="DL-PAR">DL-PAR</option>
+            <option value="DL-PR21">DL-PR21</option>
+            <option value="DL-PR26">DL-PR26</option>
+            <option value="DL-PR36">DL-PR36</option>
+            <option value="DL-PR36CTD">DL-PR36CTD</option>
+            <option value="DL-PYR">DL-PYR</option>
+            <option value="DL-RHC">DL-RHC</option>
+            <option value="DL-SHT21">DL-SHT21</option>
+            <option value="DL-SHT35">DL-SHT35</option>
+            <option value="DL-SMTP">DL-SMTP</option>
+            <option value="DL-TBRG">DL-TBRG</option>
+            <option value="DL-TRS11">DL-TRS11</option>
+            <option value="DL-TRS12">DL-TRS12</option>
+            <option value="DL-TRS21">DL-TRS21</option>
+            <option value="DL-WRM">DL-WRM</option>
+            <option value="DL-ZN1">DL-ZN1</option>
+            <option value="DL-ZN2">DL-ZN2</option>
+          </select>
+        </div>
+        <div class="bytes-container">
+          <label for="bytes">Payload</label>
+          <input id="bytes" type="text" onkeyup="forceClick(event)"/>
+        </div>
+        <div class="encoding-container">
+          <label for="encoding">Payload encoding</label>
+          <select id="encoding">
+            <option value="hex" selected>hex</option>
+            <option value="base64">base64</option>
+          </select>
+        </div>
+        <div class="button-container">
+          <button id="decode" type="button" onclick="decode()">Decode</button>
+        </div>
+        <div class="break"></div>
+        <div class="output-container">
+          <div id="params"></div>
+        </div>
+        <div class="break"></div>
+        <div class="output-container"><pre id="output"></pre></div>
+      </div>
+    </div>
+  </body>
+    <script>
+      var decoders = {};
+      
+{ 
+/* https://www.decentlab.com/products/co2-temperature-humidity-and-barometric-pressure-sensor-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-LP8P": [
+      {length: 2,
+       values: [{name: 'air_temperature',
+                 displayName: 'Air temperature',
+                 convert: function (x) { return 175.72 * x[0] / 65536 - 46.85; },
+                 unit: '°C'},
+                {name: 'air_humidity',
+                 displayName: 'Air humidity',
+                 convert: function (x) { return 125 * x[1] / 65536 - 6; },
+                 unit: '%'}]},
+      {length: 2,
+       values: [{name: 'barometer_temperature',
+                 displayName: 'Barometer temperature',
+                 convert: function (x) { return (x[0] - 5000) / 100; },
+                 unit: '°C'},
+                {name: 'barometric_pressure',
+                 displayName: 'Barometric pressure',
+                 convert: function (x) { return x[1] * 2; },
+                 unit: 'Pa'}]},
+      {length: 8,
+       values: [{name: 'co2_concentration',
+                 displayName: 'CO2 concentration',
+                 convert: function (x) { return x[0] - 32768; },
+                 unit: 'ppm'},
+                {name: 'co2_concentration_lpf',
+                 displayName: 'CO2 concentration LPF',
+                 convert: function (x) { return x[1] - 32768; },
+                 unit: 'ppm'},
+                {name: 'co2_sensor_temperature',
+                 displayName: 'CO2 sensor temperature',
+                 convert: function (x) { return (x[2] - 32768) / 100; },
+                 unit: '°C'},
+                {name: 'capacitor_voltage_1',
+                 displayName: 'Capacitor voltage 1',
+                 convert: function (x) { return x[3] / 1000; },
+                 unit: 'V'},
+                {name: 'capacitor_voltage_2',
+                 displayName: 'Capacitor voltage 2',
+                 convert: function (x) { return x[4] / 1000; },
+                 unit: 'V'},
+                {name: 'co2_sensor_status',
+                 displayName: 'CO2 sensor status',
+                 convert: function (x) { return x[5]; }},
+                {name: 'raw_ir_reading',
+                 displayName: 'Raw IR reading',
+                 convert: function (x) { return x[6]; }},
+                {name: 'raw_ir_reading_lpf',
+                 displayName: 'Raw IR reading LPF',
+                 convert: function (x) { return x[7]; }}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    1400: "DL-LP8P",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-LP8P"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/pressure-/-liquid-level-and-temperature-sensor-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  /* device-specific parameters */
+  PARAMETERS: {
+    Pmin: 0.0,
+    Pmax: 1.0
+  },
+  DEVICE_TYPES: {
+    "DL-PR26": [
+      {length: 2,
+       values: [{name: 'pressure',
+                 displayName: 'Pressure',
+                 convert: function (x) { return (x[0] - 16384) / 32768 * (this.PARAMETERS.Pmax - this.PARAMETERS.Pmin) + this.PARAMETERS.Pmin; },
+                 unit: 'bar'},
+                {name: 'temperature',
+                 displayName: 'Temperature',
+                 convert: function (x) { return (x[1] - 384) * 0.003125 - 50; },
+                 unit: '°C'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    359: "DL-PR26",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-PR26"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/pressure-/-liquid-level-and-temperature-sensor-with-g1/4-pipe-thread-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  /* device-specific parameters */
+  PARAMETERS: {
+    Pmin: -1.0,
+    Pmax: 10.0
+  },
+  DEVICE_TYPES: {
+    "DL-PR21": [
+      {length: 2,
+       values: [{name: 'pressure',
+                 displayName: 'Pressure',
+                 convert: function (x) { return (x[0] - 16384) / 32768 * (this.PARAMETERS.Pmax - this.PARAMETERS.Pmin) + this.PARAMETERS.Pmin; },
+                 unit: 'bar'},
+                {name: 'temperature',
+                 displayName: 'Temperature',
+                 convert: function (x) { return (x[1] - 384) * 0.003125 - 50; },
+                 unit: '°C'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    359: "DL-PR21",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-PR21"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/high-precision-pressure-/-liquid-level-and-temperature-sensor-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  /* device-specific parameters */
+  PARAMETERS: {
+    kp: 8192
+  },
+  DEVICE_TYPES: {
+    "DL-PR36": [
+      {length: 2,
+       values: [{name: 'pressure',
+                 displayName: 'Pressure',
+                 convert: function (x) { return (x[0] - 32768) / this.PARAMETERS.kp; },
+                 unit: 'bar'},
+                {name: 'temperature',
+                 displayName: 'Temperature',
+                 convert: function (x) { return (x[1] - 32768) / 256; },
+                 unit: '°C'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    811: "DL-PR36",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-PR36"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/high-precision-pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  /* device-specific parameters */
+  PARAMETERS: {
+    kp: 8192
+  },
+  DEVICE_TYPES: {
+    "DL-PR36CTD": [
+      {length: 4,
+       values: [{name: 'pressure',
+                 displayName: 'Pressure',
+                 convert: function (x) { return (x[0] - 32768) / this.PARAMETERS.kp; },
+                 unit: 'bar'},
+                {name: 'temperature_electronics',
+                 displayName: 'Temperature (electronics)',
+                 convert: function (x) { return (x[1] - 32768) / 256; },
+                 unit: '°C'},
+                {name: 'temperature_pt1000',
+                 displayName: 'Temperature (PT1000)',
+                 convert: function (x) { return (x[2] - 32768) / 256; },
+                 unit: '°C'},
+                {name: 'electrical_conductivity',
+                 displayName: 'Electrical conductivity',
+                 convert: function (x) { return (x[3] - 32768) / 1024; },
+                 unit: 'mS⋅cm⁻¹'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    2583: "DL-PR36CTD",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-PR36CTD"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/indoor-ambiance-monitor-including-co2-tvoc-and-motion-sensor-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-IAM": [
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]},
+      {length: 2,
+       values: [{name: 'air_temperature',
+                 displayName: 'Air temperature',
+                 convert: function (x) { return 175 * x[0] / 65535 - 45; },
+                 unit: '°C'},
+                {name: 'air_humidity',
+                 displayName: 'Air humidity',
+                 convert: function (x) { return 100 * x[1] / 65535; },
+                 unit: '%'}]},
+      {length: 1,
+       values: [{name: 'barometric_pressure',
+                 displayName: 'Barometric pressure',
+                 convert: function (x) { return x[0] * 2; },
+                 unit: 'Pa'}]},
+      {length: 2,
+       values: [{name: 'ambient_light_visible_infrared',
+                 displayName: 'Ambient light (visible + infrared)',
+                 convert: function (x) { return x[0]; }},
+                {name: 'ambient_light_infrared',
+                 displayName: 'Ambient light (infrared)',
+                 convert: function (x) { return x[1]; }},
+                {name: 'illuminance',
+                 displayName: 'Illuminance',
+                 convert: function (x) { return Math.max(Math.max(1.0 * x[0] - 1.64 * x[1], 0.59 * x[0] - 0.86 * x[1]), 0) * 1.5504; },
+                 unit: 'lx'}]},
+      {length: 3,
+       values: [{name: 'co2_concentration',
+                 displayName: 'CO2 concentration',
+                 convert: function (x) { return x[0] - 32768; },
+                 unit: 'ppm'},
+                {name: 'co2_sensor_status',
+                 displayName: 'CO2 sensor status',
+                 convert: function (x) { return x[1]; }},
+                {name: 'raw_ir_reading',
+                 displayName: 'Raw IR reading',
+                 convert: function (x) { return x[2]; }}]},
+      {length: 1,
+       values: [{name: 'activity_counter',
+                 displayName: 'Activity counter',
+                 convert: function (x) { return x[0]; }}]},
+      {length: 1,
+       values: [{name: 'total_voc',
+                 displayName: 'Total VOC',
+                 convert: function (x) { return x[0]; },
+                 unit: 'ppb'}]}
+    ],
+  },
+  DEVICES: {
+    3005: "DL-IAM",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-IAM"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/support */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-SHT21": [
+      {length: 2,
+       values: [{name: 'air_temperature',
+                 displayName: 'Air temperature',
+                 convert: function (x) { return 175.72 * x[0] / 65536 - 46.85; },
+                 unit: '°C'},
+                {name: 'air_humidity',
+                 displayName: 'Air humidity',
+                 convert: function (x) { return 125 * x[1] / 65536 - 6; },
+                 unit: '%'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    782: "DL-SHT21",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-SHT21"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/strain-/-weight-sensor-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  /* device-specific parameters */
+  PARAMETERS: {
+    f0: 15383.72,
+    k: 46.4859
+  },
+  DEVICE_TYPES: {
+    "DL-KL66": [
+      {length: 3,
+       values: [{name: 'counter_reading',
+                 displayName: 'Counter reading',
+                 convert: function (x) { return x[0]; }},
+                {name: 'measurement_interval',
+                 displayName: 'Measurement interval',
+                 convert: function (x) { return x[1] / 32768; }},
+                {name: 'frequency',
+                 displayName: 'Frequency',
+                 convert: function (x) { return x[0] / x[1] * 32768; },
+                 unit: 'Hz'},
+                {name: 'weight',
+                 displayName: 'Weight',
+                 convert: function (x) { return (Math.pow(x[0] / x[1] * 32768, 2) - Math.pow(this.PARAMETERS.f0, 2)) * this.PARAMETERS.k / 1000000; },
+                 unit: 'g'},
+                {name: 'elongation',
+                 displayName: 'Elongation',
+                 convert: function (x) { return (Math.pow(x[0] / x[1] * 32768, 2) - Math.pow(this.PARAMETERS.f0, 2)) * this.PARAMETERS.k / 1000000 * (-1.5) / 1000 * 9.8067; },
+                 unit: 'µm'},
+                {name: 'strain',
+                 displayName: 'Strain',
+                 convert: function (x) { return (Math.pow(x[0] / x[1] * 32768, 2) - Math.pow(this.PARAMETERS.f0, 2)) * this.PARAMETERS.k / 1000000 * (-1.5) / 1000 * 9.8067 / 0.066; },
+                 unit: 'µm⋅m⁻¹'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    980: "DL-KL66",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-KL66"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/wind-speed-wind-direction-and-temperature-sensor-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-ATM22": [
+      {length: 8,
+       values: [{name: 'wind_speed',
+                 displayName: 'Wind speed',
+                 convert: function (x) { return (x[0] - 32768) / 100; },
+                 unit: 'm⋅s⁻¹'},
+                {name: 'wind_direction',
+                 displayName: 'Wind direction',
+                 convert: function (x) { return (x[1] - 32768) / 10; },
+                 unit: '°'},
+                {name: 'maximum_wind_speed',
+                 displayName: 'Maximum wind speed',
+                 convert: function (x) { return (x[2] - 32768) / 100; },
+                 unit: 'm⋅s⁻¹'},
+                {name: 'air_temperature',
+                 displayName: 'Air temperature',
+                 convert: function (x) { return (x[3] - 32768) / 10; },
+                 unit: '°C'},
+                {name: 'x_orientation_angle',
+                 displayName: 'X orientation angle',
+                 convert: function (x) { return (x[4] - 32768) / 10; },
+                 unit: '°'},
+                {name: 'y_orientation_angle',
+                 displayName: 'Y orientation angle',
+                 convert: function (x) { return (x[5] - 32768) / 10; },
+                 unit: '°'},
+                {name: 'north_wind_speed',
+                 displayName: 'North wind speed',
+                 convert: function (x) { return (x[6] - 32768) / 100; },
+                 unit: 'm⋅s⁻¹'},
+                {name: 'east_wind_speed',
+                 displayName: 'East wind speed',
+                 convert: function (x) { return (x[7] - 32768) / 100; },
+                 unit: 'm⋅s⁻¹'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    2249: "DL-ATM22",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-ATM22"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/ultrasonic-distance-/-level-sensor-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-MBX": [
+      {length: 2,
+       values: [{name: 'distance',
+                 displayName: 'Distance',
+                 convert: function (x) { return x[0]; },
+                 unit: 'mm'},
+                {name: 'number_of_valid_samples',
+                 displayName: 'Number of valid samples',
+                 convert: function (x) { return x[1]; }}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    303: "DL-MBX",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-MBX"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  /* device-specific parameters */
+  PARAMETERS: {
+    R: 10.0
+  },
+  DEVICE_TYPES: {
+    "DL-DLR2-004": [
+      {length: 1,
+       values: [{name: 'current',
+                 displayName: 'Current',
+                 convert: function (x) { return 3 * (x[0] - 32768) / 32768 / 2 / this.PARAMETERS.R * 1000; },
+                 unit: 'mA'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    2226: "DL-DLR2-004",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-DLR2-004"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/air-quality-station-no2-no-co-ox-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  /* device-specific parameters */
+  PARAMETERS: {
+    NO2_WE_0: 256,
+    NO2_S: 0.256,
+    NO2_AUX_0: 227,
+    NO_WE_0: 320,
+    NO_S: 0.512,
+    NO_AUX_0: 288,
+    Ox_WE_0: 235,
+    Ox_S: 0.345,
+    Ox_AUX_0: 200,
+    CO_WE_0: 544,
+    CO_S: 0.424,
+    CO_AUX_0: 301
+  },
+  DEVICE_TYPES: {
+    "DL-AC": [
+      {length: 2,
+       values: [{name: 'air_temperature',
+                 displayName: 'Air temperature',
+                 convert: function (x) { return 175.72 * x[0] / 65536 - 46.85; },
+                 unit: '°C'},
+                {name: 'air_humidity',
+                 displayName: 'Air humidity',
+                 convert: function (x) { return 125 * x[1] / 65536 - 6; },
+                 unit: '%'}]},
+      {length: 2,
+       values: [{name: 'ch4_no2_we',
+                 displayName: 'CH4: NO2 (we)',
+                 convert: function (x) { return 3 * (x[0] / 32768 - 1) * 1000; },
+                 unit: 'mV'},
+                {name: 'ch4_no2_we_aux',
+                 displayName: 'CH4: NO2 (we-aux)',
+                 convert: function (x) { return 3 * (x[1] / 32768 - 1) * 1000; },
+                 unit: 'mV'},
+                {name: 'ch4_no2_concentration_we',
+                 displayName: 'CH4: NO2 concentration (we)',
+                 convert: function (x) { return (3 * (x[0] / 32768 - 1) * 1000 - this.PARAMETERS.NO2_WE_0) / this.PARAMETERS.NO2_S; },
+                 unit: 'ppb'},
+                {name: 'ch4_no2_concentration_we_aux',
+                 displayName: 'CH4: NO2 concentration (we-aux)',
+                 convert: function (x) { return (3 * (x[1] / 32768 - 1) * 1000 - this.PARAMETERS.NO2_WE_0 + this.PARAMETERS.NO2_AUX_0) / this.PARAMETERS.NO2_S; },
+                 unit: 'ppb'}]},
+      {length: 2,
+       values: [{name: 'ch5_no_we',
+                 displayName: 'CH5: NO (we)',
+                 convert: function (x) { return 3 * (x[0] / 32768 - 1) * 1000; },
+                 unit: 'mV'},
+                {name: 'ch5_no_we_aux',
+                 displayName: 'CH5: NO (we-aux)',
+                 convert: function (x) { return 3 * (x[1] / 32768 - 1) * 1000; },
+                 unit: 'mV'},
+                {name: 'ch5_no_concentration_we',
+                 displayName: 'CH5: NO concentration (we)',
+                 convert: function (x) { return (3 * (x[0] / 32768 - 1) * 1000 - this.PARAMETERS.NO_WE_0) / this.PARAMETERS.NO_S; },
+                 unit: 'ppb'},
+                {name: 'ch5_no_concentration_we_aux',
+                 displayName: 'CH5: NO concentration (we-aux)',
+                 convert: function (x) { return (3 * (x[1] / 32768 - 1) * 1000 - this.PARAMETERS.NO_WE_0 + this.PARAMETERS.NO_AUX_0) / this.PARAMETERS.NO_S; },
+                 unit: 'ppb'}]},
+      {length: 2,
+       values: [{name: 'ch6_ox_we',
+                 displayName: 'CH6: Ox (we)',
+                 convert: function (x) { return 3 * (x[0] / 32768 - 1) * 1000; },
+                 unit: 'mV'},
+                {name: 'ch6_ox_we_aux',
+                 displayName: 'CH6: Ox (we-aux)',
+                 convert: function (x) { return 3 * (x[1] / 32768 - 1) * 1000; },
+                 unit: 'mV'},
+                {name: 'ch6_ox_concentration_we',
+                 displayName: 'CH6: Ox concentration (we)',
+                 convert: function (x) { return (3 * (x[0] / 32768 - 1) * 1000 - this.PARAMETERS.Ox_WE_0) / this.PARAMETERS.Ox_S; },
+                 unit: 'ppb'},
+                {name: 'ch6_ox_concentration_we_aux',
+                 displayName: 'CH6: Ox concentration (we-aux)',
+                 convert: function (x) { return (3 * (x[1] / 32768 - 1) * 1000 - this.PARAMETERS.Ox_WE_0 + this.PARAMETERS.Ox_AUX_0) / this.PARAMETERS.Ox_S; },
+                 unit: 'ppb'}]},
+      {length: 2,
+       values: [{name: 'ch7_co_we',
+                 displayName: 'CH7: CO (we)',
+                 convert: function (x) { return 3 * (x[0] / 32768 - 1) * 1000; },
+                 unit: 'mV'},
+                {name: 'ch7_co_we_aux',
+                 displayName: 'CH7: CO (we-aux)',
+                 convert: function (x) { return 3 * (x[1] / 32768 - 1) * 1000; },
+                 unit: 'mV'},
+                {name: 'ch7_co_concentration_we',
+                 displayName: 'CH7: CO concentration (we)',
+                 convert: function (x) { return (3 * (x[0] / 32768 - 1) * 1000 - this.PARAMETERS.CO_WE_0) / this.PARAMETERS.CO_S; },
+                 unit: 'ppb'},
+                {name: 'ch7_co_concentration_we_aux',
+                 displayName: 'CH7: CO concentration (we-aux)',
+                 convert: function (x) { return (3 * (x[1] / 32768 - 1) * 1000 - this.PARAMETERS.CO_WE_0 + this.PARAMETERS.CO_AUX_0) / this.PARAMETERS.CO_S; },
+                 unit: 'ppb'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    4000: "DL-AC",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-AC"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/air-temperature-and-humidity-sensor-with-radiation-shield-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-SHT35": [
+      {length: 2,
+       values: [{name: 'air_temperature',
+                 displayName: 'Air temperature',
+                 convert: function (x) { return 175 * x[0] / 65535 - 45; },
+                 unit: '°C'},
+                {name: 'air_humidity',
+                 displayName: 'Air humidity',
+                 convert: function (x) { return 100 * x[1] / 65535; },
+                 unit: '%'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    782: "DL-SHT35",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-SHT35"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/photosynthetically-active-radiation-sensor-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-PAR": [
+      {length: 1,
+       values: [{name: 'photosynthetically_active_radiation',
+                 displayName: 'Photosynthetically active radiation',
+                 convert: function (x) { return 3 * (x[0] / 32768 - 1) * 1000 * 5; },
+                 unit: 'µmol⋅m⁻²⋅s⁻¹'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    657: "DL-PAR",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-PAR"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/total-solar-radiation-sensor-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-PYR": [
+      {length: 1,
+       values: [{name: 'total_solar_radiation',
+                 displayName: 'Total solar radiation',
+                 convert: function (x) { return 3 * (x[0] / 32768 - 1) * 1000 * 5; },
+                 unit: 'W⋅m⁻²'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    657: "DL-PYR",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-PYR"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/soil-moisture-temperature-and-electrical-conductivity-sensor-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-TRS12": [
+      {length: 3,
+       values: [{name: 'dielectric_permittivity',
+                 displayName: 'Dielectric permittivity',
+                 convert: function (x) { return Math.pow(0.000000002887 * Math.pow(x[0]/10, 3) - 0.0000208 * Math.pow(x[0]/10, 2) + 0.05276 * (x[0]/10) - 43.39, 2); }},
+                {name: 'volumetric_water_content',
+                 displayName: 'Volumetric water content',
+                 convert: function (x) { return x[0]/10 * 0.0003879 - 0.6956; },
+                 unit: 'm³⋅m⁻³'},
+                {name: 'soil_temperature',
+                 displayName: 'Soil temperature',
+                 convert: function (x) { return (x[1] - 32768) / 10; },
+                 unit: '°C'},
+                {name: 'electrical_conductivity',
+                 displayName: 'Electrical conductivity',
+                 convert: function (x) { return x[2]; },
+                 unit: 'µS⋅cm⁻¹'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    4307: "DL-TRS12",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-TRS12"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/soil-water-potential-and-temperature-sensor-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-TRS21": [
+      {length: 2,
+       values: [{name: 'water_potential',
+                 displayName: 'Water potential',
+                 convert: function (x) { return -(x[0] / 10); },
+                 unit: 'kPa'},
+                {name: 'soil_temperature',
+                 displayName: 'Soil temperature',
+                 convert: function (x) { return (x[1] - 32768) / 10; },
+                 unit: '°C'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    402: "DL-TRS21",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-TRS21"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/tipping-bucket-rain-gauge-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  /* device-specific parameters */
+  PARAMETERS: {
+    resolution: 0.1
+  },
+  DEVICE_TYPES: {
+    "DL-TBRG": [
+      {length: 4,
+       values: [{name: 'precipitation',
+                 displayName: 'Precipitation',
+                 convert: function (x) { return x[0] * this.PARAMETERS.resolution; },
+                 unit: 'mm'},
+                {name: 'precipitation_interval',
+                 displayName: 'Precipitation interval',
+                 convert: function (x) { return x[1]; },
+                 unit: 's'},
+                {name: 'cumulative_precipitation',
+                 displayName: 'Cumulative precipitation',
+                 convert: function (x) { return (x[2] + x[3] * 65536) * this.PARAMETERS.resolution; },
+                 unit: 'mm'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    760: "DL-TBRG",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-TBRG"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/temperature-sensor-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-DS18": [
+      {length: 1,
+       values: [{name: 'temperature',
+                 displayName: 'Temperature',
+                 convert: function (x) { return (x[0] - 32768) / 16; },
+                 unit: '°C'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    573: "DL-DS18",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-DS18"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-CTD10": [
+      {length: 4,
+       values: [{name: 'water_depth',
+                 displayName: 'Water depth',
+                 convert: function (x) { return x[0] - 32768; },
+                 unit: 'mm'},
+                {name: 'temperature',
+                 displayName: 'Temperature',
+                 convert: function (x) { return (x[1] - 32768) / 10; },
+                 unit: '°C'},
+                {name: 'electrical_conductivity',
+                 displayName: 'Electrical conductivity',
+                 convert: function (x) { return x[2]; },
+                 unit: 'µS⋅cm⁻¹'},
+                {name: 'freezing_flag',
+                 displayName: 'Freezing flag',
+                 convert: function (x) { return x[3]; }}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    2009: "DL-CTD10",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-CTD10"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/soil-moisture-and-temperature-profile-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-SMTP": [
+      {length: 16,
+       values: [{name: 'soil_moisture_at_depth_0',
+                 displayName: 'Soil moisture at depth 0',
+                 convert: function (x) { return (x[0] - 2500) / 500; }},
+                {name: 'soil_temperature_at_depth_0',
+                 displayName: 'Soil temperature at depth 0',
+                 convert: function (x) { return (x[1] - 32768) / 100; },
+                 unit: '°C'},
+                {name: 'soil_moisture_at_depth_1',
+                 displayName: 'Soil moisture at depth 1',
+                 convert: function (x) { return (x[2] - 2500) / 500; }},
+                {name: 'soil_temperature_at_depth_1',
+                 displayName: 'Soil temperature at depth 1',
+                 convert: function (x) { return (x[3] - 32768) / 100; },
+                 unit: '°C'},
+                {name: 'soil_moisture_at_depth_2',
+                 displayName: 'Soil moisture at depth 2',
+                 convert: function (x) { return (x[4] - 2500) / 500; }},
+                {name: 'soil_temperature_at_depth_2',
+                 displayName: 'Soil temperature at depth 2',
+                 convert: function (x) { return (x[5] - 32768) / 100; },
+                 unit: '°C'},
+                {name: 'soil_moisture_at_depth_3',
+                 displayName: 'Soil moisture at depth 3',
+                 convert: function (x) { return (x[6] - 2500) / 500; }},
+                {name: 'soil_temperature_at_depth_3',
+                 displayName: 'Soil temperature at depth 3',
+                 convert: function (x) { return (x[7] - 32768) / 100; },
+                 unit: '°C'},
+                {name: 'soil_moisture_at_depth_4',
+                 displayName: 'Soil moisture at depth 4',
+                 convert: function (x) { return (x[8] - 2500) / 500; }},
+                {name: 'soil_temperature_at_depth_4',
+                 displayName: 'Soil temperature at depth 4',
+                 convert: function (x) { return (x[9] - 32768) / 100; },
+                 unit: '°C'},
+                {name: 'soil_moisture_at_depth_5',
+                 displayName: 'Soil moisture at depth 5',
+                 convert: function (x) { return (x[10] - 2500) / 500; }},
+                {name: 'soil_temperature_at_depth_5',
+                 displayName: 'Soil temperature at depth 5',
+                 convert: function (x) { return (x[11] - 32768) / 100; },
+                 unit: '°C'},
+                {name: 'soil_moisture_at_depth_6',
+                 displayName: 'Soil moisture at depth 6',
+                 convert: function (x) { return (x[12] - 2500) / 500; }},
+                {name: 'soil_temperature_at_depth_6',
+                 displayName: 'Soil temperature at depth 6',
+                 convert: function (x) { return (x[13] - 32768) / 100; },
+                 unit: '°C'},
+                {name: 'soil_moisture_at_depth_7',
+                 displayName: 'Soil moisture at depth 7',
+                 convert: function (x) { return (x[14] - 2500) / 500; }},
+                {name: 'soil_temperature_at_depth_7',
+                 displayName: 'Soil temperature at depth 7',
+                 convert: function (x) { return (x[15] - 32768) / 100; },
+                 unit: '°C'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    2896: "DL-SMTP",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-SMTP"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/support */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-10HS": [
+      {length: 1,
+       values: [{name: 'raw_sensor_reading',
+                 displayName: 'Raw sensor reading',
+                 convert: function (x) { return 3 * (x[0] - 32768) / 32768 * 1000; },
+                 unit: 'mV'},
+                {name: 'volumetric_water_content',
+                 displayName: 'Volumetric water content',
+                 convert: function (x) { return 2.97*Math.pow(10, -9) * Math.pow(3000*(x[0]-32768)/32768, 3) - 7.37*Math.pow(10, -6) * Math.pow(3000*(x[0]-32768)/32768, 2) + 6.69*Math.pow(10, -3) * (3000*(x[0]-32768)/32768) - 1.92; },
+                 unit: 'm³⋅m⁻³'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    735: "DL-10HS",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-10HS"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/support */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-GS3": [
+      {length: 3,
+       values: [{name: 'dielectric_permittivity',
+                 displayName: 'Dielectric permittivity',
+                 convert: function (x) { return x[0] / 100; }},
+                {name: 'volumetric_water_content',
+                 displayName: 'Volumetric water content',
+                 convert: function (x) { return 0.00000589 * Math.pow(x[0]/100, 3) - 0.000762 * Math.pow(x[0]/100, 2) + 0.0367 * (x[0]/100) - 0.0753; },
+                 unit: 'm³⋅m⁻³'},
+                {name: 'soil_temperature',
+                 displayName: 'Soil temperature',
+                 convert: function (x) { return (x[1] - 32768) / 10; },
+                 unit: '°C'},
+                {name: 'electrical_conductivity',
+                 displayName: 'Electrical conductivity',
+                 convert: function (x) { return x[2]; },
+                 unit: 'µS⋅cm⁻¹'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    867: "DL-GS3",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-GS3"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/legacy-soil-moisture-and-temperature-sensor-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-5TM": [
+      {length: 2,
+       values: [{name: 'dielectric_permittivity',
+                 displayName: 'Dielectric permittivity',
+                 convert: function (x) { return x[0] / 50; }},
+                {name: 'volumetric_water_content',
+                 displayName: 'Volumetric water content',
+                 convert: function (x) { return 0.0000043 * Math.pow(x[0]/50, 3) - 0.00055 * Math.pow(x[0]/50, 2) + 0.0292 * (x[0]/50) - 0.053; },
+                 unit: 'm³⋅m⁻³'},
+                {name: 'soil_temperature',
+                 displayName: 'Soil temperature',
+                 convert: function (x) { return (x[1] - 400) / 10; },
+                 unit: '°C'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    571: "DL-5TM",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-5TM"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/support */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-5TE": [
+      {length: 3,
+       values: [{name: 'dielectric_permittivity',
+                 displayName: 'Dielectric permittivity',
+                 convert: function (x) { return x[0] / 50; }},
+                {name: 'volumetric_water_content',
+                 displayName: 'Volumetric water content',
+                 convert: function (x) { return 0.0000043 * Math.pow(x[0]/50, 3) - 0.00055 * Math.pow(x[0]/50, 2) + 0.0292 * (x[0]/50) - 0.053; },
+                 unit: 'm³⋅m⁻³'},
+                {name: 'soil_temperature',
+                 displayName: 'Soil temperature',
+                 convert: function (x) { return (x[1] - 400) / 10; },
+                 unit: '°C'},
+                {name: 'electrical_conductivity',
+                 displayName: 'Electrical conductivity',
+                 convert: function (x) { return x[2] * 10; },
+                 unit: 'µS⋅cm⁻¹'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    796: "DL-5TE",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-5TE"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/eleven-parameter-weather-station-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-ATM41": [
+      {length: 17,
+       values: [{name: 'solar_radiation',
+                 displayName: 'Solar radiation',
+                 convert: function (x) { return x[0] - 32768; },
+                 unit: 'W⋅m⁻²'},
+                {name: 'precipitation',
+                 displayName: 'Precipitation',
+                 convert: function (x) { return (x[1] - 32768) / 1000; },
+                 unit: 'mm'},
+                {name: 'lightning_strike_count',
+                 displayName: 'Lightning strike count',
+                 convert: function (x) { return x[2] - 32768; }},
+                {name: 'lightning_average_distance',
+                 displayName: 'Lightning average distance',
+                 convert: function (x) { return x[3] - 32768; },
+                 unit: 'km'},
+                {name: 'wind_speed',
+                 displayName: 'Wind speed',
+                 convert: function (x) { return (x[4] - 32768) / 100; },
+                 unit: 'm⋅s⁻¹'},
+                {name: 'wind_direction',
+                 displayName: 'Wind direction',
+                 convert: function (x) { return (x[5] - 32768) / 10; },
+                 unit: '°'},
+                {name: 'maximum_wind_speed',
+                 displayName: 'Maximum wind speed',
+                 convert: function (x) { return (x[6] - 32768) / 100; },
+                 unit: 'm⋅s⁻¹'},
+                {name: 'air_temperature',
+                 displayName: 'Air temperature',
+                 convert: function (x) { return (x[7] - 32768) / 10; },
+                 unit: '°C'},
+                {name: 'vapor_pressure',
+                 displayName: 'Vapor pressure',
+                 convert: function (x) { return (x[8] - 32768) / 100; },
+                 unit: 'kPa'},
+                {name: 'atmospheric_pressure',
+                 displayName: 'Atmospheric pressure',
+                 convert: function (x) { return (x[9] - 32768) / 100; },
+                 unit: 'kPa'},
+                {name: 'relative_humidity',
+                 displayName: 'Relative humidity',
+                 convert: function (x) { return (x[10] - 32768) / 10; },
+                 unit: '%'},
+                {name: 'sensor_temperature_internal',
+                 displayName: 'Sensor temperature (internal)',
+                 convert: function (x) { return (x[11] - 32768) / 10; },
+                 unit: '°C'},
+                {name: 'x_orientation_angle',
+                 displayName: 'X orientation angle',
+                 convert: function (x) { return (x[12] - 32768) / 10; },
+                 unit: '°'},
+                {name: 'y_orientation_angle',
+                 displayName: 'Y orientation angle',
+                 convert: function (x) { return (x[13] - 32768) / 10; },
+                 unit: '°'},
+                {name: 'compass_heading',
+                 displayName: 'Compass heading',
+                 convert: function (x) { return x[14] - 32768; },
+                 unit: '°'},
+                {name: 'north_wind_speed',
+                 displayName: 'North wind speed',
+                 convert: function (x) { return (x[15] - 32768) / 100; },
+                 unit: 'm⋅s⁻¹'},
+                {name: 'east_wind_speed',
+                 displayName: 'East wind speed',
+                 convert: function (x) { return (x[16] - 32768) / 100; },
+                 unit: 'm⋅s⁻¹'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    858: "DL-ATM41",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-ATM41"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/soil-moisture-temperature-and-electrical-conductivity-sensor-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-TRS11": [
+      {length: 2,
+       values: [{name: 'dielectric_permittivity',
+                 displayName: 'Dielectric permittivity',
+                 convert: function (x) { return Math.pow(0.000000002887 * Math.pow(x[0]/10, 3) - 0.0000208 * Math.pow(x[0]/10, 2) + 0.05276 * (x[0]/10) - 43.39, 2); }},
+                {name: 'volumetric_water_content',
+                 displayName: 'Volumetric water content',
+                 convert: function (x) { return x[0]/10 * 0.0003879 - 0.6956; },
+                 unit: 'm³⋅m⁻³'},
+                {name: 'soil_temperature',
+                 displayName: 'Soil temperature',
+                 convert: function (x) { return (x[1] - 32768) / 10; },
+                 unit: '°C'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    4309: "DL-TRS11",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-TRS11"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/infrared-thermometer-/-surface-temperature-sensor-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-ITST": [
+      {length: 2,
+       values: [{name: 'temperature_target',
+                 displayName: 'Temperature target',
+                 convert: function (x) { return (x[0] - 1000) / 10; },
+                 unit: '°C'},
+                {name: 'temperature_head',
+                 displayName: 'Temperature head',
+                 convert: function (x) { return (x[1] - 1000) / 10; },
+                 unit: '°C'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    729: "DL-ITST",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-ITST"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/dendrometer-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-ZN1": [
+      {length: 2,
+       values: [{name: 'dendrometer_position',
+                 displayName: 'Dendrometer position',
+                 convert: function (x) { return ((x[0] + x[1]*65536) / 8388608 - 1) * 20000; },
+                 unit: 'µm'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    4369: "DL-ZN1",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-ZN1"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/dendrometer-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-ZN2": [
+      {length: 4,
+       values: [{name: 'dendrometer_a_position',
+                 displayName: 'Dendrometer A Position',
+                 convert: function (x) { return ((x[0] + x[1]*65536) / 8388608 - 1) * 20000; },
+                 unit: 'µm'},
+                {name: 'dendrometer_b_position',
+                 displayName: 'Dendrometer B Position',
+                 convert: function (x) { return ((x[0] + x[1]*65536) / 8388608 - (x[2] + x[3]*65536) / 8388608) * 20000; },
+                 unit: 'µm'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    4369: "DL-ZN2",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-ZN2"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/support */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-WRM": [
+      {length: 2,
+       values: [{name: 'air_temperature',
+                 displayName: 'Air temperature',
+                 convert: function (x) { return 175 * x[0] / 65535 - 45; },
+                 unit: '°C'},
+                {name: 'air_humidity',
+                 displayName: 'Air humidity',
+                 convert: function (x) { return 100 * x[1] / 65535; },
+                 unit: '%'}]},
+      {length: 2,
+       values: [{name: 'surface_temperature',
+                 displayName: 'Surface temperature',
+                 convert: function (x) { return (x[0] - 1000) / 10; },
+                 unit: '°C'},
+                {name: 'head_temperature',
+                 displayName: 'Head temperature',
+                 convert: function (x) { return (x[1] - 1000) / 10; },
+                 unit: '°C'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    6672: "DL-WRM",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-WRM"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/high-precision-air-temperature-and-humidity-sensor-with-radiation-shield-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-RHC": [
+      {length: 4,
+       values: [{name: 'sensor_id',
+                 displayName: 'Sensor ID',
+                 convert: function (x) { return x[0] + x[1] * 65536; }},
+                {name: 'air_humidity',
+                 displayName: 'Air humidity',
+                 convert: function (x) { return x[2] / 100; },
+                 unit: '%'},
+                {name: 'air_temperature',
+                 displayName: 'Air temperature',
+                 convert: function (x) { return (x[3] - 32768) / 100; },
+                 unit: '°C'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    736: "DL-RHC",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-RHC"] = decentlab_decoder;
+}
+      
+{ var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-OPTOD": [
+      {length: 5,
+       values: [{name: 'status',
+                 displayName: 'Status',
+                 convert: function (x) { return x[0]; }},
+                {name: 'temperature',
+                 displayName: 'Temperature',
+                 convert: function (x) { return (x[1] - 32768) / 100; },
+                 unit: '°C'},
+                {name: 'oxygen_saturation',
+                 displayName: 'Oxygen saturation',
+                 convert: function (x) { return (x[2] - 32768) / 100; },
+                 unit: '%'},
+                {name: 'oxygen_concentration',
+                 displayName: 'Oxygen concentration',
+                 convert: function (x) { return (x[3] - 32768) / 100; },
+                 unit: 'mg⋅L⁻¹'},
+                {name: 'oxygen_concentration_alt',
+                 displayName: 'Oxygen concentration (alt)',
+                 convert: function (x) { return (x[4] - 32768) / 100; },
+                 unit: 'ppm'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    6252: "DL-OPTOD",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-OPTOD"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-DLR2-002": [
+      {length: 4,
+       values: [{name: 'pulse_count',
+                 displayName: 'Pulse count',
+                 convert: function (x) { return x[0]; }},
+                {name: 'pulse_interval',
+                 displayName: 'Pulse interval',
+                 convert: function (x) { return x[1]; },
+                 unit: 's'},
+                {name: 'cumulative_pulse_count',
+                 displayName: 'Cumulative pulse count',
+                 convert: function (x) { return (x[2] + x[3] * 65536); }}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    6558: "DL-DLR2-002",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-DLR2-002"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-DLR2-003": [
+      {length: 1,
+       values: [{name: 'input',
+                 displayName: 'Input',
+                 convert: function (x) { return x[0]; }}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    6555: "DL-DLR2-003",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-DLR2-003"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-DLR2-005": [
+      {length: 2,
+       values: [{name: 'voltage',
+                 displayName: 'Voltage',
+                 convert: function (x) { return 3 * ((x[0] + x[1]*65536) / 8388608 - 1); },
+                 unit: 'V'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    4410: "DL-DLR2-005",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-DLR2-005"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-DLR2-006": [
+      {length: 2,
+       values: [{name: 'potentiometer_position',
+                 displayName: 'Potentiometer position',
+                 convert: function (x) { return ((x[0] + x[1]*65536) / 8388608 - 1) * 1; }}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    4369: "DL-DLR2-006",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-DLR2-006"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-DLR2-010": [
+      {length: 4,
+       values: [{name: 'ch0_pulse_count',
+                 displayName: 'CH0: Pulse count',
+                 convert: function (x) { return x[0]; }},
+                {name: 'ch0_pulse_interval',
+                 displayName: 'CH0: Pulse interval',
+                 convert: function (x) { return x[1]; },
+                 unit: 's'},
+                {name: 'ch0_cumulative_pulse_count',
+                 displayName: 'CH0: Cumulative pulse count',
+                 convert: function (x) { return (x[2] + x[3] * 65536); }}]},
+      {length: 4,
+       values: [{name: 'ch1_pulse_count',
+                 displayName: 'CH1: Pulse count',
+                 convert: function (x) { return x[0]; }},
+                {name: 'ch1_pulse_interval',
+                 displayName: 'CH1: Pulse interval',
+                 convert: function (x) { return x[1]; },
+                 unit: 's'},
+                {name: 'ch1_cumulative_pulse_count',
+                 displayName: 'CH1: Cumulative pulse count',
+                 convert: function (x) { return (x[2] + x[3] * 65536); }}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    6543: "DL-DLR2-010",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-DLR2-010"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  DEVICE_TYPES: {
+    "DL-DLR2-012": [
+      {length: 2,
+       values: [{name: 'strain_gauge',
+                 displayName: 'Strain gauge',
+                 convert: function (x) { return ((x[0] + x[1]*65536) / 8388608 - 1) / 64 * 4 / 2.02 * 1000000; },
+                 unit: 'µm⋅m⁻¹'}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    6019: "DL-DLR2-012",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-DLR2-012"] = decentlab_decoder;
+}
+      
+{ 
+/* https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan */
+
+var decentlab_decoder = {
+  PROTOCOL_VERSION: 2,
+  /* device-specific parameters */
+  PARAMETERS: {
+    R: 2000
+  },
+  DEVICE_TYPES: {
+    "DL-DLR2-008": [
+      {length: 2,
+       values: [{name: 'temperature',
+                 displayName: 'Temperature',
+                 convert: function (x) { return -244.83 + 2.3419 * ((((x[0] + x[1]*65536) / 8388608 - 1) / 2) * this.PARAMETERS.R / (1 - (((x[0] + x[1]*65536) / 8388608 - 1) / 2))) + 0.0010664 * Math.pow((((x[0] + x[1]*65536) / 8388608 - 1) / 2) * this.PARAMETERS.R / (1 - (((x[0] + x[1]*65536) / 8388608 - 1) / 2)), 2); }}]},
+      {length: 1,
+       values: [{name: 'battery_voltage',
+                 displayName: 'Battery voltage',
+                 convert: function (x) { return x[0] / 1000; },
+                 unit: 'V'}]}
+    ],
+  },
+  DEVICES: {
+    2015: "DL-DLR2-008",
+  },
+  read_int: function (bytes, pos) {
+    return (bytes[pos] << 8) + bytes[pos + 1];
+  },
+
+  decode: function (msg, fallback_device_type) {
+    var bytes = msg;
+    var i, j;
+    if (typeof msg === 'string') {
+      bytes = [];
+      for (i = 0; i < msg.length; i += 2) {
+        bytes.push(parseInt(msg.substring(i, i + 2), 16));
+      }
+    }
+
+    var version = bytes[0];
+    if (version != this.PROTOCOL_VERSION) {
+      return {error: "protocol version " + version + " doesn't match v2"};
+    }
+
+    var deviceId = this.read_int(bytes, 1);
+    var deviceType = this.DEVICES[deviceId];
+    if (typeof deviceType === "undefined" &&
+          typeof fallback_device_type !== "undefined") {
+      deviceType = fallback_device_type;
+    }
+
+    var sensors = this.DEVICE_TYPES[deviceType];
+    if (typeof sensors === "undefined") {
+      return {error: "no device definition found for " + deviceId};
+    }
+
+    var flags = this.read_int(bytes, 3);
+    var result = {'protocol_version': version,
+                  'device_id': deviceId,
+                  'device_type': deviceType};
+
+    // decode payload
+    var pos = 5;
+    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+      if ((flags & 1) !== 1)
+        continue;
+
+      var sensor = sensors[i];
+      var x = [];
+      // convert data to 16-bit integer array
+      for (j = 0; j < sensor.length; j++) {
+        x.push(this.read_int(bytes, pos));
+        pos += 2;
+      }
+
+      // decode sensor values
+      for (j = 0; j < sensor.values.length; j++) {
+        var value = sensor.values[j];
+        if ('convert' in value) {
+          result[value.name] = {displayName: value.displayName,
+                                value: value.convert.bind(this)(x),
+                                unit: value.unit};
+        }
+      }
+    }
+    return result;
+  }
+};
+
+
+  decoders["DL-DLR2-008"] = decentlab_decoder;
+}
+      
+
+      /* https://stackoverflow.com/questions/4810841/pretty-print-json-using-javascript */
+      function syntaxHighlight(json) {
+        json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+            var cls = 'number';
+            if (/^"/.test(match)) {
+                if (/:$/.test(match)) {
+                    cls = 'key';
+                } else {
+                    cls = 'string';
+                }
+            } else if (/true|false/.test(match)) {
+                cls = 'boolean';
+            } else if (/null/.test(match)) {
+                cls = 'null';
+            }
+            return '<span class="' + cls + '">' + match + '</span>';
+        });
+      }
+
+      function decode() {
+        var device = document.getElementById("device");
+        var selectedDevice = device.options[device.selectedIndex].value;
+        var encoding = document.getElementById("encoding");
+        var selectedEncoding = encoding.options[encoding.selectedIndex].value;
+        var bytes = document.getElementById("bytes").value;
+        if (selectedEncoding === "base64") {
+          var binary = atob(bytes)
+          var bytes = new Uint8Array(binary.length)
+          for( var i = 0; i < binary.length; i++ ) {
+            bytes[i] = binary.charCodeAt(i)
+          }
+        }
+        var params = decoders[selectedDevice].PARAMETERS;
+        if (typeof params !== "undefined") {
+          Object.keys(params).map(p => {
+            params[p] = Number(document.getElementById(p).value);
+          });
+        }
+        var decoded = decoders[selectedDevice].decode(bytes, selectedDevice);
+        var json = JSON.stringify(decoded, undefined, 2);
+        document.getElementById("output").innerHTML = syntaxHighlight(json);
+      }
+
+      function forceClick(event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          document.getElementById("decode").click();
+        }
+      }
+
+      function updateParams(value) {
+        var params = decoders[value].PARAMETERS;
+        var paramsHtml = "";
+        if (typeof params !== "undefined") {
+          paramsHtml = Object.keys(params).map(p => {
+            return `<span class="params-container"><label for="${p}">${p}</label>=<input id="${p}" type="text" onkeyup="forceClick(event)" value="${params[p]}" size="${Math.max(String(params[p]).length - 2, 1)}"/></span>`;
+          }).join(' ');
+        }
+        document.getElementById("params").innerHTML = paramsHtml;
+      }
+
+    </script>
+</html>
