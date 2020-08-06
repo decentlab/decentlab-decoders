@@ -11,7 +11,7 @@ var decentlab_decoder = {
     {length: 4,
      values: [{name: 'precipitation',
                displayName: 'Precipitation',
-               convert: function (x) { return x[0] * decentlab_decoder.PARAMETERS.resolution; },
+               convert: function (x) { return x[0] * this.PARAMETERS.resolution; },
                unit: 'mm'},
               {name: 'precipitation_interval',
                displayName: 'Precipitation interval',
@@ -19,7 +19,7 @@ var decentlab_decoder = {
                unit: 's'},
               {name: 'cumulative_precipitation',
                displayName: 'Cumulative precipitation',
-               convert: function (x) { return (x[2] + x[3] * 65536) * decentlab_decoder.PARAMETERS.resolution; },
+               convert: function (x) { return (x[2] + x[3] * 65536) * this.PARAMETERS.resolution; },
                unit: 'mm'}]},
     {length: 1,
      values: [{name: 'battery_voltage',
@@ -69,7 +69,7 @@ var decentlab_decoder = {
         var value = sensor.values[j];
         if ('convert' in value) {
           result[value.name] = {displayName: value.displayName,
-                                value: value.convert(x),
+                                value: value.convert.bind(this)(x),
                                 unit: value.unit};
         }
       }

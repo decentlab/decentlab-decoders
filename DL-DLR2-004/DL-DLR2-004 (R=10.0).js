@@ -11,7 +11,7 @@ var decentlab_decoder = {
     {length: 1,
      values: [{name: 'current',
                displayName: 'Current',
-               convert: function (x) { return 3 * (x[0] - 32768) / 32768 / 2 / decentlab_decoder.PARAMETERS.R * 1000; },
+               convert: function (x) { return 3 * (x[0] - 32768) / 32768 / 2 / this.PARAMETERS.R * 1000; },
                unit: 'mA'}]},
     {length: 1,
      values: [{name: 'battery_voltage',
@@ -61,7 +61,7 @@ var decentlab_decoder = {
         var value = sensor.values[j];
         if ('convert' in value) {
           result[value.name] = {displayName: value.displayName,
-                                value: value.convert(x),
+                                value: value.convert.bind(this)(x),
                                 unit: value.unit};
         }
       }

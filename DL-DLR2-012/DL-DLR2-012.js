@@ -57,7 +57,7 @@ var decentlab_decoder = {
         var value = sensor.values[j];
         if ('convert' in value) {
           result[value.name] = {displayName: value.displayName,
-                                value: value.convert(x),
+                                value: value.convert.bind(this)(x),
                                 unit: value.unit};
         }
       }

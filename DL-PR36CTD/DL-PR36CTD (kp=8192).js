@@ -11,7 +11,7 @@ var decentlab_decoder = {
     {length: 4,
      values: [{name: 'pressure',
                displayName: 'Pressure',
-               convert: function (x) { return (x[0] - 32768) / decentlab_decoder.PARAMETERS.kp; },
+               convert: function (x) { return (x[0] - 32768) / this.PARAMETERS.kp; },
                unit: 'bar'},
               {name: 'temperature_electronics',
                displayName: 'Temperature (electronics)',
@@ -73,7 +73,7 @@ var decentlab_decoder = {
         var value = sensor.values[j];
         if ('convert' in value) {
           result[value.name] = {displayName: value.displayName,
-                                value: value.convert(x),
+                                value: value.convert.bind(this)(x),
                                 unit: value.unit};
         }
       }

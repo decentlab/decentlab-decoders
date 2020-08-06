@@ -22,15 +22,15 @@ var decentlab_decoder = {
                unit: 'Hz'},
               {name: 'weight',
                displayName: 'Weight',
-               convert: function (x) { return (Math.pow(x[0] / x[1] * 32768, 2) - Math.pow(decentlab_decoder.PARAMETERS.f0, 2)) * decentlab_decoder.PARAMETERS.k / 1000000; },
+               convert: function (x) { return (Math.pow(x[0] / x[1] * 32768, 2) - Math.pow(this.PARAMETERS.f0, 2)) * this.PARAMETERS.k / 1000000; },
                unit: 'g'},
               {name: 'elongation',
                displayName: 'Elongation',
-               convert: function (x) { return (Math.pow(x[0] / x[1] * 32768, 2) - Math.pow(decentlab_decoder.PARAMETERS.f0, 2)) * decentlab_decoder.PARAMETERS.k / 1000000 * (-1.5) / 1000 * 9.8067; },
+               convert: function (x) { return (Math.pow(x[0] / x[1] * 32768, 2) - Math.pow(this.PARAMETERS.f0, 2)) * this.PARAMETERS.k / 1000000 * (-1.5) / 1000 * 9.8067; },
                unit: 'µm'},
               {name: 'strain',
                displayName: 'Strain',
-               convert: function (x) { return (Math.pow(x[0] / x[1] * 32768, 2) - Math.pow(decentlab_decoder.PARAMETERS.f0, 2)) * decentlab_decoder.PARAMETERS.k / 1000000 * (-1.5) / 1000 * 9.8067 / 0.066; },
+               convert: function (x) { return (Math.pow(x[0] / x[1] * 32768, 2) - Math.pow(this.PARAMETERS.f0, 2)) * this.PARAMETERS.k / 1000000 * (-1.5) / 1000 * 9.8067 / 0.066; },
                unit: 'µm⋅m⁻¹'}]},
     {length: 1,
      values: [{name: 'battery_voltage',
@@ -80,7 +80,7 @@ var decentlab_decoder = {
         var value = sensor.values[j];
         if ('convert' in value) {
           result[value.name] = {displayName: value.displayName,
-                                value: value.convert(x),
+                                value: value.convert.bind(this)(x),
                                 unit: value.unit};
         }
       }
