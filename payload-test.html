@@ -34,7 +34,7 @@
           letter-spacing: 0em;
           line-height:1.6em
       }
-      .container {
+      .main-container {
         display: flex;
         flex-flow: row wrap;
         align-content: space-between;
@@ -53,17 +53,10 @@
       .bytes-container > input {
         width: 100%;
       }
-      .device-container > *,
-      .bytes-container > *,
-      .encoding-container > *,
-      .button-container > * {
+      .container > * {
         display: block;
       }
-      .device-container,
-      .bytes-container,
-      .encoding-container,
-      .output-container,
-      .button-container {
+      .container {
         margin: 10px 0 0 10px;
       }
 
@@ -92,8 +85,8 @@
   <body>
     <div class="content">
       <h1 class="title">Decentlab Payload Test</h1>
-      <div class="container">
-        <div class="device-container">
+      <div class="main-container">
+        <div class="container">
           <label for="device">Device type</label>
           <select id="device" onchange="updateParams(this.value)">
             <option value="DL-10HS">DL-10HS</option>
@@ -138,26 +131,26 @@
             <option value="DL-ZN2">DL-ZN2</option>
           </select>
         </div>
-        <div class="bytes-container">
+        <div class="bytes-container container">
           <label for="bytes">Payload</label>
           <input id="bytes" type="text" onkeyup="forceClick(event)"/>
         </div>
-        <div class="encoding-container">
+        <div class="container">
           <label for="encoding">Payload encoding</label>
           <select id="encoding">
             <option value="hex" selected>hex</option>
             <option value="base64">base64</option>
           </select>
         </div>
-        <div class="button-container">
+        <div class="button-container container">
           <button id="decode" type="button" onclick="decode()">Decode</button>
         </div>
         <div class="break"></div>
-        <div class="output-container">
+        <div class="output-container container">
           <div id="params"></div>
         </div>
         <div class="break"></div>
-        <div class="output-container"><pre id="output"></pre></div>
+        <div class="output-container container"><pre id="output"></pre></div>
       </div>
     </div>
   </body>
@@ -169,71 +162,67 @@
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-LP8P": [
-      {length: 2,
-       values: [{name: 'air_temperature',
-                 displayName: 'Air temperature',
-                 convert: function (x) { return 175.72 * x[0] / 65536 - 46.85; },
-                 unit: '°C'},
-                {name: 'air_humidity',
-                 displayName: 'Air humidity',
-                 convert: function (x) { return 125 * x[1] / 65536 - 6; },
-                 unit: '%'}]},
-      {length: 2,
-       values: [{name: 'barometer_temperature',
-                 displayName: 'Barometer temperature',
-                 convert: function (x) { return (x[0] - 5000) / 100; },
-                 unit: '°C'},
-                {name: 'barometric_pressure',
-                 displayName: 'Barometric pressure',
-                 convert: function (x) { return x[1] * 2; },
-                 unit: 'Pa'}]},
-      {length: 8,
-       values: [{name: 'co2_concentration',
-                 displayName: 'CO2 concentration',
-                 convert: function (x) { return x[0] - 32768; },
-                 unit: 'ppm'},
-                {name: 'co2_concentration_lpf',
-                 displayName: 'CO2 concentration LPF',
-                 convert: function (x) { return x[1] - 32768; },
-                 unit: 'ppm'},
-                {name: 'co2_sensor_temperature',
-                 displayName: 'CO2 sensor temperature',
-                 convert: function (x) { return (x[2] - 32768) / 100; },
-                 unit: '°C'},
-                {name: 'capacitor_voltage_1',
-                 displayName: 'Capacitor voltage 1',
-                 convert: function (x) { return x[3] / 1000; },
-                 unit: 'V'},
-                {name: 'capacitor_voltage_2',
-                 displayName: 'Capacitor voltage 2',
-                 convert: function (x) { return x[4] / 1000; },
-                 unit: 'V'},
-                {name: 'co2_sensor_status',
-                 displayName: 'CO2 sensor status',
-                 convert: function (x) { return x[5]; }},
-                {name: 'raw_ir_reading',
-                 displayName: 'Raw IR reading',
-                 convert: function (x) { return x[6]; }},
-                {name: 'raw_ir_reading_lpf',
-                 displayName: 'Raw IR reading LPF',
-                 convert: function (x) { return x[7]; }}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    1400: "DL-LP8P",
-  },
+  SENSORS: [
+    {length: 2,
+     values: [{name: 'air_temperature',
+               displayName: 'Air temperature',
+               convert: function (x) { return 175.72 * x[0] / 65536 - 46.85; },
+               unit: '°C'},
+              {name: 'air_humidity',
+               displayName: 'Air humidity',
+               convert: function (x) { return 125 * x[1] / 65536 - 6; },
+               unit: '%'}]},
+    {length: 2,
+     values: [{name: 'barometer_temperature',
+               displayName: 'Barometer temperature',
+               convert: function (x) { return (x[0] - 5000) / 100; },
+               unit: '°C'},
+              {name: 'barometric_pressure',
+               displayName: 'Barometric pressure',
+               convert: function (x) { return x[1] * 2; },
+               unit: 'Pa'}]},
+    {length: 8,
+     values: [{name: 'co2_concentration',
+               displayName: 'CO2 concentration',
+               convert: function (x) { return x[0] - 32768; },
+               unit: 'ppm'},
+              {name: 'co2_concentration_lpf',
+               displayName: 'CO2 concentration LPF',
+               convert: function (x) { return x[1] - 32768; },
+               unit: 'ppm'},
+              {name: 'co2_sensor_temperature',
+               displayName: 'CO2 sensor temperature',
+               convert: function (x) { return (x[2] - 32768) / 100; },
+               unit: '°C'},
+              {name: 'capacitor_voltage_1',
+               displayName: 'Capacitor voltage 1',
+               convert: function (x) { return x[3] / 1000; },
+               unit: 'V'},
+              {name: 'capacitor_voltage_2',
+               displayName: 'Capacitor voltage 2',
+               convert: function (x) { return x[4] / 1000; },
+               unit: 'V'},
+              {name: 'co2_sensor_status',
+               displayName: 'CO2 sensor status',
+               convert: function (x) { return x[5]; }},
+              {name: 'raw_ir_reading',
+               displayName: 'Raw IR reading',
+               convert: function (x) { return x[6]; }},
+              {name: 'raw_ir_reading_lpf',
+               displayName: 'Raw IR reading LPF',
+               convert: function (x) { return x[7]; }}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -249,29 +238,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -307,32 +282,28 @@ var decentlab_decoder = {
     Pmin: 0.0,
     Pmax: 1.0
   },
-  DEVICE_TYPES: {
-    "DL-PR26": [
-      {length: 2,
-       values: [{name: 'pressure',
-                 displayName: 'Pressure',
-                 convert: function (x) { return (x[0] - 16384) / 32768 * (this.PARAMETERS.Pmax - this.PARAMETERS.Pmin) + this.PARAMETERS.Pmin; },
-                 unit: 'bar'},
-                {name: 'temperature',
-                 displayName: 'Temperature',
-                 convert: function (x) { return (x[1] - 384) * 0.003125 - 50; },
-                 unit: '°C'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    359: "DL-PR26",
-  },
+  SENSORS: [
+    {length: 2,
+     values: [{name: 'pressure',
+               displayName: 'Pressure',
+               convert: function (x) { return (x[0] - 16384) / 32768 * (this.PARAMETERS.Pmax - this.PARAMETERS.Pmin) + this.PARAMETERS.Pmin; },
+               unit: 'bar'},
+              {name: 'temperature',
+               displayName: 'Temperature',
+               convert: function (x) { return (x[1] - 384) * 0.003125 - 50; },
+               unit: '°C'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -348,29 +319,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -406,32 +363,28 @@ var decentlab_decoder = {
     Pmin: -1.0,
     Pmax: 10.0
   },
-  DEVICE_TYPES: {
-    "DL-PR21": [
-      {length: 2,
-       values: [{name: 'pressure',
-                 displayName: 'Pressure',
-                 convert: function (x) { return (x[0] - 16384) / 32768 * (this.PARAMETERS.Pmax - this.PARAMETERS.Pmin) + this.PARAMETERS.Pmin; },
-                 unit: 'bar'},
-                {name: 'temperature',
-                 displayName: 'Temperature',
-                 convert: function (x) { return (x[1] - 384) * 0.003125 - 50; },
-                 unit: '°C'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    359: "DL-PR21",
-  },
+  SENSORS: [
+    {length: 2,
+     values: [{name: 'pressure',
+               displayName: 'Pressure',
+               convert: function (x) { return (x[0] - 16384) / 32768 * (this.PARAMETERS.Pmax - this.PARAMETERS.Pmin) + this.PARAMETERS.Pmin; },
+               unit: 'bar'},
+              {name: 'temperature',
+               displayName: 'Temperature',
+               convert: function (x) { return (x[1] - 384) * 0.003125 - 50; },
+               unit: '°C'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -447,29 +400,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -504,32 +443,28 @@ var decentlab_decoder = {
   PARAMETERS: {
     kp: 8192
   },
-  DEVICE_TYPES: {
-    "DL-PR36": [
-      {length: 2,
-       values: [{name: 'pressure',
-                 displayName: 'Pressure',
-                 convert: function (x) { return (x[0] - 32768) / this.PARAMETERS.kp; },
-                 unit: 'bar'},
-                {name: 'temperature',
-                 displayName: 'Temperature',
-                 convert: function (x) { return (x[1] - 32768) / 256; },
-                 unit: '°C'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    811: "DL-PR36",
-  },
+  SENSORS: [
+    {length: 2,
+     values: [{name: 'pressure',
+               displayName: 'Pressure',
+               convert: function (x) { return (x[0] - 32768) / this.PARAMETERS.kp; },
+               unit: 'bar'},
+              {name: 'temperature',
+               displayName: 'Temperature',
+               convert: function (x) { return (x[1] - 32768) / 256; },
+               unit: '°C'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -545,29 +480,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -602,40 +523,36 @@ var decentlab_decoder = {
   PARAMETERS: {
     kp: 8192
   },
-  DEVICE_TYPES: {
-    "DL-PR36CTD": [
-      {length: 4,
-       values: [{name: 'pressure',
-                 displayName: 'Pressure',
-                 convert: function (x) { return (x[0] - 32768) / this.PARAMETERS.kp; },
-                 unit: 'bar'},
-                {name: 'temperature_electronics',
-                 displayName: 'Temperature (electronics)',
-                 convert: function (x) { return (x[1] - 32768) / 256; },
-                 unit: '°C'},
-                {name: 'temperature_pt1000',
-                 displayName: 'Temperature (PT1000)',
-                 convert: function (x) { return (x[2] - 32768) / 256; },
-                 unit: '°C'},
-                {name: 'electrical_conductivity',
-                 displayName: 'Electrical conductivity',
-                 convert: function (x) { return (x[3] - 32768) / 1024; },
-                 unit: 'mS⋅cm⁻¹'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    2583: "DL-PR36CTD",
-  },
+  SENSORS: [
+    {length: 4,
+     values: [{name: 'pressure',
+               displayName: 'Pressure',
+               convert: function (x) { return (x[0] - 32768) / this.PARAMETERS.kp; },
+               unit: 'bar'},
+              {name: 'temperature_electronics',
+               displayName: 'Temperature (electronics)',
+               convert: function (x) { return (x[1] - 32768) / 256; },
+               unit: '°C'},
+              {name: 'temperature_pt1000',
+               displayName: 'Temperature (PT1000)',
+               convert: function (x) { return (x[2] - 32768) / 256; },
+               unit: '°C'},
+              {name: 'electrical_conductivity',
+               displayName: 'Electrical conductivity',
+               convert: function (x) { return (x[3] - 32768) / 1024; },
+               unit: 'mS⋅cm⁻¹'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -651,29 +568,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -704,68 +607,64 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-IAM": [
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]},
-      {length: 2,
-       values: [{name: 'air_temperature',
-                 displayName: 'Air temperature',
-                 convert: function (x) { return 175 * x[0] / 65535 - 45; },
-                 unit: '°C'},
-                {name: 'air_humidity',
-                 displayName: 'Air humidity',
-                 convert: function (x) { return 100 * x[1] / 65535; },
-                 unit: '%'}]},
-      {length: 1,
-       values: [{name: 'barometric_pressure',
-                 displayName: 'Barometric pressure',
-                 convert: function (x) { return x[0] * 2; },
-                 unit: 'Pa'}]},
-      {length: 2,
-       values: [{name: 'ambient_light_visible_infrared',
-                 displayName: 'Ambient light (visible + infrared)',
-                 convert: function (x) { return x[0]; }},
-                {name: 'ambient_light_infrared',
-                 displayName: 'Ambient light (infrared)',
-                 convert: function (x) { return x[1]; }},
-                {name: 'illuminance',
-                 displayName: 'Illuminance',
-                 convert: function (x) { return Math.max(Math.max(1.0 * x[0] - 1.64 * x[1], 0.59 * x[0] - 0.86 * x[1]), 0) * 1.5504; },
-                 unit: 'lx'}]},
-      {length: 3,
-       values: [{name: 'co2_concentration',
-                 displayName: 'CO2 concentration',
-                 convert: function (x) { return x[0] - 32768; },
-                 unit: 'ppm'},
-                {name: 'co2_sensor_status',
-                 displayName: 'CO2 sensor status',
-                 convert: function (x) { return x[1]; }},
-                {name: 'raw_ir_reading',
-                 displayName: 'Raw IR reading',
-                 convert: function (x) { return x[2]; }}]},
-      {length: 1,
-       values: [{name: 'activity_counter',
-                 displayName: 'Activity counter',
-                 convert: function (x) { return x[0]; }}]},
-      {length: 1,
-       values: [{name: 'total_voc',
-                 displayName: 'Total VOC',
-                 convert: function (x) { return x[0]; },
-                 unit: 'ppb'}]}
-    ],
-  },
-  DEVICES: {
-    3005: "DL-IAM",
-  },
+  SENSORS: [
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]},
+    {length: 2,
+     values: [{name: 'air_temperature',
+               displayName: 'Air temperature',
+               convert: function (x) { return 175 * x[0] / 65535 - 45; },
+               unit: '°C'},
+              {name: 'air_humidity',
+               displayName: 'Air humidity',
+               convert: function (x) { return 100 * x[1] / 65535; },
+               unit: '%'}]},
+    {length: 1,
+     values: [{name: 'barometric_pressure',
+               displayName: 'Barometric pressure',
+               convert: function (x) { return x[0] * 2; },
+               unit: 'Pa'}]},
+    {length: 2,
+     values: [{name: 'ambient_light_visible_infrared',
+               displayName: 'Ambient light (visible + infrared)',
+               convert: function (x) { return x[0]; }},
+              {name: 'ambient_light_infrared',
+               displayName: 'Ambient light (infrared)',
+               convert: function (x) { return x[1]; }},
+              {name: 'illuminance',
+               displayName: 'Illuminance',
+               convert: function (x) { return Math.max(Math.max(1.0 * x[0] - 1.64 * x[1], 0.59 * x[0] - 0.86 * x[1]), 0) * 1.5504; },
+               unit: 'lx'}]},
+    {length: 3,
+     values: [{name: 'co2_concentration',
+               displayName: 'CO2 concentration',
+               convert: function (x) { return x[0] - 32768; },
+               unit: 'ppm'},
+              {name: 'co2_sensor_status',
+               displayName: 'CO2 sensor status',
+               convert: function (x) { return x[1]; }},
+              {name: 'raw_ir_reading',
+               displayName: 'Raw IR reading',
+               convert: function (x) { return x[2]; }}]},
+    {length: 1,
+     values: [{name: 'activity_counter',
+               displayName: 'Activity counter',
+               convert: function (x) { return x[0]; }}]},
+    {length: 1,
+     values: [{name: 'total_voc',
+               displayName: 'Total VOC',
+               convert: function (x) { return x[0]; },
+               unit: 'ppb'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -781,29 +680,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -834,32 +719,28 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-SHT21": [
-      {length: 2,
-       values: [{name: 'air_temperature',
-                 displayName: 'Air temperature',
-                 convert: function (x) { return 175.72 * x[0] / 65536 - 46.85; },
-                 unit: '°C'},
-                {name: 'air_humidity',
-                 displayName: 'Air humidity',
-                 convert: function (x) { return 125 * x[1] / 65536 - 6; },
-                 unit: '%'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    782: "DL-SHT21",
-  },
+  SENSORS: [
+    {length: 2,
+     values: [{name: 'air_temperature',
+               displayName: 'Air temperature',
+               convert: function (x) { return 175.72 * x[0] / 65536 - 46.85; },
+               unit: '°C'},
+              {name: 'air_humidity',
+               displayName: 'Air humidity',
+               convert: function (x) { return 125 * x[1] / 65536 - 6; },
+               unit: '%'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -875,29 +756,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -933,46 +800,42 @@ var decentlab_decoder = {
     f0: 15383.72,
     k: 46.4859
   },
-  DEVICE_TYPES: {
-    "DL-KL66": [
-      {length: 3,
-       values: [{name: 'counter_reading',
-                 displayName: 'Counter reading',
-                 convert: function (x) { return x[0]; }},
-                {name: 'measurement_interval',
-                 displayName: 'Measurement interval',
-                 convert: function (x) { return x[1] / 32768; }},
-                {name: 'frequency',
-                 displayName: 'Frequency',
-                 convert: function (x) { return x[0] / x[1] * 32768; },
-                 unit: 'Hz'},
-                {name: 'weight',
-                 displayName: 'Weight',
-                 convert: function (x) { return (Math.pow(x[0] / x[1] * 32768, 2) - Math.pow(this.PARAMETERS.f0, 2)) * this.PARAMETERS.k / 1000000; },
-                 unit: 'g'},
-                {name: 'elongation',
-                 displayName: 'Elongation',
-                 convert: function (x) { return (Math.pow(x[0] / x[1] * 32768, 2) - Math.pow(this.PARAMETERS.f0, 2)) * this.PARAMETERS.k / 1000000 * (-1.5) / 1000 * 9.8067; },
-                 unit: 'µm'},
-                {name: 'strain',
-                 displayName: 'Strain',
-                 convert: function (x) { return (Math.pow(x[0] / x[1] * 32768, 2) - Math.pow(this.PARAMETERS.f0, 2)) * this.PARAMETERS.k / 1000000 * (-1.5) / 1000 * 9.8067 / 0.066; },
-                 unit: 'µm⋅m⁻¹'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    980: "DL-KL66",
-  },
+  SENSORS: [
+    {length: 3,
+     values: [{name: 'counter_reading',
+               displayName: 'Counter reading',
+               convert: function (x) { return x[0]; }},
+              {name: 'measurement_interval',
+               displayName: 'Measurement interval',
+               convert: function (x) { return x[1] / 32768; }},
+              {name: 'frequency',
+               displayName: 'Frequency',
+               convert: function (x) { return x[0] / x[1] * 32768; },
+               unit: 'Hz'},
+              {name: 'weight',
+               displayName: 'Weight',
+               convert: function (x) { return (Math.pow(x[0] / x[1] * 32768, 2) - Math.pow(this.PARAMETERS.f0, 2)) * this.PARAMETERS.k / 1000000; },
+               unit: 'g'},
+              {name: 'elongation',
+               displayName: 'Elongation',
+               convert: function (x) { return (Math.pow(x[0] / x[1] * 32768, 2) - Math.pow(this.PARAMETERS.f0, 2)) * this.PARAMETERS.k / 1000000 * (-1.5) / 1000 * 9.8067; },
+               unit: 'µm'},
+              {name: 'strain',
+               displayName: 'Strain',
+               convert: function (x) { return (Math.pow(x[0] / x[1] * 32768, 2) - Math.pow(this.PARAMETERS.f0, 2)) * this.PARAMETERS.k / 1000000 * (-1.5) / 1000 * 9.8067 / 0.066; },
+               unit: 'µm⋅m⁻¹'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -988,29 +851,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -1041,56 +890,52 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-ATM22": [
-      {length: 8,
-       values: [{name: 'wind_speed',
-                 displayName: 'Wind speed',
-                 convert: function (x) { return (x[0] - 32768) / 100; },
-                 unit: 'm⋅s⁻¹'},
-                {name: 'wind_direction',
-                 displayName: 'Wind direction',
-                 convert: function (x) { return (x[1] - 32768) / 10; },
-                 unit: '°'},
-                {name: 'maximum_wind_speed',
-                 displayName: 'Maximum wind speed',
-                 convert: function (x) { return (x[2] - 32768) / 100; },
-                 unit: 'm⋅s⁻¹'},
-                {name: 'air_temperature',
-                 displayName: 'Air temperature',
-                 convert: function (x) { return (x[3] - 32768) / 10; },
-                 unit: '°C'},
-                {name: 'x_orientation_angle',
-                 displayName: 'X orientation angle',
-                 convert: function (x) { return (x[4] - 32768) / 10; },
-                 unit: '°'},
-                {name: 'y_orientation_angle',
-                 displayName: 'Y orientation angle',
-                 convert: function (x) { return (x[5] - 32768) / 10; },
-                 unit: '°'},
-                {name: 'north_wind_speed',
-                 displayName: 'North wind speed',
-                 convert: function (x) { return (x[6] - 32768) / 100; },
-                 unit: 'm⋅s⁻¹'},
-                {name: 'east_wind_speed',
-                 displayName: 'East wind speed',
-                 convert: function (x) { return (x[7] - 32768) / 100; },
-                 unit: 'm⋅s⁻¹'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    2249: "DL-ATM22",
-  },
+  SENSORS: [
+    {length: 8,
+     values: [{name: 'wind_speed',
+               displayName: 'Wind speed',
+               convert: function (x) { return (x[0] - 32768) / 100; },
+               unit: 'm⋅s⁻¹'},
+              {name: 'wind_direction',
+               displayName: 'Wind direction',
+               convert: function (x) { return (x[1] - 32768) / 10; },
+               unit: '°'},
+              {name: 'maximum_wind_speed',
+               displayName: 'Maximum wind speed',
+               convert: function (x) { return (x[2] - 32768) / 100; },
+               unit: 'm⋅s⁻¹'},
+              {name: 'air_temperature',
+               displayName: 'Air temperature',
+               convert: function (x) { return (x[3] - 32768) / 10; },
+               unit: '°C'},
+              {name: 'x_orientation_angle',
+               displayName: 'X orientation angle',
+               convert: function (x) { return (x[4] - 32768) / 10; },
+               unit: '°'},
+              {name: 'y_orientation_angle',
+               displayName: 'Y orientation angle',
+               convert: function (x) { return (x[5] - 32768) / 10; },
+               unit: '°'},
+              {name: 'north_wind_speed',
+               displayName: 'North wind speed',
+               convert: function (x) { return (x[6] - 32768) / 100; },
+               unit: 'm⋅s⁻¹'},
+              {name: 'east_wind_speed',
+               displayName: 'East wind speed',
+               convert: function (x) { return (x[7] - 32768) / 100; },
+               unit: 'm⋅s⁻¹'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -1106,29 +951,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -1159,31 +990,27 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-MBX": [
-      {length: 2,
-       values: [{name: 'distance',
-                 displayName: 'Distance',
-                 convert: function (x) { return x[0]; },
-                 unit: 'mm'},
-                {name: 'number_of_valid_samples',
-                 displayName: 'Number of valid samples',
-                 convert: function (x) { return x[1]; }}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    303: "DL-MBX",
-  },
+  SENSORS: [
+    {length: 2,
+     values: [{name: 'distance',
+               displayName: 'Distance',
+               convert: function (x) { return x[0]; },
+               unit: 'mm'},
+              {name: 'number_of_valid_samples',
+               displayName: 'Number of valid samples',
+               convert: function (x) { return x[1]; }}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -1199,29 +1026,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -1256,28 +1069,24 @@ var decentlab_decoder = {
   PARAMETERS: {
     R: 10.0
   },
-  DEVICE_TYPES: {
-    "DL-DLR2-004": [
-      {length: 1,
-       values: [{name: 'current',
-                 displayName: 'Current',
-                 convert: function (x) { return 3 * (x[0] - 32768) / 32768 / 2 / this.PARAMETERS.R * 1000; },
-                 unit: 'mA'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    2226: "DL-DLR2-004",
-  },
+  SENSORS: [
+    {length: 1,
+     values: [{name: 'current',
+               displayName: 'Current',
+               convert: function (x) { return 3 * (x[0] - 32768) / 32768 / 2 / this.PARAMETERS.R * 1000; },
+               unit: 'mA'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -1293,29 +1102,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -1361,100 +1156,96 @@ var decentlab_decoder = {
     CO_S: 0.424,
     CO_AUX_0: 301
   },
-  DEVICE_TYPES: {
-    "DL-AC": [
-      {length: 2,
-       values: [{name: 'air_temperature',
-                 displayName: 'Air temperature',
-                 convert: function (x) { return 175.72 * x[0] / 65536 - 46.85; },
-                 unit: '°C'},
-                {name: 'air_humidity',
-                 displayName: 'Air humidity',
-                 convert: function (x) { return 125 * x[1] / 65536 - 6; },
-                 unit: '%'}]},
-      {length: 2,
-       values: [{name: 'ch4_no2_we',
-                 displayName: 'CH4: NO2 (we)',
-                 convert: function (x) { return 3 * (x[0] / 32768 - 1) * 1000; },
-                 unit: 'mV'},
-                {name: 'ch4_no2_we_aux',
-                 displayName: 'CH4: NO2 (we-aux)',
-                 convert: function (x) { return 3 * (x[1] / 32768 - 1) * 1000; },
-                 unit: 'mV'},
-                {name: 'ch4_no2_concentration_we',
-                 displayName: 'CH4: NO2 concentration (we)',
-                 convert: function (x) { return (3 * (x[0] / 32768 - 1) * 1000 - this.PARAMETERS.NO2_WE_0) / this.PARAMETERS.NO2_S; },
-                 unit: 'ppb'},
-                {name: 'ch4_no2_concentration_we_aux',
-                 displayName: 'CH4: NO2 concentration (we-aux)',
-                 convert: function (x) { return (3 * (x[1] / 32768 - 1) * 1000 - this.PARAMETERS.NO2_WE_0 + this.PARAMETERS.NO2_AUX_0) / this.PARAMETERS.NO2_S; },
-                 unit: 'ppb'}]},
-      {length: 2,
-       values: [{name: 'ch5_no_we',
-                 displayName: 'CH5: NO (we)',
-                 convert: function (x) { return 3 * (x[0] / 32768 - 1) * 1000; },
-                 unit: 'mV'},
-                {name: 'ch5_no_we_aux',
-                 displayName: 'CH5: NO (we-aux)',
-                 convert: function (x) { return 3 * (x[1] / 32768 - 1) * 1000; },
-                 unit: 'mV'},
-                {name: 'ch5_no_concentration_we',
-                 displayName: 'CH5: NO concentration (we)',
-                 convert: function (x) { return (3 * (x[0] / 32768 - 1) * 1000 - this.PARAMETERS.NO_WE_0) / this.PARAMETERS.NO_S; },
-                 unit: 'ppb'},
-                {name: 'ch5_no_concentration_we_aux',
-                 displayName: 'CH5: NO concentration (we-aux)',
-                 convert: function (x) { return (3 * (x[1] / 32768 - 1) * 1000 - this.PARAMETERS.NO_WE_0 + this.PARAMETERS.NO_AUX_0) / this.PARAMETERS.NO_S; },
-                 unit: 'ppb'}]},
-      {length: 2,
-       values: [{name: 'ch6_ox_we',
-                 displayName: 'CH6: Ox (we)',
-                 convert: function (x) { return 3 * (x[0] / 32768 - 1) * 1000; },
-                 unit: 'mV'},
-                {name: 'ch6_ox_we_aux',
-                 displayName: 'CH6: Ox (we-aux)',
-                 convert: function (x) { return 3 * (x[1] / 32768 - 1) * 1000; },
-                 unit: 'mV'},
-                {name: 'ch6_ox_concentration_we',
-                 displayName: 'CH6: Ox concentration (we)',
-                 convert: function (x) { return (3 * (x[0] / 32768 - 1) * 1000 - this.PARAMETERS.Ox_WE_0) / this.PARAMETERS.Ox_S; },
-                 unit: 'ppb'},
-                {name: 'ch6_ox_concentration_we_aux',
-                 displayName: 'CH6: Ox concentration (we-aux)',
-                 convert: function (x) { return (3 * (x[1] / 32768 - 1) * 1000 - this.PARAMETERS.Ox_WE_0 + this.PARAMETERS.Ox_AUX_0) / this.PARAMETERS.Ox_S; },
-                 unit: 'ppb'}]},
-      {length: 2,
-       values: [{name: 'ch7_co_we',
-                 displayName: 'CH7: CO (we)',
-                 convert: function (x) { return 3 * (x[0] / 32768 - 1) * 1000; },
-                 unit: 'mV'},
-                {name: 'ch7_co_we_aux',
-                 displayName: 'CH7: CO (we-aux)',
-                 convert: function (x) { return 3 * (x[1] / 32768 - 1) * 1000; },
-                 unit: 'mV'},
-                {name: 'ch7_co_concentration_we',
-                 displayName: 'CH7: CO concentration (we)',
-                 convert: function (x) { return (3 * (x[0] / 32768 - 1) * 1000 - this.PARAMETERS.CO_WE_0) / this.PARAMETERS.CO_S; },
-                 unit: 'ppb'},
-                {name: 'ch7_co_concentration_we_aux',
-                 displayName: 'CH7: CO concentration (we-aux)',
-                 convert: function (x) { return (3 * (x[1] / 32768 - 1) * 1000 - this.PARAMETERS.CO_WE_0 + this.PARAMETERS.CO_AUX_0) / this.PARAMETERS.CO_S; },
-                 unit: 'ppb'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    4000: "DL-AC",
-  },
+  SENSORS: [
+    {length: 2,
+     values: [{name: 'air_temperature',
+               displayName: 'Air temperature',
+               convert: function (x) { return 175.72 * x[0] / 65536 - 46.85; },
+               unit: '°C'},
+              {name: 'air_humidity',
+               displayName: 'Air humidity',
+               convert: function (x) { return 125 * x[1] / 65536 - 6; },
+               unit: '%'}]},
+    {length: 2,
+     values: [{name: 'ch4_no2_we',
+               displayName: 'CH4: NO2 (we)',
+               convert: function (x) { return 3 * (x[0] / 32768 - 1) * 1000; },
+               unit: 'mV'},
+              {name: 'ch4_no2_we_aux',
+               displayName: 'CH4: NO2 (we-aux)',
+               convert: function (x) { return 3 * (x[1] / 32768 - 1) * 1000; },
+               unit: 'mV'},
+              {name: 'ch4_no2_concentration_we',
+               displayName: 'CH4: NO2 concentration (we)',
+               convert: function (x) { return (3 * (x[0] / 32768 - 1) * 1000 - this.PARAMETERS.NO2_WE_0) / this.PARAMETERS.NO2_S; },
+               unit: 'ppb'},
+              {name: 'ch4_no2_concentration_we_aux',
+               displayName: 'CH4: NO2 concentration (we-aux)',
+               convert: function (x) { return (3 * (x[1] / 32768 - 1) * 1000 - this.PARAMETERS.NO2_WE_0 + this.PARAMETERS.NO2_AUX_0) / this.PARAMETERS.NO2_S; },
+               unit: 'ppb'}]},
+    {length: 2,
+     values: [{name: 'ch5_no_we',
+               displayName: 'CH5: NO (we)',
+               convert: function (x) { return 3 * (x[0] / 32768 - 1) * 1000; },
+               unit: 'mV'},
+              {name: 'ch5_no_we_aux',
+               displayName: 'CH5: NO (we-aux)',
+               convert: function (x) { return 3 * (x[1] / 32768 - 1) * 1000; },
+               unit: 'mV'},
+              {name: 'ch5_no_concentration_we',
+               displayName: 'CH5: NO concentration (we)',
+               convert: function (x) { return (3 * (x[0] / 32768 - 1) * 1000 - this.PARAMETERS.NO_WE_0) / this.PARAMETERS.NO_S; },
+               unit: 'ppb'},
+              {name: 'ch5_no_concentration_we_aux',
+               displayName: 'CH5: NO concentration (we-aux)',
+               convert: function (x) { return (3 * (x[1] / 32768 - 1) * 1000 - this.PARAMETERS.NO_WE_0 + this.PARAMETERS.NO_AUX_0) / this.PARAMETERS.NO_S; },
+               unit: 'ppb'}]},
+    {length: 2,
+     values: [{name: 'ch6_ox_we',
+               displayName: 'CH6: Ox (we)',
+               convert: function (x) { return 3 * (x[0] / 32768 - 1) * 1000; },
+               unit: 'mV'},
+              {name: 'ch6_ox_we_aux',
+               displayName: 'CH6: Ox (we-aux)',
+               convert: function (x) { return 3 * (x[1] / 32768 - 1) * 1000; },
+               unit: 'mV'},
+              {name: 'ch6_ox_concentration_we',
+               displayName: 'CH6: Ox concentration (we)',
+               convert: function (x) { return (3 * (x[0] / 32768 - 1) * 1000 - this.PARAMETERS.Ox_WE_0) / this.PARAMETERS.Ox_S; },
+               unit: 'ppb'},
+              {name: 'ch6_ox_concentration_we_aux',
+               displayName: 'CH6: Ox concentration (we-aux)',
+               convert: function (x) { return (3 * (x[1] / 32768 - 1) * 1000 - this.PARAMETERS.Ox_WE_0 + this.PARAMETERS.Ox_AUX_0) / this.PARAMETERS.Ox_S; },
+               unit: 'ppb'}]},
+    {length: 2,
+     values: [{name: 'ch7_co_we',
+               displayName: 'CH7: CO (we)',
+               convert: function (x) { return 3 * (x[0] / 32768 - 1) * 1000; },
+               unit: 'mV'},
+              {name: 'ch7_co_we_aux',
+               displayName: 'CH7: CO (we-aux)',
+               convert: function (x) { return 3 * (x[1] / 32768 - 1) * 1000; },
+               unit: 'mV'},
+              {name: 'ch7_co_concentration_we',
+               displayName: 'CH7: CO concentration (we)',
+               convert: function (x) { return (3 * (x[0] / 32768 - 1) * 1000 - this.PARAMETERS.CO_WE_0) / this.PARAMETERS.CO_S; },
+               unit: 'ppb'},
+              {name: 'ch7_co_concentration_we_aux',
+               displayName: 'CH7: CO concentration (we-aux)',
+               convert: function (x) { return (3 * (x[1] / 32768 - 1) * 1000 - this.PARAMETERS.CO_WE_0 + this.PARAMETERS.CO_AUX_0) / this.PARAMETERS.CO_S; },
+               unit: 'ppb'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -1470,29 +1261,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -1523,32 +1300,28 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-SHT35": [
-      {length: 2,
-       values: [{name: 'air_temperature',
-                 displayName: 'Air temperature',
-                 convert: function (x) { return 175 * x[0] / 65535 - 45; },
-                 unit: '°C'},
-                {name: 'air_humidity',
-                 displayName: 'Air humidity',
-                 convert: function (x) { return 100 * x[1] / 65535; },
-                 unit: '%'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    782: "DL-SHT35",
-  },
+  SENSORS: [
+    {length: 2,
+     values: [{name: 'air_temperature',
+               displayName: 'Air temperature',
+               convert: function (x) { return 175 * x[0] / 65535 - 45; },
+               unit: '°C'},
+              {name: 'air_humidity',
+               displayName: 'Air humidity',
+               convert: function (x) { return 100 * x[1] / 65535; },
+               unit: '%'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -1564,29 +1337,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -1617,28 +1376,24 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-PAR": [
-      {length: 1,
-       values: [{name: 'photosynthetically_active_radiation',
-                 displayName: 'Photosynthetically active radiation',
-                 convert: function (x) { return 3 * (x[0] / 32768 - 1) * 1000 * 5; },
-                 unit: 'µmol⋅m⁻²⋅s⁻¹'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    657: "DL-PAR",
-  },
+  SENSORS: [
+    {length: 1,
+     values: [{name: 'photosynthetically_active_radiation',
+               displayName: 'Photosynthetically active radiation',
+               convert: function (x) { return 3 * (x[0] / 32768 - 1) * 1000 * 5; },
+               unit: 'µmol⋅m⁻²⋅s⁻¹'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -1654,29 +1409,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -1707,28 +1448,24 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-PYR": [
-      {length: 1,
-       values: [{name: 'total_solar_radiation',
-                 displayName: 'Total solar radiation',
-                 convert: function (x) { return 3 * (x[0] / 32768 - 1) * 1000 * 5; },
-                 unit: 'W⋅m⁻²'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    657: "DL-PYR",
-  },
+  SENSORS: [
+    {length: 1,
+     values: [{name: 'total_solar_radiation',
+               displayName: 'Total solar radiation',
+               convert: function (x) { return 3 * (x[0] / 32768 - 1) * 1000 * 5; },
+               unit: 'W⋅m⁻²'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -1744,29 +1481,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -1797,39 +1520,35 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-TRS12": [
-      {length: 3,
-       values: [{name: 'dielectric_permittivity',
-                 displayName: 'Dielectric permittivity',
-                 convert: function (x) { return Math.pow(0.000000002887 * Math.pow(x[0]/10, 3) - 0.0000208 * Math.pow(x[0]/10, 2) + 0.05276 * (x[0]/10) - 43.39, 2); }},
-                {name: 'volumetric_water_content',
-                 displayName: 'Volumetric water content',
-                 convert: function (x) { return x[0]/10 * 0.0003879 - 0.6956; },
-                 unit: 'm³⋅m⁻³'},
-                {name: 'soil_temperature',
-                 displayName: 'Soil temperature',
-                 convert: function (x) { return (x[1] - 32768) / 10; },
-                 unit: '°C'},
-                {name: 'electrical_conductivity',
-                 displayName: 'Electrical conductivity',
-                 convert: function (x) { return x[2]; },
-                 unit: 'µS⋅cm⁻¹'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    4307: "DL-TRS12",
-  },
+  SENSORS: [
+    {length: 3,
+     values: [{name: 'dielectric_permittivity',
+               displayName: 'Dielectric permittivity',
+               convert: function (x) { return Math.pow(0.000000002887 * Math.pow(x[0]/10, 3) - 0.0000208 * Math.pow(x[0]/10, 2) + 0.05276 * (x[0]/10) - 43.39, 2); }},
+              {name: 'volumetric_water_content',
+               displayName: 'Volumetric water content',
+               convert: function (x) { return x[0]/10 * 0.0003879 - 0.6956; },
+               unit: 'm³⋅m⁻³'},
+              {name: 'soil_temperature',
+               displayName: 'Soil temperature',
+               convert: function (x) { return (x[1] - 32768) / 10; },
+               unit: '°C'},
+              {name: 'electrical_conductivity',
+               displayName: 'Electrical conductivity',
+               convert: function (x) { return x[2]; },
+               unit: 'µS⋅cm⁻¹'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -1845,29 +1564,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -1898,32 +1603,28 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-TRS21": [
-      {length: 2,
-       values: [{name: 'water_potential',
-                 displayName: 'Water potential',
-                 convert: function (x) { return -(x[0] / 10); },
-                 unit: 'kPa'},
-                {name: 'soil_temperature',
-                 displayName: 'Soil temperature',
-                 convert: function (x) { return (x[1] - 32768) / 10; },
-                 unit: '°C'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    402: "DL-TRS21",
-  },
+  SENSORS: [
+    {length: 2,
+     values: [{name: 'water_potential',
+               displayName: 'Water potential',
+               convert: function (x) { return -(x[0] / 10); },
+               unit: 'kPa'},
+              {name: 'soil_temperature',
+               displayName: 'Soil temperature',
+               convert: function (x) { return (x[1] - 32768) / 10; },
+               unit: '°C'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -1939,29 +1640,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -1996,36 +1683,32 @@ var decentlab_decoder = {
   PARAMETERS: {
     resolution: 0.1
   },
-  DEVICE_TYPES: {
-    "DL-TBRG": [
-      {length: 4,
-       values: [{name: 'precipitation',
-                 displayName: 'Precipitation',
-                 convert: function (x) { return x[0] * this.PARAMETERS.resolution; },
-                 unit: 'mm'},
-                {name: 'precipitation_interval',
-                 displayName: 'Precipitation interval',
-                 convert: function (x) { return x[1]; },
-                 unit: 's'},
-                {name: 'cumulative_precipitation',
-                 displayName: 'Cumulative precipitation',
-                 convert: function (x) { return (x[2] + x[3] * 65536) * this.PARAMETERS.resolution; },
-                 unit: 'mm'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    760: "DL-TBRG",
-  },
+  SENSORS: [
+    {length: 4,
+     values: [{name: 'precipitation',
+               displayName: 'Precipitation',
+               convert: function (x) { return x[0] * this.PARAMETERS.resolution; },
+               unit: 'mm'},
+              {name: 'precipitation_interval',
+               displayName: 'Precipitation interval',
+               convert: function (x) { return x[1]; },
+               unit: 's'},
+              {name: 'cumulative_precipitation',
+               displayName: 'Cumulative precipitation',
+               convert: function (x) { return (x[2] + x[3] * 65536) * this.PARAMETERS.resolution; },
+               unit: 'mm'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -2041,29 +1724,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -2094,28 +1763,24 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-DS18": [
-      {length: 1,
-       values: [{name: 'temperature',
-                 displayName: 'Temperature',
-                 convert: function (x) { return (x[0] - 32768) / 16; },
-                 unit: '°C'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    573: "DL-DS18",
-  },
+  SENSORS: [
+    {length: 1,
+     values: [{name: 'temperature',
+               displayName: 'Temperature',
+               convert: function (x) { return (x[0] - 32768) / 16; },
+               unit: '°C'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -2131,29 +1796,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -2184,39 +1835,35 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-CTD10": [
-      {length: 4,
-       values: [{name: 'water_depth',
-                 displayName: 'Water depth',
-                 convert: function (x) { return x[0] - 32768; },
-                 unit: 'mm'},
-                {name: 'temperature',
-                 displayName: 'Temperature',
-                 convert: function (x) { return (x[1] - 32768) / 10; },
-                 unit: '°C'},
-                {name: 'electrical_conductivity',
-                 displayName: 'Electrical conductivity',
-                 convert: function (x) { return x[2]; },
-                 unit: 'µS⋅cm⁻¹'},
-                {name: 'freezing_flag',
-                 displayName: 'Freezing flag',
-                 convert: function (x) { return x[3]; }}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    2009: "DL-CTD10",
-  },
+  SENSORS: [
+    {length: 4,
+     values: [{name: 'water_depth',
+               displayName: 'Water depth',
+               convert: function (x) { return x[0] - 32768; },
+               unit: 'mm'},
+              {name: 'temperature',
+               displayName: 'Temperature',
+               convert: function (x) { return (x[1] - 32768) / 10; },
+               unit: '°C'},
+              {name: 'electrical_conductivity',
+               displayName: 'Electrical conductivity',
+               convert: function (x) { return x[2]; },
+               unit: 'µS⋅cm⁻¹'},
+              {name: 'freezing_flag',
+               displayName: 'Freezing flag',
+               convert: function (x) { return x[3]; }}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -2232,29 +1879,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -2285,80 +1918,76 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-SMTP": [
-      {length: 16,
-       values: [{name: 'soil_moisture_at_depth_0',
-                 displayName: 'Soil moisture at depth 0',
-                 convert: function (x) { return (x[0] - 2500) / 500; }},
-                {name: 'soil_temperature_at_depth_0',
-                 displayName: 'Soil temperature at depth 0',
-                 convert: function (x) { return (x[1] - 32768) / 100; },
-                 unit: '°C'},
-                {name: 'soil_moisture_at_depth_1',
-                 displayName: 'Soil moisture at depth 1',
-                 convert: function (x) { return (x[2] - 2500) / 500; }},
-                {name: 'soil_temperature_at_depth_1',
-                 displayName: 'Soil temperature at depth 1',
-                 convert: function (x) { return (x[3] - 32768) / 100; },
-                 unit: '°C'},
-                {name: 'soil_moisture_at_depth_2',
-                 displayName: 'Soil moisture at depth 2',
-                 convert: function (x) { return (x[4] - 2500) / 500; }},
-                {name: 'soil_temperature_at_depth_2',
-                 displayName: 'Soil temperature at depth 2',
-                 convert: function (x) { return (x[5] - 32768) / 100; },
-                 unit: '°C'},
-                {name: 'soil_moisture_at_depth_3',
-                 displayName: 'Soil moisture at depth 3',
-                 convert: function (x) { return (x[6] - 2500) / 500; }},
-                {name: 'soil_temperature_at_depth_3',
-                 displayName: 'Soil temperature at depth 3',
-                 convert: function (x) { return (x[7] - 32768) / 100; },
-                 unit: '°C'},
-                {name: 'soil_moisture_at_depth_4',
-                 displayName: 'Soil moisture at depth 4',
-                 convert: function (x) { return (x[8] - 2500) / 500; }},
-                {name: 'soil_temperature_at_depth_4',
-                 displayName: 'Soil temperature at depth 4',
-                 convert: function (x) { return (x[9] - 32768) / 100; },
-                 unit: '°C'},
-                {name: 'soil_moisture_at_depth_5',
-                 displayName: 'Soil moisture at depth 5',
-                 convert: function (x) { return (x[10] - 2500) / 500; }},
-                {name: 'soil_temperature_at_depth_5',
-                 displayName: 'Soil temperature at depth 5',
-                 convert: function (x) { return (x[11] - 32768) / 100; },
-                 unit: '°C'},
-                {name: 'soil_moisture_at_depth_6',
-                 displayName: 'Soil moisture at depth 6',
-                 convert: function (x) { return (x[12] - 2500) / 500; }},
-                {name: 'soil_temperature_at_depth_6',
-                 displayName: 'Soil temperature at depth 6',
-                 convert: function (x) { return (x[13] - 32768) / 100; },
-                 unit: '°C'},
-                {name: 'soil_moisture_at_depth_7',
-                 displayName: 'Soil moisture at depth 7',
-                 convert: function (x) { return (x[14] - 2500) / 500; }},
-                {name: 'soil_temperature_at_depth_7',
-                 displayName: 'Soil temperature at depth 7',
-                 convert: function (x) { return (x[15] - 32768) / 100; },
-                 unit: '°C'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    2896: "DL-SMTP",
-  },
+  SENSORS: [
+    {length: 16,
+     values: [{name: 'soil_moisture_at_depth_0',
+               displayName: 'Soil moisture at depth 0',
+               convert: function (x) { return (x[0] - 2500) / 500; }},
+              {name: 'soil_temperature_at_depth_0',
+               displayName: 'Soil temperature at depth 0',
+               convert: function (x) { return (x[1] - 32768) / 100; },
+               unit: '°C'},
+              {name: 'soil_moisture_at_depth_1',
+               displayName: 'Soil moisture at depth 1',
+               convert: function (x) { return (x[2] - 2500) / 500; }},
+              {name: 'soil_temperature_at_depth_1',
+               displayName: 'Soil temperature at depth 1',
+               convert: function (x) { return (x[3] - 32768) / 100; },
+               unit: '°C'},
+              {name: 'soil_moisture_at_depth_2',
+               displayName: 'Soil moisture at depth 2',
+               convert: function (x) { return (x[4] - 2500) / 500; }},
+              {name: 'soil_temperature_at_depth_2',
+               displayName: 'Soil temperature at depth 2',
+               convert: function (x) { return (x[5] - 32768) / 100; },
+               unit: '°C'},
+              {name: 'soil_moisture_at_depth_3',
+               displayName: 'Soil moisture at depth 3',
+               convert: function (x) { return (x[6] - 2500) / 500; }},
+              {name: 'soil_temperature_at_depth_3',
+               displayName: 'Soil temperature at depth 3',
+               convert: function (x) { return (x[7] - 32768) / 100; },
+               unit: '°C'},
+              {name: 'soil_moisture_at_depth_4',
+               displayName: 'Soil moisture at depth 4',
+               convert: function (x) { return (x[8] - 2500) / 500; }},
+              {name: 'soil_temperature_at_depth_4',
+               displayName: 'Soil temperature at depth 4',
+               convert: function (x) { return (x[9] - 32768) / 100; },
+               unit: '°C'},
+              {name: 'soil_moisture_at_depth_5',
+               displayName: 'Soil moisture at depth 5',
+               convert: function (x) { return (x[10] - 2500) / 500; }},
+              {name: 'soil_temperature_at_depth_5',
+               displayName: 'Soil temperature at depth 5',
+               convert: function (x) { return (x[11] - 32768) / 100; },
+               unit: '°C'},
+              {name: 'soil_moisture_at_depth_6',
+               displayName: 'Soil moisture at depth 6',
+               convert: function (x) { return (x[12] - 2500) / 500; }},
+              {name: 'soil_temperature_at_depth_6',
+               displayName: 'Soil temperature at depth 6',
+               convert: function (x) { return (x[13] - 32768) / 100; },
+               unit: '°C'},
+              {name: 'soil_moisture_at_depth_7',
+               displayName: 'Soil moisture at depth 7',
+               convert: function (x) { return (x[14] - 2500) / 500; }},
+              {name: 'soil_temperature_at_depth_7',
+               displayName: 'Soil temperature at depth 7',
+               convert: function (x) { return (x[15] - 32768) / 100; },
+               unit: '°C'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -2374,29 +2003,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -2427,32 +2042,28 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-10HS": [
-      {length: 1,
-       values: [{name: 'raw_sensor_reading',
-                 displayName: 'Raw sensor reading',
-                 convert: function (x) { return 3 * (x[0] - 32768) / 32768 * 1000; },
-                 unit: 'mV'},
-                {name: 'volumetric_water_content',
-                 displayName: 'Volumetric water content',
-                 convert: function (x) { return 2.97*Math.pow(10, -9) * Math.pow(3000*(x[0]-32768)/32768, 3) - 7.37*Math.pow(10, -6) * Math.pow(3000*(x[0]-32768)/32768, 2) + 6.69*Math.pow(10, -3) * (3000*(x[0]-32768)/32768) - 1.92; },
-                 unit: 'm³⋅m⁻³'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    735: "DL-10HS",
-  },
+  SENSORS: [
+    {length: 1,
+     values: [{name: 'raw_sensor_reading',
+               displayName: 'Raw sensor reading',
+               convert: function (x) { return 3 * (x[0] - 32768) / 32768 * 1000; },
+               unit: 'mV'},
+              {name: 'volumetric_water_content',
+               displayName: 'Volumetric water content',
+               convert: function (x) { return 2.97*Math.pow(10, -9) * Math.pow(3000*(x[0]-32768)/32768, 3) - 7.37*Math.pow(10, -6) * Math.pow(3000*(x[0]-32768)/32768, 2) + 6.69*Math.pow(10, -3) * (3000*(x[0]-32768)/32768) - 1.92; },
+               unit: 'm³⋅m⁻³'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -2468,29 +2079,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -2521,39 +2118,35 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-GS3": [
-      {length: 3,
-       values: [{name: 'dielectric_permittivity',
-                 displayName: 'Dielectric permittivity',
-                 convert: function (x) { return x[0] / 100; }},
-                {name: 'volumetric_water_content',
-                 displayName: 'Volumetric water content',
-                 convert: function (x) { return 0.00000589 * Math.pow(x[0]/100, 3) - 0.000762 * Math.pow(x[0]/100, 2) + 0.0367 * (x[0]/100) - 0.0753; },
-                 unit: 'm³⋅m⁻³'},
-                {name: 'soil_temperature',
-                 displayName: 'Soil temperature',
-                 convert: function (x) { return (x[1] - 32768) / 10; },
-                 unit: '°C'},
-                {name: 'electrical_conductivity',
-                 displayName: 'Electrical conductivity',
-                 convert: function (x) { return x[2]; },
-                 unit: 'µS⋅cm⁻¹'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    867: "DL-GS3",
-  },
+  SENSORS: [
+    {length: 3,
+     values: [{name: 'dielectric_permittivity',
+               displayName: 'Dielectric permittivity',
+               convert: function (x) { return x[0] / 100; }},
+              {name: 'volumetric_water_content',
+               displayName: 'Volumetric water content',
+               convert: function (x) { return 0.00000589 * Math.pow(x[0]/100, 3) - 0.000762 * Math.pow(x[0]/100, 2) + 0.0367 * (x[0]/100) - 0.0753; },
+               unit: 'm³⋅m⁻³'},
+              {name: 'soil_temperature',
+               displayName: 'Soil temperature',
+               convert: function (x) { return (x[1] - 32768) / 10; },
+               unit: '°C'},
+              {name: 'electrical_conductivity',
+               displayName: 'Electrical conductivity',
+               convert: function (x) { return x[2]; },
+               unit: 'µS⋅cm⁻¹'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -2569,29 +2162,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -2622,35 +2201,31 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-5TM": [
-      {length: 2,
-       values: [{name: 'dielectric_permittivity',
-                 displayName: 'Dielectric permittivity',
-                 convert: function (x) { return x[0] / 50; }},
-                {name: 'volumetric_water_content',
-                 displayName: 'Volumetric water content',
-                 convert: function (x) { return 0.0000043 * Math.pow(x[0]/50, 3) - 0.00055 * Math.pow(x[0]/50, 2) + 0.0292 * (x[0]/50) - 0.053; },
-                 unit: 'm³⋅m⁻³'},
-                {name: 'soil_temperature',
-                 displayName: 'Soil temperature',
-                 convert: function (x) { return (x[1] - 400) / 10; },
-                 unit: '°C'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    571: "DL-5TM",
-  },
+  SENSORS: [
+    {length: 2,
+     values: [{name: 'dielectric_permittivity',
+               displayName: 'Dielectric permittivity',
+               convert: function (x) { return x[0] / 50; }},
+              {name: 'volumetric_water_content',
+               displayName: 'Volumetric water content',
+               convert: function (x) { return 0.0000043 * Math.pow(x[0]/50, 3) - 0.00055 * Math.pow(x[0]/50, 2) + 0.0292 * (x[0]/50) - 0.053; },
+               unit: 'm³⋅m⁻³'},
+              {name: 'soil_temperature',
+               displayName: 'Soil temperature',
+               convert: function (x) { return (x[1] - 400) / 10; },
+               unit: '°C'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -2666,29 +2241,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -2719,39 +2280,35 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-5TE": [
-      {length: 3,
-       values: [{name: 'dielectric_permittivity',
-                 displayName: 'Dielectric permittivity',
-                 convert: function (x) { return x[0] / 50; }},
-                {name: 'volumetric_water_content',
-                 displayName: 'Volumetric water content',
-                 convert: function (x) { return 0.0000043 * Math.pow(x[0]/50, 3) - 0.00055 * Math.pow(x[0]/50, 2) + 0.0292 * (x[0]/50) - 0.053; },
-                 unit: 'm³⋅m⁻³'},
-                {name: 'soil_temperature',
-                 displayName: 'Soil temperature',
-                 convert: function (x) { return (x[1] - 400) / 10; },
-                 unit: '°C'},
-                {name: 'electrical_conductivity',
-                 displayName: 'Electrical conductivity',
-                 convert: function (x) { return x[2] * 10; },
-                 unit: 'µS⋅cm⁻¹'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    796: "DL-5TE",
-  },
+  SENSORS: [
+    {length: 3,
+     values: [{name: 'dielectric_permittivity',
+               displayName: 'Dielectric permittivity',
+               convert: function (x) { return x[0] / 50; }},
+              {name: 'volumetric_water_content',
+               displayName: 'Volumetric water content',
+               convert: function (x) { return 0.0000043 * Math.pow(x[0]/50, 3) - 0.00055 * Math.pow(x[0]/50, 2) + 0.0292 * (x[0]/50) - 0.053; },
+               unit: 'm³⋅m⁻³'},
+              {name: 'soil_temperature',
+               displayName: 'Soil temperature',
+               convert: function (x) { return (x[1] - 400) / 10; },
+               unit: '°C'},
+              {name: 'electrical_conductivity',
+               displayName: 'Electrical conductivity',
+               convert: function (x) { return x[2] * 10; },
+               unit: 'µS⋅cm⁻¹'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -2767,29 +2324,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -2820,91 +2363,87 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-ATM41": [
-      {length: 17,
-       values: [{name: 'solar_radiation',
-                 displayName: 'Solar radiation',
-                 convert: function (x) { return x[0] - 32768; },
-                 unit: 'W⋅m⁻²'},
-                {name: 'precipitation',
-                 displayName: 'Precipitation',
-                 convert: function (x) { return (x[1] - 32768) / 1000; },
-                 unit: 'mm'},
-                {name: 'lightning_strike_count',
-                 displayName: 'Lightning strike count',
-                 convert: function (x) { return x[2] - 32768; }},
-                {name: 'lightning_average_distance',
-                 displayName: 'Lightning average distance',
-                 convert: function (x) { return x[3] - 32768; },
-                 unit: 'km'},
-                {name: 'wind_speed',
-                 displayName: 'Wind speed',
-                 convert: function (x) { return (x[4] - 32768) / 100; },
-                 unit: 'm⋅s⁻¹'},
-                {name: 'wind_direction',
-                 displayName: 'Wind direction',
-                 convert: function (x) { return (x[5] - 32768) / 10; },
-                 unit: '°'},
-                {name: 'maximum_wind_speed',
-                 displayName: 'Maximum wind speed',
-                 convert: function (x) { return (x[6] - 32768) / 100; },
-                 unit: 'm⋅s⁻¹'},
-                {name: 'air_temperature',
-                 displayName: 'Air temperature',
-                 convert: function (x) { return (x[7] - 32768) / 10; },
-                 unit: '°C'},
-                {name: 'vapor_pressure',
-                 displayName: 'Vapor pressure',
-                 convert: function (x) { return (x[8] - 32768) / 100; },
-                 unit: 'kPa'},
-                {name: 'atmospheric_pressure',
-                 displayName: 'Atmospheric pressure',
-                 convert: function (x) { return (x[9] - 32768) / 100; },
-                 unit: 'kPa'},
-                {name: 'relative_humidity',
-                 displayName: 'Relative humidity',
-                 convert: function (x) { return (x[10] - 32768) / 10; },
-                 unit: '%'},
-                {name: 'sensor_temperature_internal',
-                 displayName: 'Sensor temperature (internal)',
-                 convert: function (x) { return (x[11] - 32768) / 10; },
-                 unit: '°C'},
-                {name: 'x_orientation_angle',
-                 displayName: 'X orientation angle',
-                 convert: function (x) { return (x[12] - 32768) / 10; },
-                 unit: '°'},
-                {name: 'y_orientation_angle',
-                 displayName: 'Y orientation angle',
-                 convert: function (x) { return (x[13] - 32768) / 10; },
-                 unit: '°'},
-                {name: 'compass_heading',
-                 displayName: 'Compass heading',
-                 convert: function (x) { return x[14] - 32768; },
-                 unit: '°'},
-                {name: 'north_wind_speed',
-                 displayName: 'North wind speed',
-                 convert: function (x) { return (x[15] - 32768) / 100; },
-                 unit: 'm⋅s⁻¹'},
-                {name: 'east_wind_speed',
-                 displayName: 'East wind speed',
-                 convert: function (x) { return (x[16] - 32768) / 100; },
-                 unit: 'm⋅s⁻¹'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    858: "DL-ATM41",
-  },
+  SENSORS: [
+    {length: 17,
+     values: [{name: 'solar_radiation',
+               displayName: 'Solar radiation',
+               convert: function (x) { return x[0] - 32768; },
+               unit: 'W⋅m⁻²'},
+              {name: 'precipitation',
+               displayName: 'Precipitation',
+               convert: function (x) { return (x[1] - 32768) / 1000; },
+               unit: 'mm'},
+              {name: 'lightning_strike_count',
+               displayName: 'Lightning strike count',
+               convert: function (x) { return x[2] - 32768; }},
+              {name: 'lightning_average_distance',
+               displayName: 'Lightning average distance',
+               convert: function (x) { return x[3] - 32768; },
+               unit: 'km'},
+              {name: 'wind_speed',
+               displayName: 'Wind speed',
+               convert: function (x) { return (x[4] - 32768) / 100; },
+               unit: 'm⋅s⁻¹'},
+              {name: 'wind_direction',
+               displayName: 'Wind direction',
+               convert: function (x) { return (x[5] - 32768) / 10; },
+               unit: '°'},
+              {name: 'maximum_wind_speed',
+               displayName: 'Maximum wind speed',
+               convert: function (x) { return (x[6] - 32768) / 100; },
+               unit: 'm⋅s⁻¹'},
+              {name: 'air_temperature',
+               displayName: 'Air temperature',
+               convert: function (x) { return (x[7] - 32768) / 10; },
+               unit: '°C'},
+              {name: 'vapor_pressure',
+               displayName: 'Vapor pressure',
+               convert: function (x) { return (x[8] - 32768) / 100; },
+               unit: 'kPa'},
+              {name: 'atmospheric_pressure',
+               displayName: 'Atmospheric pressure',
+               convert: function (x) { return (x[9] - 32768) / 100; },
+               unit: 'kPa'},
+              {name: 'relative_humidity',
+               displayName: 'Relative humidity',
+               convert: function (x) { return (x[10] - 32768) / 10; },
+               unit: '%'},
+              {name: 'sensor_temperature_internal',
+               displayName: 'Sensor temperature (internal)',
+               convert: function (x) { return (x[11] - 32768) / 10; },
+               unit: '°C'},
+              {name: 'x_orientation_angle',
+               displayName: 'X orientation angle',
+               convert: function (x) { return (x[12] - 32768) / 10; },
+               unit: '°'},
+              {name: 'y_orientation_angle',
+               displayName: 'Y orientation angle',
+               convert: function (x) { return (x[13] - 32768) / 10; },
+               unit: '°'},
+              {name: 'compass_heading',
+               displayName: 'Compass heading',
+               convert: function (x) { return x[14] - 32768; },
+               unit: '°'},
+              {name: 'north_wind_speed',
+               displayName: 'North wind speed',
+               convert: function (x) { return (x[15] - 32768) / 100; },
+               unit: 'm⋅s⁻¹'},
+              {name: 'east_wind_speed',
+               displayName: 'East wind speed',
+               convert: function (x) { return (x[16] - 32768) / 100; },
+               unit: 'm⋅s⁻¹'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -2920,29 +2459,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -2973,35 +2498,31 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-TRS11": [
-      {length: 2,
-       values: [{name: 'dielectric_permittivity',
-                 displayName: 'Dielectric permittivity',
-                 convert: function (x) { return Math.pow(0.000000002887 * Math.pow(x[0]/10, 3) - 0.0000208 * Math.pow(x[0]/10, 2) + 0.05276 * (x[0]/10) - 43.39, 2); }},
-                {name: 'volumetric_water_content',
-                 displayName: 'Volumetric water content',
-                 convert: function (x) { return x[0]/10 * 0.0003879 - 0.6956; },
-                 unit: 'm³⋅m⁻³'},
-                {name: 'soil_temperature',
-                 displayName: 'Soil temperature',
-                 convert: function (x) { return (x[1] - 32768) / 10; },
-                 unit: '°C'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    4309: "DL-TRS11",
-  },
+  SENSORS: [
+    {length: 2,
+     values: [{name: 'dielectric_permittivity',
+               displayName: 'Dielectric permittivity',
+               convert: function (x) { return Math.pow(0.000000002887 * Math.pow(x[0]/10, 3) - 0.0000208 * Math.pow(x[0]/10, 2) + 0.05276 * (x[0]/10) - 43.39, 2); }},
+              {name: 'volumetric_water_content',
+               displayName: 'Volumetric water content',
+               convert: function (x) { return x[0]/10 * 0.0003879 - 0.6956; },
+               unit: 'm³⋅m⁻³'},
+              {name: 'soil_temperature',
+               displayName: 'Soil temperature',
+               convert: function (x) { return (x[1] - 32768) / 10; },
+               unit: '°C'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -3017,29 +2538,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -3070,32 +2577,28 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-ITST": [
-      {length: 2,
-       values: [{name: 'temperature_target',
-                 displayName: 'Temperature target',
-                 convert: function (x) { return (x[0] - 1000) / 10; },
-                 unit: '°C'},
-                {name: 'temperature_head',
-                 displayName: 'Temperature head',
-                 convert: function (x) { return (x[1] - 1000) / 10; },
-                 unit: '°C'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    729: "DL-ITST",
-  },
+  SENSORS: [
+    {length: 2,
+     values: [{name: 'temperature_target',
+               displayName: 'Temperature target',
+               convert: function (x) { return (x[0] - 1000) / 10; },
+               unit: '°C'},
+              {name: 'temperature_head',
+               displayName: 'Temperature head',
+               convert: function (x) { return (x[1] - 1000) / 10; },
+               unit: '°C'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -3111,29 +2614,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -3164,28 +2653,24 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-ZN1": [
-      {length: 2,
-       values: [{name: 'dendrometer_position',
-                 displayName: 'Dendrometer position',
-                 convert: function (x) { return ((x[0] + x[1]*65536) / 8388608 - 1) * 20000; },
-                 unit: 'µm'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    4369: "DL-ZN1",
-  },
+  SENSORS: [
+    {length: 2,
+     values: [{name: 'dendrometer_position',
+               displayName: 'Dendrometer position',
+               convert: function (x) { return ((x[0] + x[1]*65536) / 8388608 - 1) * 20000; },
+               unit: 'µm'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -3201,29 +2686,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -3254,32 +2725,28 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-ZN2": [
-      {length: 4,
-       values: [{name: 'dendrometer_a_position',
-                 displayName: 'Dendrometer A Position',
-                 convert: function (x) { return ((x[0] + x[1]*65536) / 8388608 - 1) * 20000; },
-                 unit: 'µm'},
-                {name: 'dendrometer_b_position',
-                 displayName: 'Dendrometer B Position',
-                 convert: function (x) { return ((x[0] + x[1]*65536) / 8388608 - (x[2] + x[3]*65536) / 8388608) * 20000; },
-                 unit: 'µm'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    4369: "DL-ZN2",
-  },
+  SENSORS: [
+    {length: 4,
+     values: [{name: 'dendrometer_a_position',
+               displayName: 'Dendrometer A Position',
+               convert: function (x) { return ((x[0] + x[1]*65536) / 8388608 - 1) * 20000; },
+               unit: 'µm'},
+              {name: 'dendrometer_b_position',
+               displayName: 'Dendrometer B Position',
+               convert: function (x) { return ((x[0] + x[1]*65536) / 8388608 - (x[2] + x[3]*65536) / 8388608) * 20000; },
+               unit: 'µm'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -3295,29 +2762,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -3348,41 +2801,37 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-WRM": [
-      {length: 2,
-       values: [{name: 'air_temperature',
-                 displayName: 'Air temperature',
-                 convert: function (x) { return 175 * x[0] / 65535 - 45; },
-                 unit: '°C'},
-                {name: 'air_humidity',
-                 displayName: 'Air humidity',
-                 convert: function (x) { return 100 * x[1] / 65535; },
-                 unit: '%'}]},
-      {length: 2,
-       values: [{name: 'surface_temperature',
-                 displayName: 'Surface temperature',
-                 convert: function (x) { return (x[0] - 1000) / 10; },
-                 unit: '°C'},
-                {name: 'head_temperature',
-                 displayName: 'Head temperature',
-                 convert: function (x) { return (x[1] - 1000) / 10; },
-                 unit: '°C'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    6672: "DL-WRM",
-  },
+  SENSORS: [
+    {length: 2,
+     values: [{name: 'air_temperature',
+               displayName: 'Air temperature',
+               convert: function (x) { return 175 * x[0] / 65535 - 45; },
+               unit: '°C'},
+              {name: 'air_humidity',
+               displayName: 'Air humidity',
+               convert: function (x) { return 100 * x[1] / 65535; },
+               unit: '%'}]},
+    {length: 2,
+     values: [{name: 'surface_temperature',
+               displayName: 'Surface temperature',
+               convert: function (x) { return (x[0] - 1000) / 10; },
+               unit: '°C'},
+              {name: 'head_temperature',
+               displayName: 'Head temperature',
+               convert: function (x) { return (x[1] - 1000) / 10; },
+               unit: '°C'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -3398,29 +2847,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -3451,35 +2886,31 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-RHC": [
-      {length: 4,
-       values: [{name: 'sensor_id',
-                 displayName: 'Sensor ID',
-                 convert: function (x) { return x[0] + x[1] * 65536; }},
-                {name: 'air_humidity',
-                 displayName: 'Air humidity',
-                 convert: function (x) { return x[2] / 100; },
-                 unit: '%'},
-                {name: 'air_temperature',
-                 displayName: 'Air temperature',
-                 convert: function (x) { return (x[3] - 32768) / 100; },
-                 unit: '°C'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    736: "DL-RHC",
-  },
+  SENSORS: [
+    {length: 4,
+     values: [{name: 'sensor_id',
+               displayName: 'Sensor ID',
+               convert: function (x) { return x[0] + x[1] * 65536; }},
+              {name: 'air_humidity',
+               displayName: 'Air humidity',
+               convert: function (x) { return x[2] / 100; },
+               unit: '%'},
+              {name: 'air_temperature',
+               displayName: 'Air temperature',
+               convert: function (x) { return (x[3] - 32768) / 100; },
+               unit: '°C'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -3495,29 +2926,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -3545,43 +2962,39 @@ var decentlab_decoder = {
       
 { var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-OPTOD": [
-      {length: 5,
-       values: [{name: 'status',
-                 displayName: 'Status',
-                 convert: function (x) { return x[0]; }},
-                {name: 'temperature',
-                 displayName: 'Temperature',
-                 convert: function (x) { return (x[1] - 32768) / 100; },
-                 unit: '°C'},
-                {name: 'oxygen_saturation',
-                 displayName: 'Oxygen saturation',
-                 convert: function (x) { return (x[2] - 32768) / 100; },
-                 unit: '%'},
-                {name: 'oxygen_concentration',
-                 displayName: 'Oxygen concentration',
-                 convert: function (x) { return (x[3] - 32768) / 100; },
-                 unit: 'mg⋅L⁻¹'},
-                {name: 'oxygen_concentration_alt',
-                 displayName: 'Oxygen concentration (alt)',
-                 convert: function (x) { return (x[4] - 32768) / 100; },
-                 unit: 'ppm'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    6252: "DL-OPTOD",
-  },
+  SENSORS: [
+    {length: 5,
+     values: [{name: 'status',
+               displayName: 'Status',
+               convert: function (x) { return x[0]; }},
+              {name: 'temperature',
+               displayName: 'Temperature',
+               convert: function (x) { return (x[1] - 32768) / 100; },
+               unit: '°C'},
+              {name: 'oxygen_saturation',
+               displayName: 'Oxygen saturation',
+               convert: function (x) { return (x[2] - 32768) / 100; },
+               unit: '%'},
+              {name: 'oxygen_concentration',
+               displayName: 'Oxygen concentration',
+               convert: function (x) { return (x[3] - 32768) / 100; },
+               unit: 'mg⋅L⁻¹'},
+              {name: 'oxygen_concentration_alt',
+               displayName: 'Oxygen concentration (alt)',
+               convert: function (x) { return (x[4] - 32768) / 100; },
+               unit: 'ppm'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -3597,29 +3010,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -3650,34 +3049,30 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-DLR2-002": [
-      {length: 4,
-       values: [{name: 'pulse_count',
-                 displayName: 'Pulse count',
-                 convert: function (x) { return x[0]; }},
-                {name: 'pulse_interval',
-                 displayName: 'Pulse interval',
-                 convert: function (x) { return x[1]; },
-                 unit: 's'},
-                {name: 'cumulative_pulse_count',
-                 displayName: 'Cumulative pulse count',
-                 convert: function (x) { return (x[2] + x[3] * 65536); }}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    6558: "DL-DLR2-002",
-  },
+  SENSORS: [
+    {length: 4,
+     values: [{name: 'pulse_count',
+               displayName: 'Pulse count',
+               convert: function (x) { return x[0]; }},
+              {name: 'pulse_interval',
+               displayName: 'Pulse interval',
+               convert: function (x) { return x[1]; },
+               unit: 's'},
+              {name: 'cumulative_pulse_count',
+               displayName: 'Cumulative pulse count',
+               convert: function (x) { return (x[2] + x[3] * 65536); }}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -3693,29 +3088,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -3746,27 +3127,23 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-DLR2-003": [
-      {length: 1,
-       values: [{name: 'input',
-                 displayName: 'Input',
-                 convert: function (x) { return x[0]; }}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    6555: "DL-DLR2-003",
-  },
+  SENSORS: [
+    {length: 1,
+     values: [{name: 'input',
+               displayName: 'Input',
+               convert: function (x) { return x[0]; }}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -3782,29 +3159,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -3835,28 +3198,24 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-DLR2-005": [
-      {length: 2,
-       values: [{name: 'voltage',
-                 displayName: 'Voltage',
-                 convert: function (x) { return 3 * ((x[0] + x[1]*65536) / 8388608 - 1); },
-                 unit: 'V'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    4410: "DL-DLR2-005",
-  },
+  SENSORS: [
+    {length: 2,
+     values: [{name: 'voltage',
+               displayName: 'Voltage',
+               convert: function (x) { return 3 * ((x[0] + x[1]*65536) / 8388608 - 1); },
+               unit: 'V'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -3872,29 +3231,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -3925,27 +3270,23 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-DLR2-006": [
-      {length: 2,
-       values: [{name: 'potentiometer_position',
-                 displayName: 'Potentiometer position',
-                 convert: function (x) { return ((x[0] + x[1]*65536) / 8388608 - 1) * 1; }}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    4369: "DL-DLR2-006",
-  },
+  SENSORS: [
+    {length: 2,
+     values: [{name: 'potentiometer_position',
+               displayName: 'Potentiometer position',
+               convert: function (x) { return ((x[0] + x[1]*65536) / 8388608 - 1) * 1; }}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -3961,29 +3302,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -4014,45 +3341,41 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-DLR2-010": [
-      {length: 4,
-       values: [{name: 'ch0_pulse_count',
-                 displayName: 'CH0: Pulse count',
-                 convert: function (x) { return x[0]; }},
-                {name: 'ch0_pulse_interval',
-                 displayName: 'CH0: Pulse interval',
-                 convert: function (x) { return x[1]; },
-                 unit: 's'},
-                {name: 'ch0_cumulative_pulse_count',
-                 displayName: 'CH0: Cumulative pulse count',
-                 convert: function (x) { return (x[2] + x[3] * 65536); }}]},
-      {length: 4,
-       values: [{name: 'ch1_pulse_count',
-                 displayName: 'CH1: Pulse count',
-                 convert: function (x) { return x[0]; }},
-                {name: 'ch1_pulse_interval',
-                 displayName: 'CH1: Pulse interval',
-                 convert: function (x) { return x[1]; },
-                 unit: 's'},
-                {name: 'ch1_cumulative_pulse_count',
-                 displayName: 'CH1: Cumulative pulse count',
-                 convert: function (x) { return (x[2] + x[3] * 65536); }}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    6543: "DL-DLR2-010",
-  },
+  SENSORS: [
+    {length: 4,
+     values: [{name: 'ch0_pulse_count',
+               displayName: 'CH0: Pulse count',
+               convert: function (x) { return x[0]; }},
+              {name: 'ch0_pulse_interval',
+               displayName: 'CH0: Pulse interval',
+               convert: function (x) { return x[1]; },
+               unit: 's'},
+              {name: 'ch0_cumulative_pulse_count',
+               displayName: 'CH0: Cumulative pulse count',
+               convert: function (x) { return (x[2] + x[3] * 65536); }}]},
+    {length: 4,
+     values: [{name: 'ch1_pulse_count',
+               displayName: 'CH1: Pulse count',
+               convert: function (x) { return x[0]; }},
+              {name: 'ch1_pulse_interval',
+               displayName: 'CH1: Pulse interval',
+               convert: function (x) { return x[1]; },
+               unit: 's'},
+              {name: 'ch1_cumulative_pulse_count',
+               displayName: 'CH1: Cumulative pulse count',
+               convert: function (x) { return (x[2] + x[3] * 65536); }}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -4068,29 +3391,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -4121,28 +3430,24 @@ var decentlab_decoder = {
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  DEVICE_TYPES: {
-    "DL-DLR2-012": [
-      {length: 2,
-       values: [{name: 'strain_gauge',
-                 displayName: 'Strain gauge',
-                 convert: function (x) { return ((x[0] + x[1]*65536) / 8388608 - 1) / 64 * 4 / 2.02 * 1000000; },
-                 unit: 'µm⋅m⁻¹'}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    6019: "DL-DLR2-012",
-  },
+  SENSORS: [
+    {length: 2,
+     values: [{name: 'strain_gauge',
+               displayName: 'Strain gauge',
+               convert: function (x) { return ((x[0] + x[1]*65536) / 8388608 - 1) / 64 * 4 / 2.02 * 1000000; },
+               unit: 'µm⋅m⁻¹'}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -4158,29 +3463,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -4215,27 +3506,23 @@ var decentlab_decoder = {
   PARAMETERS: {
     R: 2000
   },
-  DEVICE_TYPES: {
-    "DL-DLR2-008": [
-      {length: 2,
-       values: [{name: 'temperature',
-                 displayName: 'Temperature',
-                 convert: function (x) { return -244.83 + 2.3419 * ((((x[0] + x[1]*65536) / 8388608 - 1) / 2) * this.PARAMETERS.R / (1 - (((x[0] + x[1]*65536) / 8388608 - 1) / 2))) + 0.0010664 * Math.pow((((x[0] + x[1]*65536) / 8388608 - 1) / 2) * this.PARAMETERS.R / (1 - (((x[0] + x[1]*65536) / 8388608 - 1) / 2)), 2); }}]},
-      {length: 1,
-       values: [{name: 'battery_voltage',
-                 displayName: 'Battery voltage',
-                 convert: function (x) { return x[0] / 1000; },
-                 unit: 'V'}]}
-    ],
-  },
-  DEVICES: {
-    2015: "DL-DLR2-008",
-  },
+  SENSORS: [
+    {length: 2,
+     values: [{name: 'temperature',
+               displayName: 'Temperature',
+               convert: function (x) { return -244.83 + 2.3419 * ((((x[0] + x[1]*65536) / 8388608 - 1) / 2) * this.PARAMETERS.R / (1 - (((x[0] + x[1]*65536) / 8388608 - 1) / 2))) + 0.0010664 * Math.pow((((x[0] + x[1]*65536) / 8388608 - 1) / 2) * this.PARAMETERS.R / (1 - (((x[0] + x[1]*65536) / 8388608 - 1) / 2)), 2); }}]},
+    {length: 1,
+     values: [{name: 'battery_voltage',
+               displayName: 'Battery voltage',
+               convert: function (x) { return x[0] / 1000; },
+               unit: 'V'}]}
+  ],
+
   read_int: function (bytes, pos) {
     return (bytes[pos] << 8) + bytes[pos + 1];
   },
 
-  decode: function (msg, fallback_device_type) {
+  decode: function (msg) {
     var bytes = msg;
     var i, j;
     if (typeof msg === 'string') {
@@ -4251,29 +3538,15 @@ var decentlab_decoder = {
     }
 
     var deviceId = this.read_int(bytes, 1);
-    var deviceType = this.DEVICES[deviceId];
-    if (typeof deviceType === "undefined" &&
-          typeof fallback_device_type !== "undefined") {
-      deviceType = fallback_device_type;
-    }
-
-    var sensors = this.DEVICE_TYPES[deviceType];
-    if (typeof sensors === "undefined") {
-      return {error: "no device definition found for " + deviceId};
-    }
-
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version,
-                  'device_id': deviceId,
-                  'device_type': deviceType};
-
+    var result = {'protocol_version': version, 'device_id': deviceId};
     // decode payload
     var pos = 5;
-    for (i = 0; i < sensors.length; i++, flags >>= 1) {
+    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
       if ((flags & 1) !== 1)
         continue;
 
-      var sensor = sensors[i];
+      var sensor = this.SENSORS[i];
       var x = [];
       // convert data to 16-bit integer array
       for (j = 0; j < sensor.length; j++) {
@@ -4344,6 +3617,7 @@ var decentlab_decoder = {
         document.getElementById("output").innerHTML = syntaxHighlight(json);
       }
 
+      /* https://www.w3schools.com/howto/howto_js_trigger_button_enter.asp */
       function forceClick(event) {
         if (event.keyCode === 13) {
           event.preventDefault();
