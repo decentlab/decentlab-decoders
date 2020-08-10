@@ -89,71 +89,69 @@
   </div>
 </body>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var COMMANDS = {"0001":{"desc":"Set sampling period in seconds (1...65535).","name":"set period"},"0002":{"desc":"Set sampling period in seconds (1...65535) + save settings.","name":"set period + save"},"0003":{"desc":"Set default Tx data rate. Used for next Tx. Actual data rate for following Tx may vary, if ADR is enabled.","name":"set dr"},"0004":{"desc":"Set default Tx data rate. Used for next Tx. Actual data rate for following Tx may vary, if ADR is enabled + save settings.","name":"set dr + save"},"0005":{"desc":"Enable ADR.","name":"set adr on","noparam":true},"0006":{"desc":"Enable ADR + save settings.","name":"set adr on + save","noparam":true},"0007":{"desc":"Disable ADR.","name":"set adr off","noparam":true},"0008":{"desc":"Disable ADR + save settings.","name":"set adr off + save","noparam":true},"0009":{"desc":"Set minimum data rate (overrides ADR settings).","name":"set dr_min"},"000A":{"desc":"Set minimum data rate (overrides ADR settings) + save settings.","name":"set dr_min + save"},"000B":{"desc":"Set maximum data rate (overrides ADR settings).","name":"set dr_max"},"000C":{"desc":"Set maximum data rate (overrides ADR settings) + save settings.","name":"set dr_max + save"},"000D":{"desc":"Set minimum Tx power index (overrides ADR settings).","name":"set pwridx_min"},"000E":{"desc":"Set minimum Tx power index (overrides ADR settings) + save settings.","name":"set pwridx_min + save"},"000F":{"desc":"Set maximum Tx power index (overrides ADR settings).","name":"set pwridx_max"},"0010":{"desc":"Set maximum Tx power index (overrides ADR settings) + save settings.","name":"set pwridx_max + save"},"0011":{"desc":"Set send period. Examples: 0 or 1: send after every sampling; 4: send after every fourth sampling.","name":"set send_period"},"0012":{"desc":"Set send period. Examples: 0 or 1: send after every sampling; 4: send after every fourth sampling + save settings.","name":"set send_period + save"},"0013":{"desc":"Set re-join period in hours (0...1000). Examples: 24: re-join network every 24 hours. 0: never re- join.","name":"set join_period"},"0014":{"desc":"Set re-join period in hours (0...1000). Examples: 24: re-join network every 24 hours. 0: never re- join + save settings.","name":"set join_period + save"},"0015":{"desc":"Set default Tx power index. Used for next Tx. Actual pwridx for following Tx may vary, if ADR is enabled.","name":"set pwridx"},"0016":{"desc":"Set default Tx power index. Used for next Tx. Actual pwridx for following Tx may vary, if ADR is enabled + save settings.","name":"set pwridx + save"},"0017":{"desc":"Set link check period (default: 36).","name":"set linkcheck_period"},"0018":{"desc":"Set link check period (default: 36) + save settings.","name":"set linkcheck_period + save"},"0019":{"desc":"Set link check tolerance (default: 6).","name":"set linkcheck_tolerance"},"001A":{"desc":"Set link check tolerance (default: 6) + save settings.","name":"set linkcheck_tolerance + save"},"001B":{"desc":"Set link check limit (default: 12).","name":"set linkcheck_limit"},"001C":{"desc":"Set link check limit (default: 12) + save settings.","name":"set linkcheck_limit + save"},"0020":{"desc":"Set parameter 0 (0...65534; 65535: invalid).","name":"set param 0"},"0021":{"desc":"Set parameter 1 (0...65534; 65535: invalid).","name":"set param 1"},"0022":{"desc":"Set parameter 2 (0...65534; 65535: invalid).","name":"set param 2"},"0023":{"desc":"Set parameter 3 (0...65534; 65535: invalid).","name":"set param 3"},"0024":{"desc":"Set parameter 4 (0...65534; 65535: invalid).","name":"set param 4"},"0025":{"desc":"Set parameter 5 (0...65534; 65535: invalid).","name":"set param 5"},"0026":{"desc":"Set parameter 6 (0...65534; 65535: invalid).","name":"set param 6"},"0027":{"desc":"Set parameter 7 (0...65534; 65535: invalid).","name":"set param 7"},"0028":{"desc":"Set parameter 8 (0...65534; 65535: invalid).","name":"set param 8"},"0029":{"desc":"Set parameter 9 (0...65534; 65535: invalid).","name":"set param 9"},"002A":{"desc":"Set parameter 10 (0...65534; 65535: invalid).","name":"set param 10"},"002B":{"desc":"Set parameter 11 (0...65534; 65535: invalid).","name":"set param 11"},"002C":{"desc":"Set parameter 12 (0...65534; 65535: invalid).","name":"set param 12"},"002D":{"desc":"Set parameter 13 (0...65534; 65535: invalid).","name":"set param 13"},"002E":{"desc":"Set parameter 14 (0...65534; 65535: invalid).","name":"set param 14"},"002F":{"desc":"Set parameter 15 (0...65534; 65535: invalid). ","name":"set param 15"},"0030":{"desc":"Set parameter 0 (0...65534; 65535: invalid) + save settings.","name":"set param 0 + save"},"0031":{"desc":"Set parameter 1 (0...65534; 65535: invalid) + save settings.","name":"set param 1 + save"},"0032":{"desc":"Set parameter 2 (0...65534; 65535: invalid) + save settings.","name":"set param 2 + save"},"0033":{"desc":"Set parameter 3 (0...65534; 65535: invalid) + save settings.","name":"set param 3 + save"},"0034":{"desc":"Set parameter 4 (0...65534; 65535: invalid) + save settings.","name":"set param 4 + save"},"0035":{"desc":"Set parameter 5 (0...65534; 65535: invalid) + save settings.","name":"set param 5 + save"},"0036":{"desc":"Set parameter 6 (0...65534; 65535: invalid) + save settings.","name":"set param 6 + save"},"0037":{"desc":"Set parameter 7 (0...65534; 65535: invalid) + save settings.","name":"set param 7 + save"},"0038":{"desc":"Set parameter 8 (0...65534; 65535: invalid) + save settings.","name":"set param 8 + save"},"0039":{"desc":"Set parameter 9 (0...65534; 65535: invalid) + save settings.","name":"set param 9 + save"},"003A":{"desc":"Set parameter 10 (0...65534; 65535: invalid) + save settings.","name":"set param 10 + save"},"003B":{"desc":"Set parameter 11 (0...65534; 65535: invalid) + save settings.","name":"set param 11 + save"},"003C":{"desc":"Set parameter 12 (0...65534; 65535: invalid) + save settings.","name":"set param 12 + save"},"003D":{"desc":"Set parameter 13 (0...65534; 65535: invalid) + save settings.","name":"set param 13 + save"},"003E":{"desc":"Set parameter 14 (0...65534; 65535: invalid) + save settings.","name":"set param 14 + save"},"003F":{"desc":"Set parameter 15 (0...65534; 65535: invalid) + save settings.","name":"set param 15 + save"},"FEF0":{"desc":"Erase settings in flash and reset.","name":"factory reset","noparam":true},"FEF1":{"desc":"Enter sleep mode (power off).","name":"sleep","noparam":true},"FEFE":{"desc":"Reset device; un-saved parameter changes are lost.","name":"reset","noparam":true}};
+  var COMMANDS = {"0001":{"desc":"Set sampling period in seconds (1...65535).","name":"set period"},"0002":{"desc":"Set sampling period in seconds (1...65535) + save settings.","name":"set period + save"},"0003":{"desc":"Set default Tx data rate. Used for next Tx. Actual data rate for following Tx may vary, if ADR is enabled.","name":"set dr"},"0004":{"desc":"Set default Tx data rate. Used for next Tx. Actual data rate for following Tx may vary, if ADR is enabled + save settings.","name":"set dr + save"},"0005":{"desc":"Enable ADR.","name":"set adr on","noparam":true},"0006":{"desc":"Enable ADR + save settings.","name":"set adr on + save","noparam":true},"0007":{"desc":"Disable ADR.","name":"set adr off","noparam":true},"0008":{"desc":"Disable ADR + save settings.","name":"set adr off + save","noparam":true},"0009":{"desc":"Set minimum data rate (overrides ADR settings).","name":"set dr_min"},"000A":{"desc":"Set minimum data rate (overrides ADR settings) + save settings.","name":"set dr_min + save"},"000B":{"desc":"Set maximum data rate (overrides ADR settings).","name":"set dr_max"},"000C":{"desc":"Set maximum data rate (overrides ADR settings) + save settings.","name":"set dr_max + save"},"000D":{"desc":"Set minimum Tx power index (overrides ADR settings).","name":"set pwridx_min"},"000E":{"desc":"Set minimum Tx power index (overrides ADR settings) + save settings.","name":"set pwridx_min + save"},"000F":{"desc":"Set maximum Tx power index (overrides ADR settings).","name":"set pwridx_max"},"0010":{"desc":"Set maximum Tx power index (overrides ADR settings) + save settings.","name":"set pwridx_max + save"},"0011":{"desc":"Set send period. Examples: 0 or 1: send after every sampling; 4: send after every fourth sampling.","name":"set send_period"},"0012":{"desc":"Set send period. Examples: 0 or 1: send after every sampling; 4: send after every fourth sampling + save settings.","name":"set send_period + save"},"0013":{"desc":"Set re-join period in hours (0...1000). Examples: 24: re-join network every 24 hours. 0: never re- join.","name":"set join_period"},"0014":{"desc":"Set re-join period in hours (0...1000). Examples: 24: re-join network every 24 hours. 0: never re- join + save settings.","name":"set join_period + save"},"0015":{"desc":"Set default Tx power index. Used for next Tx. Actual pwridx for following Tx may vary, if ADR is enabled.","name":"set pwridx"},"0016":{"desc":"Set default Tx power index. Used for next Tx. Actual pwridx for following Tx may vary, if ADR is enabled + save settings.","name":"set pwridx + save"},"0017":{"desc":"Set link check period (default: 36).","name":"set linkcheck_period"},"0018":{"desc":"Set link check period (default: 36) + save settings.","name":"set linkcheck_period + save"},"0019":{"desc":"Set link check tolerance (default: 6).","name":"set linkcheck_tolerance"},"001A":{"desc":"Set link check tolerance (default: 6) + save settings.","name":"set linkcheck_tolerance + save"},"001B":{"desc":"Set link check limit (default: 12).","name":"set linkcheck_limit"},"001C":{"desc":"Set link check limit (default: 12) + save settings.","name":"set linkcheck_limit + save"},"0020":{"desc":"Set parameter 0 (0...65534; 65535: invalid).","name":"set param 0"},"0021":{"desc":"Set parameter 1 (0...65534; 65535: invalid).","name":"set param 1"},"0022":{"desc":"Set parameter 2 (0...65534; 65535: invalid).","name":"set param 2"},"0023":{"desc":"Set parameter 3 (0...65534; 65535: invalid).","name":"set param 3"},"0024":{"desc":"Set parameter 4 (0...65534; 65535: invalid).","name":"set param 4"},"0025":{"desc":"Set parameter 5 (0...65534; 65535: invalid).","name":"set param 5"},"0026":{"desc":"Set parameter 6 (0...65534; 65535: invalid).","name":"set param 6"},"0027":{"desc":"Set parameter 7 (0...65534; 65535: invalid).","name":"set param 7"},"0028":{"desc":"Set parameter 8 (0...65534; 65535: invalid).","name":"set param 8"},"0029":{"desc":"Set parameter 9 (0...65534; 65535: invalid).","name":"set param 9"},"002A":{"desc":"Set parameter 10 (0...65534; 65535: invalid).","name":"set param 10"},"002B":{"desc":"Set parameter 11 (0...65534; 65535: invalid).","name":"set param 11"},"002C":{"desc":"Set parameter 12 (0...65534; 65535: invalid).","name":"set param 12"},"002D":{"desc":"Set parameter 13 (0...65534; 65535: invalid).","name":"set param 13"},"002E":{"desc":"Set parameter 14 (0...65534; 65535: invalid).","name":"set param 14"},"002F":{"desc":"Set parameter 15 (0...65534; 65535: invalid). ","name":"set param 15"},"0030":{"desc":"Set parameter 0 (0...65534; 65535: invalid) + save settings.","name":"set param 0 + save"},"0031":{"desc":"Set parameter 1 (0...65534; 65535: invalid) + save settings.","name":"set param 1 + save"},"0032":{"desc":"Set parameter 2 (0...65534; 65535: invalid) + save settings.","name":"set param 2 + save"},"0033":{"desc":"Set parameter 3 (0...65534; 65535: invalid) + save settings.","name":"set param 3 + save"},"0034":{"desc":"Set parameter 4 (0...65534; 65535: invalid) + save settings.","name":"set param 4 + save"},"0035":{"desc":"Set parameter 5 (0...65534; 65535: invalid) + save settings.","name":"set param 5 + save"},"0036":{"desc":"Set parameter 6 (0...65534; 65535: invalid) + save settings.","name":"set param 6 + save"},"0037":{"desc":"Set parameter 7 (0...65534; 65535: invalid) + save settings.","name":"set param 7 + save"},"0038":{"desc":"Set parameter 8 (0...65534; 65535: invalid) + save settings.","name":"set param 8 + save"},"0039":{"desc":"Set parameter 9 (0...65534; 65535: invalid) + save settings.","name":"set param 9 + save"},"003A":{"desc":"Set parameter 10 (0...65534; 65535: invalid) + save settings.","name":"set param 10 + save"},"003B":{"desc":"Set parameter 11 (0...65534; 65535: invalid) + save settings.","name":"set param 11 + save"},"003C":{"desc":"Set parameter 12 (0...65534; 65535: invalid) + save settings.","name":"set param 12 + save"},"003D":{"desc":"Set parameter 13 (0...65534; 65535: invalid) + save settings.","name":"set param 13 + save"},"003E":{"desc":"Set parameter 14 (0...65534; 65535: invalid) + save settings.","name":"set param 14 + save"},"003F":{"desc":"Set parameter 15 (0...65534; 65535: invalid) + save settings.","name":"set param 15 + save"},"FEF0":{"desc":"Erase settings in flash and reset.","name":"factory reset","noparam":true},"FEF1":{"desc":"Enter sleep mode (power off).","name":"sleep","noparam":true},"FEFE":{"desc":"Reset device; un-saved parameter changes are lost.","name":"reset","noparam":true}};
 
-    var crc16 = function(buffer) {
-        let crc = 0xFFFF; let odd;
-        for (let i = 0; i < buffer.length; i += 2) {
-            crc = crc ^ parseInt(buffer.substr(i, 2), 16);
-            for (let j = 0; j < 8; j++) {
-                odd = crc & 0x0001; crc = crc >> 1;
-                if (odd) { crc = crc ^ 0xA001; }
-            }
-        }
-        return crc;
-    };
-
-    var command = document.getElementById("command");
-    var desc = document.getElementById("desc");
-    var param = document.getElementById("parameter");
-    var output = document.getElementById("rawcommand");
-
-    Object.keys(COMMANDS).forEach(k => {
-      command.append(new Option(COMMANDS[k]["name"], k));
-    });
-
-    var updateCommand = function() {
-      desc.innerHTML = COMMANDS[command.value]["desc"];
-      if (COMMANDS[command.value]["noparam"] === true) {
-        param.value = "0";
+  var crc16 = function(buffer) {
+      let crc = 0xFFFF; let odd;
+      for (let i = 0; i < buffer.length; i += 2) {
+          crc = crc ^ parseInt(buffer.substr(i, 2), 16);
+          for (let j = 0; j < 8; j++) {
+              odd = crc & 0x0001; crc = crc >> 1;
+              if (odd) { crc = crc ^ 0xA001; }
+          }
       }
-      if (param.value == "" || command.value == "") {
-        output.innerHTML = "Set parameter value";
+      return crc;
+  };
+
+  var command = document.getElementById("command");
+  var desc = document.getElementById("desc");
+  var param = document.getElementById("parameter");
+  var output = document.getElementById("rawcommand");
+
+  Object.keys(COMMANDS).forEach(k => {
+    command.append(new Option(COMMANDS[k]["name"], k));
+  });
+
+  var updateCommand = function() {
+    desc.innerHTML = COMMANDS[command.value]["desc"];
+    if (COMMANDS[command.value]["noparam"] === true) {
+      param.value = "0";
+    }
+    if (param.value == "" || command.value == "") {
+      output.innerHTML = "Set parameter value";
+      return;
+    }
+    let payload = command.value + ("000" + parseInt(param.value).toString(16)).slice(-4);
+    let crc = crc16(payload);
+    output.innerHTML = (payload + crc.toString(16)).toUpperCase();
+  };
+
+  param.addEventListener("keydown", e => {
+    // Allow: backspace, delete, tab, escape, enter and .
+    if (e.keyCode == 8 || e.keyCode == 46 || e.keyCode == 9 || e.keyCode == 27 || e.keyCode == 13 ||
+      // Allow: Ctrl/cmd+A
+      (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+      // Allow: Ctrl/cmd+C
+      (e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+      // Allow: Ctrl/cmd+X
+      (e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
+      // Allow: home, end, left, right
+      (e.keyCode >= 35 && e.keyCode <= 39)) {
+          // let it happen, don't do anything
         return;
       }
-      let payload = command.value + ("000" + parseInt(param.value).toString(16)).slice(-4);
-      let crc = crc16(payload);
-      output.innerHTML = (payload + crc.toString(16)).toUpperCase();
-    };
-
-    param.addEventListener("keydown", e => {
-      // Allow: backspace, delete, tab, escape, enter and .
-      if (e.keyCode == 8 || e.keyCode == 46 || e.keyCode == 9 || e.keyCode == 27 || e.keyCode == 13 ||
-        // Allow: Ctrl/cmd+A
-        (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
-        // Allow: Ctrl/cmd+C
-        (e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
-        // Allow: Ctrl/cmd+X
-        (e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
-        // Allow: home, end, left, right
-        (e.keyCode >= 35 && e.keyCode <= 39)) {
-            // let it happen, don't do anything
-          return;
-        }
-      // Ensure that it is a number and stop the keypress
-      if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-        e.preventDefault();
-      }
-    });
-    param.addEventListener("change", function() {
-      updateCommand();
-    });
-    command.addEventListener("change", function() {
-      updateCommand();
-    });
-
+    // Ensure that it is a number and stop the keypress
+    if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+      e.preventDefault();
+    }
+  });
+  param.addEventListener("change", function() {
     updateCommand();
   });
-  </script>
+  command.addEventListener("change", function() {
+    updateCommand();
+  });
+
+  updateCommand();
+</script>
 </html>
