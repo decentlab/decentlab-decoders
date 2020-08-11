@@ -123,7 +123,7 @@
     }
     let payload = command.value + ("000" + parseInt(param.value).toString(16)).slice(-4);
     let crc = crc16(payload);
-    output.innerHTML = (payload + crc.toString(16)).toUpperCase();
+    output.innerHTML = (payload + ("000" + crc.toString(16)).slice(-4)).toUpperCase();
   };
 
   param.addEventListener("keydown", e => {
