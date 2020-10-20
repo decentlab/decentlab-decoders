@@ -90,6 +90,8 @@ function Decoder(bytes, port) {
 
 Copy example payload message from the datasheet, paste into `Payload`, and click `Test`. Make sure the output values match against the datasheet example and  save the decoder.
 
+:warning: The decoders may output a field named `device_id`, which may prohobit per-device querying in the TTN Data Storage integration.
+
 ## ELEMENT IoT
 
 Go to `Automation`, `Parser`, and create a new parser. Take *ELEMENT-IoT Elixir* implementation and paste into the `Code` window by overwriting its content. Test the provided payloads against the datasheet and save.
