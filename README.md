@@ -90,6 +90,8 @@ function Decoder(bytes, port) {
 
 Copy example payload message from the datasheet, paste into `Payload`, and click `Test`. Make sure the output values match against the datasheet example and  save the decoder.
 
+The decoders may output nested objects, which are stored as text in the TTN Data Storage integration.
+
 :warning: The decoders may output a field named `device_id`, which may prohobit per-device querying in the TTN Data Storage integration.
 
 ## ELEMENT IoT
