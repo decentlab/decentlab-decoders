@@ -40,6 +40,7 @@ Device | Name
 [DL-IAM](DL-IAM) | [Indoor Ambiance Monitor including CO₂, TVOC and Motion Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/indoor-ambiance-monitor-including-co2-tvoc-and-motion-sensor-for-lorawan)
 [DL-ITST](DL-ITST) | [Infrared Thermometer / Surface Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/infrared-thermometer-/-surface-temperature-sensor-for-lorawan)
 [DL-KL66](DL-KL66) | [Strain / Weight Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/strain-/-weight-sensor-for-lorawan)
+[DL-LID](DL-LID) | [Laser Distance / Level Sensor for LoRaWAN&reg;](https://www.decentlab.com/support)
 [DL-LP8P](DL-LP8P) | [CO₂, Temperature, Humidity and Barometric Pressure Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/co2-temperature-humidity-and-barometric-pressure-sensor-for-lorawan)
 [DL-MBX](DL-MBX) | [Ultrasonic Distance / Level Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/ultrasonic-distance-/-level-sensor-for-lorawan)
 [DL-PAR](DL-PAR) | [Photosynthetically Active Radiation Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/photosynthetically-active-radiation-sensor-for-lorawan)
