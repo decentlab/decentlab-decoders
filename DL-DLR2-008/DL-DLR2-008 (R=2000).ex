@@ -15,7 +15,7 @@ defmodule DecentlabDecoder do
           %{
             :name => "Temperature",
             :convert => fn x -> -244.83 + 2.3419 * ((((Enum.at(x, 0) + Enum.at(x, 1)*65536) / 8388608 - 1) / 2) * @r / (1 - (((Enum.at(x, 0) + Enum.at(x, 1)*65536) / 8388608 - 1) / 2))) + 0.0010664 * :math.pow((((Enum.at(x, 0) + Enum.at(x, 1)*65536) / 8388608 - 1) / 2) * @r / (1 - (((Enum.at(x, 0) + Enum.at(x, 1)*65536) / 8388608 - 1) / 2)), 2) end,
-            :unit => nil
+            :unit => "°C"
           }
         ]
       },

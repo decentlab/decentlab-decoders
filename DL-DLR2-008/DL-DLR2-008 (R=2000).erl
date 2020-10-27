@@ -15,7 +15,8 @@
       values => [
         #{
           name => <<"Temperature">>,
-          convert => fun(X) -> -244.83 + 2.3419 * ((((lists:nth(0 + 1, X) + lists:nth(1 + 1, X)*65536) / 8388608 - 1) / 2) * ?R / (1 - (((lists:nth(0 + 1, X) + lists:nth(1 + 1, X)*65536) / 8388608 - 1) / 2))) + 0.0010664 * math:pow((((lists:nth(0 + 1, X) + lists:nth(1 + 1, X)*65536) / 8388608 - 1) / 2) * ?R / (1 - (((lists:nth(0 + 1, X) + lists:nth(1 + 1, X)*65536) / 8388608 - 1) / 2)), 2) end
+          convert => fun(X) -> -244.83 + 2.3419 * ((((lists:nth(0 + 1, X) + lists:nth(1 + 1, X)*65536) / 8388608 - 1) / 2) * ?R / (1 - (((lists:nth(0 + 1, X) + lists:nth(1 + 1, X)*65536) / 8388608 - 1) / 2))) + 0.0010664 * math:pow((((lists:nth(0 + 1, X) + lists:nth(1 + 1, X)*65536) / 8388608 - 1) / 2) * ?R / (1 - (((lists:nth(0 + 1, X) + lists:nth(1 + 1, X)*65536) / 8388608 - 1) / 2)), 2) end,
+          unit => <<"°C"/utf8>>
         }
       ]
     },

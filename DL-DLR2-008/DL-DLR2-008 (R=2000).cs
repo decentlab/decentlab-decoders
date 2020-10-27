@@ -39,7 +39,7 @@ public class DecentlabDecoder
 
   private static readonly List<Sensor> SENSORS = new List<Sensor>() {
     new Sensor(2, new List<SensorValue>() {
-      new SensorValue("Temperature", null, x => -244.83 + 2.3419 * ((((x[0] + x[1]*65536) / 8388608 - 1) / 2) * R / (1 - (((x[0] + x[1]*65536) / 8388608 - 1) / 2))) + 0.0010664 * Math.Pow((((x[0] + x[1]*65536) / 8388608 - 1) / 2) * R / (1 - (((x[0] + x[1]*65536) / 8388608 - 1) / 2)), 2))
+      new SensorValue("Temperature", "°C", x => -244.83 + 2.3419 * ((((x[0] + x[1]*65536) / 8388608 - 1) / 2) * R / (1 - (((x[0] + x[1]*65536) / 8388608 - 1) / 2))) + 0.0010664 * Math.Pow((((x[0] + x[1]*65536) / 8388608 - 1) / 2) * R / (1 - (((x[0] + x[1]*65536) / 8388608 - 1) / 2)), 2))
     }),
     new Sensor(1, new List<SensorValue>() {
       new SensorValue("Battery voltage", "V", x => x[0] / 1000)

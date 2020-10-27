@@ -13,7 +13,7 @@ defmodule Parser do
   
   def fields do
     [
-      %{field: "temperature", display: "Temperature", unit: ""},
+      %{field: "temperature", display: "Temperature", unit: "°C"},
       %{field: "battery_voltage", display: "Battery voltage", unit: "V"}
     ]
   end

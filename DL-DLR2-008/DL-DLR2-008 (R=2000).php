@@ -60,7 +60,7 @@ class DL_DLR2_008_Decoder extends DecentlabDecoder {
                     [
                         'name' => 'temperature',
                         'convert' => function ($x) use ($R) { return -244.83 + 2.3419 * (((($x[0] + $x[1]*65536) / 8388608 - 1) / 2) * $R / (1 - ((($x[0] + $x[1]*65536) / 8388608 - 1) / 2))) + 0.0010664 * pow(((($x[0] + $x[1]*65536) / 8388608 - 1) / 2) * $R / (1 - ((($x[0] + $x[1]*65536) / 8388608 - 1) / 2)), 2); },
-                        'unit' => NULL,
+                        'unit' => '°C',
                     ],
                 ],
             ],
