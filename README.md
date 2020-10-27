@@ -92,7 +92,7 @@ Copy example payload message from the datasheet, paste into `Payload`, and click
 
 The decoders may output nested objects, which are stored as text in the TTN Data Storage integration.
 
-:warning: The decoders may output a field named `device_id`, which may prohobit per-device querying in the TTN Data Storage integration.
+:warning: The decoders may output a field named `device_id`, which may prohibit per-device querying in the TTN Data Storage integration.
 
 ## ELEMENT IoT
 
