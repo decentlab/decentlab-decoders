@@ -1,3 +1,6 @@
+
+% https://decentlab.squarespace.com/products/optical-dissolved-oxygen-and-temperature-sensor-for-lorawan
+
 -module(decentlab_decoder).
 -define(PROTOCOL_VERSION, 2).
 -export([decode/1, start/0]).

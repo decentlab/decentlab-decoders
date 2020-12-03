@@ -1,5 +1,5 @@
 
-/* https://www.decentlab.com/support */
+/* https://decentlab.squarespace.com/products/laser-distance-level-sensor-for-lorawan */
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,

@@ -1,4 +1,5 @@
 <?php
+/* https://decentlab.squarespace.com/products/optical-dissolved-oxygen-and-temperature-sensor-for-lorawan */
 
 abstract class DecentlabDecoder
 {

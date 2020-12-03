@@ -1,5 +1,5 @@
 
-/* https://www.decentlab.com/support */
+/* https://decentlab.squarespace.com/products/particulate-matter-temperature-humidity-and-barometric-pressure-sensor-for-lorawan */
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,

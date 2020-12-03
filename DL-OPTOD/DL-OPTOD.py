@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+
+# https://decentlab.squarespace.com/products/optical-dissolved-oxygen-and-temperature-sensor-for-lorawan
+
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function

@@ -1,3 +1,6 @@
+
+# https://decentlab.squarespace.com/products/optical-dissolved-oxygen-and-temperature-sensor-for-lorawan
+
 defmodule Parser do
   use Platform.Parsing.Behaviour
   
