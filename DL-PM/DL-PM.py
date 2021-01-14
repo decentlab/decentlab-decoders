@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# https://decentlab.squarespace.com/products/particulate-matter-temperature-humidity-and-barometric-pressure-sensor-for-lorawan
+# https://www.decentlab.com/products/particulate-matter-temperature-humidity-and-barometric-pressure-sensor-for-lorawan
 
 from __future__ import absolute_import
 from __future__ import division

@@ -1,5 +1,5 @@
 <?php
-/* https://decentlab.squarespace.com/products/particulate-matter-temperature-humidity-and-barometric-pressure-sensor-for-lorawan */
+/* https://www.decentlab.com/products/particulate-matter-temperature-humidity-and-barometric-pressure-sensor-for-lorawan */
 
 abstract class DecentlabDecoder
 {

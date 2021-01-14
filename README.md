@@ -45,7 +45,7 @@ Device | Name
 [DL-MBX](DL-MBX) | [Ultrasonic Distance / Level Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/ultrasonic-distance-/-level-sensor-for-lorawan)
 [DL-OPTOD](DL-OPTOD) | [Optical Dissolved Oxygen and Temperature Sensor for LoRaWAN&reg;](https://decentlab.squarespace.com/products/optical-dissolved-oxygen-and-temperature-sensor-for-lorawan)
 [DL-PAR](DL-PAR) | [Photosynthetically Active Radiation Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/photosynthetically-active-radiation-sensor-for-lorawan)
-[DL-PM](DL-PM) | [Particulate Matter, Temperature, Humidity and Barometric Pressure Sensor for LoRaWAN&reg;](https://decentlab.squarespace.com/products/particulate-matter-temperature-humidity-and-barometric-pressure-sensor-for-lorawan)
+[DL-PM](DL-PM) | [Particulate Matter, Temperature, Humidity and Barometric Pressure Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/particulate-matter-temperature-humidity-and-barometric-pressure-sensor-for-lorawan)
 [DL-PR21](DL-PR21) | [Pressure / Liquid Level and Temperature Sensor with G1/4" Pipe Thread for LoRaWAN&reg;](https://www.decentlab.com/products/pressure-/-liquid-level-and-temperature-sensor-with-g1/4-pipe-thread-for-lorawan)
 [DL-PR26](DL-PR26) | [Pressure / Liquid Level and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/pressure-/-liquid-level-and-temperature-sensor-for-lorawan)
 [DL-PR36](DL-PR36) | [High-Precision Pressure / Liquid Level and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/high-precision-pressure-/-liquid-level-and-temperature-sensor-for-lorawan)
