@@ -62,7 +62,7 @@
       margin: auto;
       max-width: 600px;
     }
-    #rawcommand {
+    .container .output {
       font-family: 'Roboto Mono';
     }
   </style>
@@ -83,7 +83,11 @@
       </div>
       <div class="container">
         <label for="rawcommand">Encoded command</label>
-        <div id="rawcommand">&nbsp;</div>
+        <div id="rawcommand" class="output">&nbsp;</div>
+      </div>
+      <div class="container">
+        <label for="base64command">Base64-encoded command</label>
+        <div id="base64command" class="output">&nbsp;</div>
       </div>
     </div>
   </div>
@@ -107,6 +111,7 @@
   var desc = document.getElementById("desc");
   var param = document.getElementById("parameter");
   var output = document.getElementById("rawcommand");
+  var outputBase64 = document.getElementById("base64command");
 
   Object.keys(COMMANDS).forEach(k => {
     command.append(new Option(COMMANDS[k]["name"], k));
@@ -119,11 +124,18 @@
     }
     if (param.value == "" || command.value == "") {
       output.innerHTML = "Set parameter value";
+      outputBase64.innerHTML = "Set parameter value";
       return;
     }
     let payload = command.value + ("000" + parseInt(param.value).toString(16)).slice(-4);
     let crc = crc16(payload);
-    output.innerHTML = (payload + ("000" + crc.toString(16)).slice(-4)).toUpperCase();
+    var cmd = (payload + ("000" + crc.toString(16)).slice(-4)).toUpperCase();
+    output.innerHTML = cmd;
+    var cmdStr = "";
+    for (var i = 0; i < cmd.length; i += 2) {
+      cmdStr += String.fromCharCode(parseInt(cmd.substr(i, 2), 16));
+    }
+    outputBase64.innerHTML = btoa(cmdStr);
   };
 
   param.addEventListener("keydown", e => {
