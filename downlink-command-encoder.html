@@ -1,169 +1,691 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Decentlab Downlink Command Encoder</title>
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,500,700,400,700i,400i,300i">
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,500,700,400,700i,400i,300i">
-  <style>
-    pre {
-      outline: 1px solid #ccc;
-      padding: 5px; margin:
-      5px;
-    }
-    .string {
-      color: #008000;
-    }
-    .number {
-      color: #0000ff;
-    }
-    .boolean {
-      color: #b22222;
-    }
-    .null {
-      color: #808080;
-    }
-    .key {
-      color: #000000;
-    }
+  <head>
+    <title>Decentlab Downlink Command Encoder</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,500,700,400,700i,400i,300i"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,500,700,400,700i,400i,300i"
+    />
+    <style>
+      pre {
+        outline: 1px solid #ccc;
+        padding: 5px;
+        margin: 5px;
+      }
+      .string {
+        color: #008000;
+      }
+      .number {
+        color: #0000ff;
+      }
+      .boolean {
+        color: #b22222;
+      }
+      .null {
+        color: #808080;
+      }
+      .key {
+        color: #000000;
+      }
 
-    body, p, ul, ol, button, input, select, textarea {
+      body,
+      p,
+      ul,
+      ol,
+      button,
+      input,
+      select,
+      textarea {
         font-weight: normal;
-        font-family: Roboto, Arial, sans-serif;;
+        font-family: Roboto, Arial, sans-serif;
         font-size: 12px;
         font-style: normal;
         letter-spacing: 0em;
-        line-height:1.6em
-    }
-    .main-container {
-      display: flex;
-      flex-flow: column;
-      align-content: space-between;
-      justify-content: space-between;
-    }
-    .break {
-      flex-basis: 100%;
-      height: 0;
-    }
-    .container > * {
-      display: block;
-    }
-    .container {
-      margin: 10px 0 0 10px;
-    }
-    .title {
-      margin-left: 10px;
-    }
+        line-height: 1.6em;
+      }
+      .main-container {
+        display: flex;
+        flex-flow: column;
+        align-content: space-between;
+        justify-content: space-between;
+      }
+      .break {
+        flex-basis: 100%;
+        height: 0;
+      }
+      .container > * {
+        display: block;
+      }
+      .container {
+        margin: 10px 0 0 10px;
+      }
+      .title {
+        margin-left: 10px;
+      }
 
-    .button-container {
-      display: flex;
-      align-items: flex-end;
-    }
-    .content {
-      margin: auto;
-      max-width: 600px;
-    }
-    .container .output {
-      font-family: 'Roboto Mono';
-    }
-  </style>
-</head>
-<body>
-  <div class="content">
-    <h1 class="title">Decentlab Downlink Command Encoder</h1>
-    <div class="main-container">
+      .button-container {
+        display: flex;
+        align-items: flex-end;
+      }
+      .content {
+        margin: auto;
+        max-width: 600px;
+      }
+      .container .output {
+        font-family: "Roboto Mono";
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <h1 class="title">Decentlab Downlink Command Encoder</h1>
       <div class="container">
-        <label for="command">Command</label>
-        <select id="command">
-        </select>
-        <div id="desc">&nbsp;</div>
+        <label for="command">Minimum supported firmware</label>
+        <select id="firmware"></select>
       </div>
-      <div class="container">
-        <label for="parameter">Parameter value</label>
-        <input id="parameter" placeholder="Type decimal integer value">
-      </div>
-      <div class="container">
-        <label for="rawcommand">Encoded command</label>
-        <div id="rawcommand" class="output">&nbsp;</div>
-      </div>
-      <div class="container">
-        <label for="base64command">Base64-encoded command</label>
-        <div id="base64command" class="output">&nbsp;</div>
+      <div class="main-container">
+        <div class="container">
+          <label for="command">Command</label>
+          <select id="command"></select>
+          <div id="desc">&nbsp;</div>
+        </div>
+        <div class="container">
+          <label for="parameter">Parameter value</label>
+          <input id="parameter" placeholder="Type decimal integer value" />
+        </div>
+        <div class="container">
+          <label for="rawcommand">Hex-encoded command</label>
+          <div id="rawcommand" class="output">&nbsp;</div>
+        </div>
+        <div class="container">
+          <label for="base64command">Base64-encoded command</label>
+          <div id="base64command" class="output">&nbsp;</div>
+        </div>
       </div>
     </div>
-  </div>
-</body>
-<script>
-  var COMMANDS = {"0001":{"desc":"Set sampling period in seconds (1...65535).","name":"set period"},"0002":{"desc":"Set sampling period in seconds (1...65535) + save settings.","name":"set period + save"},"0003":{"desc":"Set default Tx data rate. Used for next Tx. Actual data rate for following Tx may vary, if ADR is enabled.","name":"set dr"},"0004":{"desc":"Set default Tx data rate. Used for next Tx. Actual data rate for following Tx may vary, if ADR is enabled + save settings.","name":"set dr + save"},"0005":{"desc":"Enable ADR.","name":"set adr on","noparam":true},"0006":{"desc":"Enable ADR + save settings.","name":"set adr on + save","noparam":true},"0007":{"desc":"Disable ADR.","name":"set adr off","noparam":true},"0008":{"desc":"Disable ADR + save settings.","name":"set adr off + save","noparam":true},"0009":{"desc":"Set minimum data rate (overrides ADR settings).","name":"set dr_min"},"000A":{"desc":"Set minimum data rate (overrides ADR settings) + save settings.","name":"set dr_min + save"},"000B":{"desc":"Set maximum data rate (overrides ADR settings).","name":"set dr_max"},"000C":{"desc":"Set maximum data rate (overrides ADR settings) + save settings.","name":"set dr_max + save"},"000D":{"desc":"Set minimum Tx power index (overrides ADR settings).","name":"set pwridx_min"},"000E":{"desc":"Set minimum Tx power index (overrides ADR settings) + save settings.","name":"set pwridx_min + save"},"000F":{"desc":"Set maximum Tx power index (overrides ADR settings).","name":"set pwridx_max"},"0010":{"desc":"Set maximum Tx power index (overrides ADR settings) + save settings.","name":"set pwridx_max + save"},"0011":{"desc":"Set send period. Examples: 0 or 1: send after every sampling; 4: send after every fourth sampling.","name":"set send_period"},"0012":{"desc":"Set send period. Examples: 0 or 1: send after every sampling; 4: send after every fourth sampling + save settings.","name":"set send_period + save"},"0013":{"desc":"Set re-join period in hours (0...1000). Examples: 24: re-join network every 24 hours. 0: never re- join.","name":"set join_period"},"0014":{"desc":"Set re-join period in hours (0...1000). Examples: 24: re-join network every 24 hours. 0: never re- join + save settings.","name":"set join_period + save"},"0015":{"desc":"Set default Tx power index. Used for next Tx. Actual pwridx for following Tx may vary, if ADR is enabled.","name":"set pwridx"},"0016":{"desc":"Set default Tx power index. Used for next Tx. Actual pwridx for following Tx may vary, if ADR is enabled + save settings.","name":"set pwridx + save"},"0017":{"desc":"Set link check period (default: 36).","name":"set linkcheck_period"},"0018":{"desc":"Set link check period (default: 36) + save settings.","name":"set linkcheck_period + save"},"0019":{"desc":"Set link check tolerance (default: 6).","name":"set linkcheck_tolerance"},"001A":{"desc":"Set link check tolerance (default: 6) + save settings.","name":"set linkcheck_tolerance + save"},"001B":{"desc":"Set link check limit (default: 12).","name":"set linkcheck_limit"},"001C":{"desc":"Set link check limit (default: 12) + save settings.","name":"set linkcheck_limit + save"},"0020":{"desc":"Set parameter 0 (0...65534; 65535: invalid).","name":"set param 0"},"0021":{"desc":"Set parameter 1 (0...65534; 65535: invalid).","name":"set param 1"},"0022":{"desc":"Set parameter 2 (0...65534; 65535: invalid).","name":"set param 2"},"0023":{"desc":"Set parameter 3 (0...65534; 65535: invalid).","name":"set param 3"},"0024":{"desc":"Set parameter 4 (0...65534; 65535: invalid).","name":"set param 4"},"0025":{"desc":"Set parameter 5 (0...65534; 65535: invalid).","name":"set param 5"},"0026":{"desc":"Set parameter 6 (0...65534; 65535: invalid).","name":"set param 6"},"0027":{"desc":"Set parameter 7 (0...65534; 65535: invalid).","name":"set param 7"},"0028":{"desc":"Set parameter 8 (0...65534; 65535: invalid).","name":"set param 8"},"0029":{"desc":"Set parameter 9 (0...65534; 65535: invalid).","name":"set param 9"},"002A":{"desc":"Set parameter 10 (0...65534; 65535: invalid).","name":"set param 10"},"002B":{"desc":"Set parameter 11 (0...65534; 65535: invalid).","name":"set param 11"},"002C":{"desc":"Set parameter 12 (0...65534; 65535: invalid).","name":"set param 12"},"002D":{"desc":"Set parameter 13 (0...65534; 65535: invalid).","name":"set param 13"},"002E":{"desc":"Set parameter 14 (0...65534; 65535: invalid).","name":"set param 14"},"002F":{"desc":"Set parameter 15 (0...65534; 65535: invalid). ","name":"set param 15"},"0030":{"desc":"Set parameter 0 (0...65534; 65535: invalid) + save settings.","name":"set param 0 + save"},"0031":{"desc":"Set parameter 1 (0...65534; 65535: invalid) + save settings.","name":"set param 1 + save"},"0032":{"desc":"Set parameter 2 (0...65534; 65535: invalid) + save settings.","name":"set param 2 + save"},"0033":{"desc":"Set parameter 3 (0...65534; 65535: invalid) + save settings.","name":"set param 3 + save"},"0034":{"desc":"Set parameter 4 (0...65534; 65535: invalid) + save settings.","name":"set param 4 + save"},"0035":{"desc":"Set parameter 5 (0...65534; 65535: invalid) + save settings.","name":"set param 5 + save"},"0036":{"desc":"Set parameter 6 (0...65534; 65535: invalid) + save settings.","name":"set param 6 + save"},"0037":{"desc":"Set parameter 7 (0...65534; 65535: invalid) + save settings.","name":"set param 7 + save"},"0038":{"desc":"Set parameter 8 (0...65534; 65535: invalid) + save settings.","name":"set param 8 + save"},"0039":{"desc":"Set parameter 9 (0...65534; 65535: invalid) + save settings.","name":"set param 9 + save"},"003A":{"desc":"Set parameter 10 (0...65534; 65535: invalid) + save settings.","name":"set param 10 + save"},"003B":{"desc":"Set parameter 11 (0...65534; 65535: invalid) + save settings.","name":"set param 11 + save"},"003C":{"desc":"Set parameter 12 (0...65534; 65535: invalid) + save settings.","name":"set param 12 + save"},"003D":{"desc":"Set parameter 13 (0...65534; 65535: invalid) + save settings.","name":"set param 13 + save"},"003E":{"desc":"Set parameter 14 (0...65534; 65535: invalid) + save settings.","name":"set param 14 + save"},"003F":{"desc":"Set parameter 15 (0...65534; 65535: invalid) + save settings.","name":"set param 15 + save"},"FEF0":{"desc":"Erase settings in flash and reset.","name":"factory reset","noparam":true},"FEF1":{"desc":"Enter sleep mode (power off).","name":"sleep","noparam":true},"FEFE":{"desc":"Reset device; un-saved parameter changes are lost.","name":"reset","noparam":true}};
+  </body>
+  <script>
+    var COMMANDS = {
+      "0001": {
+        desc: "Set sampling period in seconds (1...65535).",
+        name: "set period",
+        min_firmware: "0.2.7",
+      },
+      "0002": {
+        desc: "Set sampling period in seconds (1...65535) + save settings.",
+        name: "set period + save",
+        min_firmware: "0.2.7",
+      },
+      "0003": {
+        desc: "Set default Tx data rate. Used for next Tx. Actual data rate for following Tx may vary, if ADR is enabled.",
+        name: "set dr",
+        min_firmware: "0.2.7",
+      },
+      "0004": {
+        desc: "Set default Tx data rate. Used for next Tx. Actual data rate for following Tx may vary, if ADR is enabled + save settings.",
+        name: "set dr + save",
+        min_firmware: "0.2.7",
+      },
+      "0005": {
+        desc: "Enable ADR.",
+        name: "set adr on",
+        min_firmware: "0.2.7",
+        noparam: true,
+      },
+      "0006": {
+        desc: "Enable ADR + save settings.",
+        name: "set adr on + save",
+        min_firmware: "0.2.7",
+        noparam: true,
+      },
+      "0007": {
+        desc: "Disable ADR.",
+        name: "set adr off",
+        min_firmware: "0.2.7",
+        noparam: true,
+      },
+      "0008": {
+        desc: "Disable ADR + save settings.",
+        name: "set adr off + save",
+        min_firmware: "0.2.7",
+        noparam: true,
+      },
+      "0009": {
+        desc: "Set minimum data rate (overrides ADR settings).",
+        name: "set dr_min",
+        min_firmware: "1.2.0",
+      },
+      "000A": {
+        desc: "Set minimum data rate (overrides ADR settings) + save settings.",
+        name: "set dr_min + save",
+        min_firmware: "1.2.0",
+      },
+      "000B": {
+        desc: "Set maximum data rate (overrides ADR settings).",
+        name: "set dr_max",
+        min_firmware: "1.2.0",
+      },
+      "000C": {
+        desc: "Set maximum data rate (overrides ADR settings) + save settings.",
+        name: "set dr_max + save",
+        min_firmware: "1.2.0",
+      },
+      "000D": {
+        desc: "Set minimum Tx power index (overrides ADR settings).",
+        name: "set pwridx_min",
+        min_firmware: "1.2.0",
+      },
+      "000E": {
+        desc: "Set minimum Tx power index (overrides ADR settings) + save settings.",
+        name: "set pwridx_min + save",
+        min_firmware: "1.2.0",
+      },
+      "000F": {
+        desc: "Set maximum Tx power index (overrides ADR settings).",
+        name: "set pwridx_max",
+        min_firmware: "1.2.0",
+      },
+      "0010": {
+        desc: "Set maximum Tx power index (overrides ADR settings) + save settings.",
+        name: "set pwridx_max + save",
+        min_firmware: "1.2.0",
+      },
+      "0011": {
+        desc: "Set send period. Examples: 0 or 1: send after every sampling; 4: send after every fourth sampling.",
+        name: "set send_period",
+        min_firmware: "1.4.0",
+      },
+      "0012": {
+        desc: "Set send period. Examples: 0 or 1: send after every sampling; 4: send after every fourth sampling + save settings.",
+        name: "set send_period + save",
+        min_firmware: "1.4.0",
+      },
+      "0013": {
+        desc: "Set re-join period in hours (0...1000). Examples: 24: re-join network every 24 hours. 0: never re- join.",
+        name: "set join_period",
+        min_firmware: "1.4.2",
+      },
+      "0014": {
+        desc: "Set re-join period in hours (0...1000). Examples: 24: re-join network every 24 hours. 0: never re- join + save settings.",
+        name: "set join_period + save",
+        min_firmware: "1.4.2",
+      },
+      "0015": {
+        desc: "Set default Tx power index. Used for next Tx. Actual pwridx for following Tx may vary, if ADR is enabled.",
+        name: "set pwridx",
+        min_firmware: "1.4.5",
+      },
+      "0016": {
+        desc: "Set default Tx power index. Used for next Tx. Actual pwridx for following Tx may vary, if ADR is enabled + save settings.",
+        name: "set pwridx + save",
+        min_firmware: "1.4.5",
+      },
+      "0017": {
+        desc: "Set link check period (default: 36).",
+        name: "set linkcheck_period",
+        min_firmware: "1.5.0",
+      },
+      "0018": {
+        desc: "Set link check period (default: 36) + save settings.",
+        name: "set linkcheck_period + save",
+        min_firmware: "1.5.0",
+      },
+      "0019": {
+        desc: "Set link check tolerance (default: 6).",
+        name: "set linkcheck_tolerance",
+        min_firmware: "1.5.0",
+      },
+      "001A": {
+        desc: "Set link check tolerance (default: 6) + save settings.",
+        name: "set linkcheck_tolerance + save",
+        min_firmware: "1.5.0",
+      },
+      "001B": {
+        desc: "Set link check limit (default: 12).",
+        name: "set linkcheck_limit",
+        min_firmware: "1.5.0",
+      },
+      "001C": {
+        desc: "Set link check limit (default: 12) + save settings.",
+        name: "set linkcheck_limit + save",
+        min_firmware: "1.5.0",
+      },
+      "001D": {
+        desc: "Set LoRaWAN uplink port (1...223, default: 1).",
+        name: "set port",
+        min_firmware: "1.6.0",
+      },
+      "001E": {
+        desc: "Set LoRaWAN uplink port (1...223, default: 1)  + save settings.",
+        name: "set port + save",
+        min_firmware: "1.6.0",
+      },
+      "0020": {
+        desc: "Set parameter 0 (0...65534; 65535: invalid).",
+        name: "set param 0",
+        min_firmware: "1.4.0",
+      },
+      "0021": {
+        desc: "Set parameter 1 (0...65534; 65535: invalid).",
+        name: "set param 1",
+        min_firmware: "1.4.0",
+      },
+      "0022": {
+        desc: "Set parameter 2 (0...65534; 65535: invalid).",
+        name: "set param 2",
+        min_firmware: "1.4.0",
+      },
+      "0023": {
+        desc: "Set parameter 3 (0...65534; 65535: invalid).",
+        name: "set param 3",
+        min_firmware: "1.4.0",
+      },
+      "0024": {
+        desc: "Set parameter 4 (0...65534; 65535: invalid).",
+        name: "set param 4",
+        min_firmware: "1.4.0",
+      },
+      "0025": {
+        desc: "Set parameter 5 (0...65534; 65535: invalid).",
+        name: "set param 5",
+        min_firmware: "1.4.0",
+      },
+      "0026": {
+        desc: "Set parameter 6 (0...65534; 65535: invalid).",
+        name: "set param 6",
+        min_firmware: "1.4.0",
+      },
+      "0027": {
+        desc: "Set parameter 7 (0...65534; 65535: invalid).",
+        name: "set param 7",
+        min_firmware: "1.4.0",
+      },
+      "0028": {
+        desc: "Set parameter 8 (0...65534; 65535: invalid).",
+        name: "set param 8",
+        min_firmware: "1.4.0",
+      },
+      "0029": {
+        desc: "Set parameter 9 (0...65534; 65535: invalid).",
+        name: "set param 9",
+        min_firmware: "1.4.0",
+      },
+      "002A": {
+        desc: "Set parameter 10 (0...65534; 65535: invalid).",
+        name: "set param 10",
+        min_firmware: "1.4.0",
+      },
+      "002B": {
+        desc: "Set parameter 11 (0...65534; 65535: invalid).",
+        name: "set param 11",
+        min_firmware: "1.4.0",
+      },
+      "002C": {
+        desc: "Set parameter 12 (0...65534; 65535: invalid).",
+        name: "set param 12",
+        min_firmware: "1.4.0",
+      },
+      "002D": {
+        desc: "Set parameter 13 (0...65534; 65535: invalid).",
+        name: "set param 13",
+        min_firmware: "1.4.0",
+      },
+      "002E": {
+        desc: "Set parameter 14 (0...65534; 65535: invalid).",
+        name: "set param 14",
+        min_firmware: "1.4.0",
+      },
+      "002F": {
+        desc: "Set parameter 15 (0...65534; 65535: invalid). ",
+        name: "set param 15",
+        min_firmware: "1.4.0",
+      },
+      "0030": {
+        desc: "Set parameter 0 (0...65534; 65535: invalid) + save settings.",
+        name: "set param 0 + save",
+        min_firmware: "1.4.0",
+      },
+      "0031": {
+        desc: "Set parameter 1 (0...65534; 65535: invalid) + save settings.",
+        name: "set param 1 + save",
+        min_firmware: "1.4.0",
+      },
+      "0032": {
+        desc: "Set parameter 2 (0...65534; 65535: invalid) + save settings.",
+        name: "set param 2 + save",
+        min_firmware: "1.4.0",
+      },
+      "0033": {
+        desc: "Set parameter 3 (0...65534; 65535: invalid) + save settings.",
+        name: "set param 3 + save",
+        min_firmware: "1.4.0",
+      },
+      "0034": {
+        desc: "Set parameter 4 (0...65534; 65535: invalid) + save settings.",
+        name: "set param 4 + save",
+        min_firmware: "1.4.0",
+      },
+      "0035": {
+        desc: "Set parameter 5 (0...65534; 65535: invalid) + save settings.",
+        name: "set param 5 + save",
+        min_firmware: "1.4.0",
+      },
+      "0036": {
+        desc: "Set parameter 6 (0...65534; 65535: invalid) + save settings.",
+        name: "set param 6 + save",
+        min_firmware: "1.4.0",
+      },
+      "0037": {
+        desc: "Set parameter 7 (0...65534; 65535: invalid) + save settings.",
+        name: "set param 7 + save",
+        min_firmware: "1.4.0",
+      },
+      "0038": {
+        desc: "Set parameter 8 (0...65534; 65535: invalid) + save settings.",
+        name: "set param 8 + save",
+        min_firmware: "1.4.0",
+      },
+      "0039": {
+        desc: "Set parameter 9 (0...65534; 65535: invalid) + save settings.",
+        name: "set param 9 + save",
+        min_firmware: "1.4.0",
+      },
+      "003A": {
+        desc: "Set parameter 10 (0...65534; 65535: invalid) + save settings.",
+        name: "set param 10 + save",
+        min_firmware: "1.4.0",
+      },
+      "003B": {
+        desc: "Set parameter 11 (0...65534; 65535: invalid) + save settings.",
+        name: "set param 11 + save",
+        min_firmware: "1.4.0",
+      },
+      "003C": {
+        desc: "Set parameter 12 (0...65534; 65535: invalid) + save settings.",
+        name: "set param 12 + save",
+        min_firmware: "1.4.0",
+      },
+      "003D": {
+        desc: "Set parameter 13 (0...65534; 65535: invalid) + save settings.",
+        name: "set param 13 + save",
+        min_firmware: "1.4.0",
+      },
+      "003E": {
+        desc: "Set parameter 14 (0...65534; 65535: invalid) + save settings.",
+        name: "set param 14 + save",
+        min_firmware: "1.4.0",
+      },
+      "003F": {
+        desc: "Set parameter 15 (0...65534; 65535: invalid) + save settings.",
+        name: "set param 15 + save",
+        min_firmware: "1.4.0",
+      },
+      "0050": {
+        desc: "Set (sub-)sampling period of sensor 0.",
+        name: "set sensor_period 0",
+        advanced: true,
+        min_firmware: "1.4.5",
+      },
+      "0051": {
+        desc: "Set (sub-)sampling period of sensor 1.",
+        name: "set sensor_period 1",
+        advanced: true,
+        min_firmware: "1.4.5",
+      },
+      "0052": {
+        desc: "Set (sub-)sampling period of sensor 2.",
+        name: "set sensor_period 2",
+        advanced: true,
+        min_firmware: "1.4.5",
+      },
+      "0053": {
+        desc: "Set (sub-)sampling period of sensor 3.",
+        name: "set sensor_period 3",
+        advanced: true,
+        min_firmware: "1.4.5",
+      },
+      "0054": {
+        desc: "Set (sub-)sampling period of sensor 4.",
+        name: "set sensor_period 4",
+        advanced: true,
+        min_firmware: "1.4.5",
+      },
+      "0055": {
+        desc: "Set (sub-)sampling period of sensor 5.",
+        name: "set sensor_period 5",
+        advanced: true,
+        min_firmware: "1.4.5",
+      },
+      "0056": {
+        desc: "Set (sub-)sampling period of sensor 6.",
+        name: "set sensor_period 6",
+        advanced: true,
+        min_firmware: "1.4.5",
+      },
+      "0057": {
+        desc: "Set (sub-)sampling period of sensor 7.",
+        name: "set sensor_period 7",
+        advanced: true,
+        min_firmware: "1.4.5",
+      },
+      "0058": {
+        desc: "Set (sub-)sampling period of sensor 8.",
+        name: "set sensor_period 8",
+        advanced: true,
+        min_firmware: "1.4.5",
+      },
+      "0059": {
+        desc: "Set (sub-)sampling period of sensor 9.",
+        name: "set sensor_period 9",
+        advanced: true,
+        min_firmware: "1.4.5",
+      },
+      "0060": {
+        desc: "Set (sub-)sampling period of sensor 0 + save settings.",
+        name: "set sensor_period 0 + save",
+        advanced: true,
+        min_firmware: "1.4.5",
+      },
+      "0061": {
+        desc: "Set (sub-)sampling period of sensor 1 + save settings.",
+        name: "set sensor_period 1 + save",
+        advanced: true,
+        min_firmware: "1.4.5",
+      },
+      "0062": {
+        desc: "Set (sub-)sampling period of sensor 2 + save settings.",
+        name: "set sensor_period 2 + save",
+        advanced: true,
+        min_firmware: "1.4.5",
+      },
+      "0063": {
+        desc: "Set (sub-)sampling period of sensor 3 + save settings.",
+        name: "set sensor_period 3 + save",
+        advanced: true,
+        min_firmware: "1.4.5",
+      },
+      "0064": {
+        desc: "Set (sub-)sampling period of sensor 4 + save settings.",
+        name: "set sensor_period 4 + save",
+        advanced: true,
+        min_firmware: "1.4.5",
+      },
+      "0065": {
+        desc: "Set (sub-)sampling period of sensor 5 + save settings.",
+        name: "set sensor_period 5 + save",
+        advanced: true,
+        min_firmware: "1.4.5",
+      },
+      "0066": {
+        desc: "Set (sub-)sampling period of sensor 6 + save settings.",
+        name: "set sensor_period 6 + save",
+        advanced: true,
+        min_firmware: "1.4.5",
+      },
+      "0067": {
+        desc: "Set (sub-)sampling period of sensor 7 + save settings.",
+        name: "set sensor_period 7 + save",
+        advanced: true,
+        min_firmware: "1.4.5",
+      },
+      "0068": {
+        desc: "Set (sub-)sampling period of sensor 8 + save settings.",
+        name: "set sensor_period 8 + save",
+        advanced: true,
+        min_firmware: "1.4.5",
+      },
+      "0069": {
+        desc: "Set (sub-)sampling period of sensor 9 + save settings.",
+        name: "set sensor_period 9 + save",
+        advanced: true,
+        min_firmware: "1.4.5",
+      },
+      FEFE: {
+        desc: "Reset device. Unsaved parameter changes are lost.",
+        name: "reset",
+        min_firmware: "0.2.7",
+        noparam: true,
+      },
+      FEF0: {
+        desc: "Erase settings in flash and reset.",
+        name: "factory reset",
+        min_firmware: "0.2.7",
+        noparam: true,
+      },
+      FEF1: {
+        desc: "Enter sleep mode (power off).",
+        name: "sleep",
+        min_firmware: "1.5.0",
+        noparam: true,
+      },
+    };
 
-  var crc16 = function(buffer) {
-      var crc = 0xFFFF; var odd;
+    var crc16 = function (buffer) {
+      var crc = 0xffff;
+      var odd;
       for (var i = 0; i < buffer.length; i += 2) {
-          crc = crc ^ parseInt(buffer.substr(i, 2), 16);
-          for (var j = 0; j < 8; j++) {
-              odd = crc & 0x0001; crc = crc >> 1;
-              if (odd) { crc = crc ^ 0xA001; }
+        crc = crc ^ parseInt(buffer.substr(i, 2), 16);
+        for (var j = 0; j < 8; j++) {
+          odd = crc & 0x0001;
+          crc = crc >> 1;
+          if (odd) {
+            crc = crc ^ 0xa001;
           }
+        }
       }
       return crc;
-  };
+    };
 
-  var command = document.getElementById("command");
-  var desc = document.getElementById("desc");
-  var param = document.getElementById("parameter");
-  var output = document.getElementById("rawcommand");
-  var outputBase64 = document.getElementById("base64command");
+    var firmware = document.getElementById("firmware");
+    var command = document.getElementById("command");
+    var desc = document.getElementById("desc");
+    var param = document.getElementById("parameter");
+    var output = document.getElementById("rawcommand");
+    var outputBase64 = document.getElementById("base64command");
+    var firmwareVersions = [];
 
-  Object.keys(COMMANDS).forEach(k => {
-    command.append(new Option(COMMANDS[k]["name"], k));
-  });
-
-  var updateCommand = function() {
-    desc.innerHTML = COMMANDS[command.value]["desc"];
-    if (COMMANDS[command.value]["noparam"] === true) {
-      param.value = "0";
+    var verNum = function(v) {
+      var num = v.match(/^(\d+)\.(\d+)\.(\d+)$/).slice(1).map(x => parseInt(x));
+      return num[0]*10000 + num[1] * 100 + num[2];
     }
-    if (param.value == "" || command.value == "") {
-      output.innerHTML = "Set parameter value";
-      outputBase64.innerHTML = "Set parameter value";
-      return;
-    }
-    var payload = command.value + ("000" + parseInt(param.value).toString(16)).slice(-4);
-    var crc = crc16(payload);
-    var cmd = (payload + ("000" + crc.toString(16)).slice(-4)).toUpperCase();
-    output.innerHTML = cmd;
-    var cmdStr = "";
-    for (var i = 0; i < cmd.length; i += 2) {
-      cmdStr += String.fromCharCode(parseInt(cmd.substr(i, 2), 16));
-    }
-    outputBase64.innerHTML = btoa(cmdStr);
-  };
 
-  param.addEventListener("keydown", e => {
-    // Allow: backspace, delete, tab, escape, enter and .
-    if (e.keyCode == 8 || e.keyCode == 46 || e.keyCode == 9 || e.keyCode == 27 || e.keyCode == 13 ||
-      // Allow: Ctrl/cmd+A
-      (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
-      // Allow: Ctrl/cmd+C
-      (e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
-      // Allow: Ctrl/cmd+X
-      (e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
-      // Allow: home, end, left, right
-      (e.keyCode >= 35 && e.keyCode <= 39)) {
-          // let it happen, don't do anything
+    Object.keys(COMMANDS).forEach((k) => {
+      var v = verNum(COMMANDS[k]['min_firmware']);
+      if (!firmwareVersions.includes(v)) {
+        firmwareVersions.push(v);
+      }
+    });
+    firmwareVersions.sort((a, b) => {return a == b ? 0 :  (a == b ? 1 : -1) });
+
+    firmwareVersions.forEach((v) => {
+      firmware.append(new Option(`${Math.floor(v / 10000)}.${Math.floor(v / 100) % 100}.${v % 100}`, v));
+    });
+
+    var updateCommands = function() {
+      command.innerHTML = '';
+      Object.keys(COMMANDS).forEach((k) => {
+        if (!COMMANDS[k]['advanced']) {
+          if (verNum(COMMANDS[k]['min_firmware']) <= firmware.value) {
+            command.append(new Option(COMMANDS[k]["name"], k));
+          }
+        }
+      });
+      command.append(new Option('--------------', ''));
+      Object.keys(COMMANDS).forEach((k) => {
+        if (COMMANDS[k]['advanced']) {
+          if (verNum(COMMANDS[k]['min_firmware']) <= firmware.value) {
+            command.append(new Option(COMMANDS[k]["name"], k));
+          }
+        }
+      });
+    };
+
+    var updateCommand = function () {
+      if (!command.value) {
+        desc.innerHTML = 'Choose a command.';
         return;
       }
-    // Ensure that it is a number and stop the keypress
-    if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-      e.preventDefault();
-    }
-  });
-  param.addEventListener("change", function() {
-    updateCommand();
-  });
-  command.addEventListener("change", function() {
-    updateCommand();
-  });
 
-  updateCommand();
-</script>
+      desc.innerHTML = COMMANDS[command.value]["desc"] + (COMMANDS[command.value]['advanced'] ? ' Advanced setting!' : '');
+      if (COMMANDS[command.value]["noparam"] === true) {
+        param.value = "0";
+      }
+      if (param.value == "" || command.value == "") {
+        output.innerHTML = "Set parameter value";
+        outputBase64.innerHTML = "Set parameter value";
+        return;
+      }
+      var payload =
+        command.value + ("000" + parseInt(param.value).toString(16)).slice(-4);
+      var crc = crc16(payload);
+      var cmd = (payload + ("000" + crc.toString(16)).slice(-4)).toUpperCase();
+      output.innerHTML = cmd;
+      var cmdStr = "";
+      for (var i = 0; i < cmd.length; i += 2) {
+        cmdStr += String.fromCharCode(parseInt(cmd.substr(i, 2), 16));
+      }
+      outputBase64.innerHTML = btoa(cmdStr);
+    };
+
+    param.addEventListener("keydown", (e) => {
+      // Allow: backspace, delete, tab, escape, enter and .
+      if (
+        e.keyCode == 8 ||
+        e.keyCode == 46 ||
+        e.keyCode == 9 ||
+        e.keyCode == 27 ||
+        e.keyCode == 13 ||
+        // Allow: Ctrl/cmd+A
+        (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+        // Allow: Ctrl/cmd+C
+        (e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+        // Allow: Ctrl/cmd+X
+        (e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
+        // Allow: home, end, left, right
+        (e.keyCode >= 35 && e.keyCode <= 39)
+      ) {
+        // let it happen, don't do anything
+        return;
+      }
+      // Ensure that it is a number and stop the keypress
+      if (
+        (e.shiftKey || e.keyCode < 48 || e.keyCode > 57) &&
+        (e.keyCode < 96 || e.keyCode > 105)
+      ) {
+        e.preventDefault();
+      }
+    });
+    param.addEventListener("change", updateCommand);
+    command.addEventListener("change", updateCommand);
+    firmware.addEventListener("change", updateCommands);
+
+    updateCommands();
+    updateCommand();
+  </script>
 </html>
