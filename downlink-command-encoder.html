@@ -601,7 +601,7 @@
         firmwareVersions.push(v);
       }
     });
-    firmwareVersions.sort((a, b) => {return a == b ? 0 :  (a == b ? 1 : -1) });
+    firmwareVersions.sort((a, b) => {return a == b ? 0 :  (a < b ? 1 : -1) });
 
     firmwareVersions.forEach((v) => {
       firmware.append(new Option(`${Math.floor(v / 10000)}.${Math.floor(v / 100) % 100}.${v % 100}`, v));
