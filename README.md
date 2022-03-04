@@ -4,65 +4,66 @@ These samples are provided for integrating Decentlab sensor devices into your sy
 
 Supported platforms/environments are:
 
--   C#
--   Docksters
--   ELEMENT-IoT Elixir
--   Elixir
--   Erlang
--   JavaScript
--   Lua
--   PHP
--   Python
+- C#
+- Docksters
+- ELEMENT-IoT Elixir
+- Elixir
+- Erlang
+- JavaScript
+- Lua
+- PHP
+- Python
 
 Pull requests fixing issues, improving the quality or supporting new platforms/environments are welcome.
 
 Please browse the devices in the corresponding directories:
 
-| Device                     | Name                                                                                                                                                                                                                                            |
-| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [DL-10HS](DL-10HS)         | [Legacy Large Soil Moisture Sensor for LoRaWAN&reg;](https://www.decentlab.com/support)                                                                                                                                                         |
-| [DL-5TE](DL-5TE)           | [Legacy Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/support)                                                                                                                      |
-| [DL-5TM](DL-5TM)           | [Legacy Soil Moisture and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/legacy-soil-moisture-and-temperature-sensor-for-lorawan)                                                                                      |
-| [DL-AC](DL-AC)             | [Air Quality Station NO₂, NO, CO, Oₓ for LoRaWAN&reg;](https://www.decentlab.com/products/air-quality-station-no2-no-co-ox-for-lorawan)                                                                                                         |
-| [DL-ATM22](DL-ATM22)       | [Wind Speed, Wind Direction and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/wind-speed-wind-direction-and-temperature-sensor-for-lorawan)                                                                           |
-| [DL-ATM41](DL-ATM41)       | [Eleven Parameter Weather Station for LoRaWAN&reg;](https://www.decentlab.com/products/eleven-parameter-weather-station-for-lorawan)                                                                                                            |
-| [DL-CTD10](DL-CTD10)       | [Pressure / Liquid Level, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan)                               |
-| [DL-DLR2-002](DL-DLR2-002) | [Pulse Counter Dry Contact Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)                                                                                                        |
-| [DL-DLR2-003](DL-DLR2-003) | [Digital Input Dry Contact Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)                                                                                                        |
-| [DL-DLR2-004](DL-DLR2-004) | [Analog 4 … 20 mA Sensor Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)                                                                                                          |
-| [DL-DLR2-005](DL-DLR2-005) | [Analog 0 … 3 V Sensor Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)                                                                                                            |
-| [DL-DLR2-006](DL-DLR2-006) | [Analog Potentiometer Sensor Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)                                                                                                      |
-| [DL-DLR2-008](DL-DLR2-008) | [Analog PT100 Sensor Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)                                                                                                              |
-| [DL-DLR2-010](DL-DLR2-010) | [Dual Pulse Counter Dry Contact Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)                                                                                                   |
-| [DL-DLR2-012](DL-DLR2-012) | [Analog Strain Gauge Sensor Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)                                                                                                       |
-| [DL-DS18](DL-DS18)         | [Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/temperature-sensor-for-lorawan)                                                                                                                                        |
-| [DL-DWS](DL-DWS)           | [Weighing Scale for LoRaWAN&reg;](https://www.decentlab.com/products/weighing-scale-for-lorawan)                                                                                                                                                |
-| [DL-GS3](DL-GS3)           | [Legacy Ruggedized Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/support)                                                                                                           |
-| [DL-IAM](DL-IAM)           | [Indoor Ambiance Monitor including CO₂, TVOC and Motion Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/indoor-ambiance-monitor-including-co2-tvoc-and-motion-sensor-for-lorawan)                                                   |
-| [DL-ITST](DL-ITST)         | [Infrared Thermometer / Surface Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/infrared-thermometer-/-surface-temperature-sensor-for-lorawan)                                                                          |
-| [DL-KL66](DL-KL66)         | [Strain / Weight Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/strain-/-weight-sensor-for-lorawan)                                                                                                                                |
-| [DL-LID](DL-LID)           | [Laser Distance / Level Sensor for LoRaWAN&reg;](https://decentlab.squarespace.com/products/laser-distance-level-sensor-for-lorawan)                                                                                                            |
-| [DL-LP8P](DL-LP8P)         | [CO₂, Temperature, Humidity and Barometric Pressure Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/co2-temperature-humidity-and-barometric-pressure-sensor-for-lorawan)                                                            |
-| [DL-MBX](DL-MBX)           | [Ultrasonic Distance / Level Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/ultrasonic-distance-/-level-sensor-for-lorawan)                                                                                                        |
-| [DL-OPTOD](DL-OPTOD)       | [Optical Dissolved Oxygen and Temperature Sensor for LoRaWAN&reg;](https://decentlab.squarespace.com/products/optical-dissolved-oxygen-and-temperature-sensor-for-lorawan)                                                                      |
-| [DL-PAR](DL-PAR)           | [Photosynthetically Active Radiation Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/photosynthetically-active-radiation-sensor-for-lorawan)                                                                                        |
-| [DL-PM](DL-PM)             | [Particulate Matter, Temperature, Humidity and Barometric Pressure Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/particulate-matter-temperature-humidity-and-barometric-pressure-sensor-for-lorawan)                              |
-| [DL-PR21](DL-PR21)         | [Pressure / Liquid Level and Temperature Sensor with G1/4" Pipe Thread for LoRaWAN&reg;](https://www.decentlab.com/products/pressure-/-liquid-level-and-temperature-sensor-with-g1/4-pipe-thread-for-lorawan)                                   |
-| [DL-PR26](DL-PR26)         | [Pressure / Liquid Level and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/pressure-/-liquid-level-and-temperature-sensor-for-lorawan)                                                                                |
-| [DL-PR36](DL-PR36)         | [High-Precision Pressure / Liquid Level and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/high-precision-pressure-/-liquid-level-and-temperature-sensor-for-lorawan)                                                  |
-| [DL-PR36CTD](DL-PR36CTD)   | [High-Precision Pressure / Liquid Level, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/high-precision-pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan) |
-| [DL-PYR](DL-PYR)           | [Total Solar Radiation Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/total-solar-radiation-sensor-for-lorawan)                                                                                                                    |
-| [DL-RHC](DL-RHC)           | [High-Precision Air Temperature and Humidity Sensor with Radiation Shield for LoRaWAN&reg;](https://www.decentlab.com/products/high-precision-air-temperature-and-humidity-sensor-with-radiation-shield-for-lorawan)                            |
-| [DL-SHT21](DL-SHT21)       | [Air Temperature and Humidity Sensor with Radiation Shield for LoRaWAN&reg;](https://www.decentlab.com/support)                                                                                                                                 |
-| [DL-SHT35](DL-SHT35)       | [Air Temperature and Humidity Sensor with Radiation Shield for LoRaWAN&reg;](https://www.decentlab.com/products/air-temperature-and-humidity-sensor-with-radiation-shield-for-lorawan)                                                          |
-| [DL-SMTP](DL-SMTP)         | [Soil Moisture and Temperature Profile for LoRaWAN&reg;](https://www.decentlab.com/products/soil-moisture-and-temperature-profile-for-lorawan)                                                                                                  |
-| [DL-TBRG](DL-TBRG)         | [Tipping Bucket Rain Gauge for LoRaWAN&reg;](https://www.decentlab.com/products/tipping-bucket-rain-gauge-for-lorawan)                                                                                                                          |
-| [DL-TRS11](DL-TRS11)       | [Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/soil-moisture-temperature-and-electrical-conductivity-sensor-for-lorawan)                                                   |
-| [DL-TRS12](DL-TRS12)       | [Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/soil-moisture-temperature-and-electrical-conductivity-sensor-for-lorawan)                                                   |
-| [DL-TRS21](DL-TRS21)       | [Soil Water Potential and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/soil-water-potential-and-temperature-sensor-for-lorawan)                                                                                      |
-| [DL-WRM](DL-WRM)           | [Winter Road Maintenance Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/winter-road-maintenance-sensor-for-lorawan)                                                                                                                |
-| [DL-ZN1](DL-ZN1)           | [Dendrometer for LoRaWAN&reg;](https://www.decentlab.com/products/dendrometer-for-lorawan)                                                                                                                                                      |
-| [DL-ZN2](DL-ZN2)           | [Dual Dendrometer for LoRaWAN&reg;](https://www.decentlab.com/products/dendrometer-for-lorawan)                                                                                                                                                 |
+Device | Name
+---|---
+[DL-10HS](DL-10HS) | [Legacy Large Soil Moisture Sensor for LoRaWAN&reg;](https://www.decentlab.com/support)
+[DL-5TE](DL-5TE) | [Legacy Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/support)
+[DL-5TM](DL-5TM) | [Legacy Soil Moisture and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/legacy-soil-moisture-and-temperature-sensor-for-lorawan)
+[DL-AC](DL-AC) | [Air Quality Station NO₂, NO, CO, Oₓ for LoRaWAN&reg;](https://www.decentlab.com/products/air-quality-station-no2-no-co-ox-for-lorawan)
+[DL-ATM22](DL-ATM22) | [Wind Speed, Wind Direction and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/wind-speed-wind-direction-and-temperature-sensor-for-lorawan)
+[DL-ATM41](DL-ATM41) | [Eleven Parameter Weather Station for LoRaWAN&reg;](https://www.decentlab.com/products/eleven-parameter-weather-station-for-lorawan)
+[DL-CTD10](DL-CTD10) | [Pressure / Liquid Level, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan)
+[DL-DLR2-002](DL-DLR2-002) | [Pulse Counter Dry Contact Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
+[DL-DLR2-003](DL-DLR2-003) | [Digital Input Dry Contact Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
+[DL-DLR2-004](DL-DLR2-004) | [Analog 4 … 20 mA Sensor Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
+[DL-DLR2-005](DL-DLR2-005) | [Analog 0 … 3 V Sensor Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
+[DL-DLR2-006](DL-DLR2-006) | [Analog Potentiometer Sensor Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
+[DL-DLR2-008](DL-DLR2-008) | [Analog PT100 Sensor Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
+[DL-DLR2-010](DL-DLR2-010) | [Dual Pulse Counter Dry Contact Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
+[DL-DLR2-012](DL-DLR2-012) | [Analog Strain Gauge Sensor Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
+[DL-DS18](DL-DS18) | [Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/temperature-sensor-for-lorawan)
+[DL-DWS](DL-DWS) | [Weighing Scale for LoRaWAN&reg;](https://www.decentlab.com/products/weighing-scale-for-lorawan)
+[DL-GS3](DL-GS3) | [Legacy Ruggedized Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/support)
+[DL-IAM](DL-IAM) | [Indoor Ambiance Monitor including CO₂, TVOC and Motion Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/indoor-ambiance-monitor-including-co2-tvoc-and-motion-sensor-for-lorawan)
+[DL-ITST](DL-ITST) | [Infrared Thermometer / Surface Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/infrared-thermometer-/-surface-temperature-sensor-for-lorawan)
+[DL-KL66](DL-KL66) | [Strain / Weight Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/strain-/-weight-sensor-for-lorawan)
+[DL-LID](DL-LID) | [Laser Distance / Level Sensor for LoRaWAN&reg;](https://decentlab.squarespace.com/products/laser-distance-level-sensor-for-lorawan)
+[DL-LP8P](DL-LP8P) | [CO₂, Temperature, Humidity and Barometric Pressure Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/co2-temperature-humidity-and-barometric-pressure-sensor-for-lorawan)
+[DL-LWS](DL-LWS) | [Leaf Wetness Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/leaf-wetness-sensor-for-lorawan)
+[DL-MBX](DL-MBX) | [Ultrasonic Distance / Level Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/ultrasonic-distance-/-level-sensor-for-lorawan)
+[DL-OPTOD](DL-OPTOD) | [Optical Dissolved Oxygen and Temperature Sensor for LoRaWAN&reg;](https://decentlab.squarespace.com/products/optical-dissolved-oxygen-and-temperature-sensor-for-lorawan)
+[DL-PAR](DL-PAR) | [Photosynthetically Active Radiation Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/photosynthetically-active-radiation-sensor-for-lorawan)
+[DL-PM](DL-PM) | [Particulate Matter, Temperature, Humidity and Barometric Pressure Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/particulate-matter-temperature-humidity-and-barometric-pressure-sensor-for-lorawan)
+[DL-PR21](DL-PR21) | [Pressure / Liquid Level and Temperature Sensor with G1/4" Pipe Thread for LoRaWAN&reg;](https://www.decentlab.com/products/pressure-/-liquid-level-and-temperature-sensor-with-g1/4-pipe-thread-for-lorawan)
+[DL-PR26](DL-PR26) | [Pressure / Liquid Level and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/pressure-/-liquid-level-and-temperature-sensor-for-lorawan)
+[DL-PR36](DL-PR36) | [High-Precision Pressure / Liquid Level and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/high-precision-pressure-/-liquid-level-and-temperature-sensor-for-lorawan)
+[DL-PR36CTD](DL-PR36CTD) | [High-Precision Pressure / Liquid Level, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/high-precision-pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan)
+[DL-PYR](DL-PYR) | [Total Solar Radiation Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/total-solar-radiation-sensor-for-lorawan)
+[DL-RHC](DL-RHC) | [High-Precision Air Temperature and Humidity Sensor with Radiation Shield for LoRaWAN&reg;](https://www.decentlab.com/products/high-precision-air-temperature-and-humidity-sensor-with-radiation-shield-for-lorawan)
+[DL-SHT21](DL-SHT21) | [Air Temperature and Humidity Sensor with Radiation Shield for LoRaWAN&reg;](https://www.decentlab.com/support)
+[DL-SHT35](DL-SHT35) | [Air Temperature and Humidity Sensor with Radiation Shield for LoRaWAN&reg;](https://www.decentlab.com/products/air-temperature-and-humidity-sensor-with-radiation-shield-for-lorawan)
+[DL-SMTP](DL-SMTP) | [Soil Moisture and Temperature Profile for LoRaWAN&reg;](https://www.decentlab.com/products/soil-moisture-and-temperature-profile-for-lorawan)
+[DL-TBRG](DL-TBRG) | [Tipping Bucket Rain Gauge for LoRaWAN&reg;](https://www.decentlab.com/products/tipping-bucket-rain-gauge-for-lorawan)
+[DL-TRS11](DL-TRS11) | [Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/soil-moisture-temperature-and-electrical-conductivity-sensor-for-lorawan)
+[DL-TRS12](DL-TRS12) | [Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/soil-moisture-temperature-and-electrical-conductivity-sensor-for-lorawan)
+[DL-TRS21](DL-TRS21) | [Soil Water Potential and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/soil-water-potential-and-temperature-sensor-for-lorawan)
+[DL-WRM](DL-WRM) | [Winter Road Maintenance Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/winter-road-maintenance-sensor-for-lorawan)
+[DL-ZN1](DL-ZN1) | [Dendrometer for LoRaWAN&reg;](https://www.decentlab.com/products/dendrometer-for-lorawan)
+[DL-ZN2](DL-ZN2) | [Dual Dendrometer for LoRaWAN&reg;](https://www.decentlab.com/products/dendrometer-for-lorawan)
 
 # Testing payload
 
@@ -80,8 +81,7 @@ Most Decentlab devices are supported by TTNv3 without the need of manual decoder
 
 For the newer devices that are not supported yet, see below.
 
-Go to your device (or application) on _TTN Console_ and select `Payload formatters` and `Uplink`. Select `Javascript` for Formatter type. Take the _JavaScript_ implementation and paste into the `Formatter parameter` window by overwriting its content. Remove the `main()` function and its call.
-
+Go to your device (or application) on *TTN Console* and select `Payload formatters` and `Uplink`. Select `Javascript` for Formatter type. Take the *JavaScript* implementation and paste into the `Formatter parameter` window by overwriting its content. Remove the `main()` function and its call.
 ```js
 function main() {
     ...
@@ -91,22 +91,21 @@ main();
 ```
 
 Append the following lines.
-
 ```js
 function decodeUplink(input) {
-    var errors = [];
-    var data = {};
-    var res = decentlab_decoder.decode(input.bytes);
-    if ("error" in res) {
-        errors = [res["error"]];
-    } else {
-        data = res;
-    }
-    return {
-        data: data,
-        warnings: [],
-        errors: errors,
-    };
+  var errors = [];
+  var data = {};
+  var res = decentlab_decoder.decode(input.bytes);
+  if ('error' in res) {
+    errors = [res['error']]
+  } else {
+    data = res;
+  }
+  return {
+    data: data,
+    warnings: [],
+    errors: errors
+  };
 }
 ```
 
@@ -122,7 +121,7 @@ See a knowledge base article: https://zm.decentlab.com/help/en-us/17-chirpstack/
 
 ## ELEMENT IoT
 
-Go to `Automation`, `Parser`, and create a new parser. Take _ELEMENT-IoT Elixir_ implementation and paste into the `Code` window by overwriting its content. Test the provided payloads against the datasheet and save.
+Go to `Automation`, `Parser`, and create a new parser. Take *ELEMENT-IoT Elixir* implementation and paste into the `Code` window by overwriting its content. Test the provided payloads against the datasheet and save.
 
 ## ResIOT
 
@@ -132,8 +131,7 @@ For the newer devices that are not supported yet, see below.
 
 Go to `Nodes/Devices` and select the target device. Select `Manual Lua Scene` from the `Payload parsing scene mode` list.
 
-Take the _Lua_ implementation and paste into the `Lua Code` editor. Remove the `main()` function and its call.
-
+Take the *Lua* implementation and paste into the `Lua Code` editor. Remove the `main()` function and its call.
 ```lua
 local function main()
   ...
@@ -143,7 +141,6 @@ main()
 ```
 
 Append the following lines.
-
 ```lua
 -- get payload
 if resiot_startfrom() == "Manual" then
@@ -198,7 +195,7 @@ function parseProvider(payload, time, encoding) {
         return null;
     }
 
-    data.deviceName = "DL-" + String((buf[1] << 8) + buf[2]).padStart(5, "0");
+    data.deviceName = 'DL-' + String((buf[1] << 8) + buf[2]).padStart(5, '0');
     data.payload = buf.toString("hex");
     data.time = time;
 
@@ -214,11 +211,7 @@ function parseChirpstack(obj) {
 }
 
 function parseActility(obj) {
-    return parseProvider(
-        obj.DevEUI_uplink.payload_hex,
-        obj.DevEUI_uplink.Time,
-        "hex"
-    );
+    return parseProvider(obj.DevEUI_uplink.payload_hex, obj.DevEUI_uplink.Time, "hex");
 }
 
 function preParse(payloadStr) {

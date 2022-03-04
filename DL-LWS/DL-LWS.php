@@ -1,4 +1,5 @@
 <?php
+/* https://www.decentlab.com/products/leaf-wetness-sensor-for-lorawan */
 
 abstract class DecentlabDecoder
 {
