@@ -8,7 +8,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import struct
-from math import log
+from math import log, floor
 from base64 import binascii
 
 PROTOCOL_VERSION = 2
