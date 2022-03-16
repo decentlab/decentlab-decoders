@@ -202,33 +202,21 @@ function parseProvider(payload, time, encoding) {
     return data;
 }
 
-function parseTTN(obj) {
-    return parseProvider(obj.payload_raw, obj.metadata.time, "base64");
-}
-
-function parseChirpstack(obj) {
-    return parseProvider(obj.data, obj.time, "base64");
-}
-
-function parseActility(obj) {
-    return parseProvider(obj.DevEUI_uplink.payload_hex, obj.DevEUI_uplink.Time, "hex");
-}
-
 function preParse(payloadStr) {
     // use payloadStr to look up the device name and some other values
     try {
         var obj = JSON.parse(payloadStr);
 
-        if ("applicationID" in obj) {
-            return parseChirpstack(obj);
+        if ('applicationID' in obj) {
+            return parseProvider(obj.data, obj.time, "base64");
         }
 
-        if ("app_id" in obj) {
-            return parseTTN(obj);
+        if ('app_id' in obj) {
+            return parseProvider(obj.payload_raw, obj.metadata.time, "base64");
         }
 
-        if ("DevEUI_uplink" in obj) {
-            return parseActility(obj);
+        if ('DevEUI_uplink' in obj) {
+            return parseProvider(obj.DevEUI_uplink.payload_hex, obj.DevEUI_uplink.Time, "hex");
         }
     } catch (err) {} //some description of err would be nice
 
