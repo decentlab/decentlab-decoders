@@ -47,27 +47,27 @@ defmodule DecentlabDecoder do
           %{
             :name => "PM0.5 number concentration",
             :convert => fn x -> Enum.at(x, 5) / 10 end,
-            :unit => nil
+            :unit => "1⋅cm⁻³"
           },
           %{
             :name => "PM1.0 number concentration",
             :convert => fn x -> Enum.at(x, 6) / 10 end,
-            :unit => nil
+            :unit => "1⋅cm⁻³"
           },
           %{
             :name => "PM2.5 number concentration",
             :convert => fn x -> Enum.at(x, 7) / 10 end,
-            :unit => nil
+            :unit => "1⋅cm⁻³"
           },
           %{
             :name => "PM4 number concentration",
             :convert => fn x -> Enum.at(x, 8) / 10 end,
-            :unit => nil
+            :unit => "1⋅cm⁻³"
           },
           %{
             :name => "PM10 number concentration",
             :convert => fn x -> Enum.at(x, 9) / 10 end,
-            :unit => nil
+            :unit => "1⋅cm⁻³"
           }
         ]
       },

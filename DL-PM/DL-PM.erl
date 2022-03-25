@@ -47,23 +47,28 @@
         },
         #{
           name => <<"PM0.5 number concentration">>,
-          convert => fun(X) -> lists:nth(5 + 1, X) / 10 end
+          convert => fun(X) -> lists:nth(5 + 1, X) / 10 end,
+          unit => <<"1⋅cm⁻³"/utf8>>
         },
         #{
           name => <<"PM1.0 number concentration">>,
-          convert => fun(X) -> lists:nth(6 + 1, X) / 10 end
+          convert => fun(X) -> lists:nth(6 + 1, X) / 10 end,
+          unit => <<"1⋅cm⁻³"/utf8>>
         },
         #{
           name => <<"PM2.5 number concentration">>,
-          convert => fun(X) -> lists:nth(7 + 1, X) / 10 end
+          convert => fun(X) -> lists:nth(7 + 1, X) / 10 end,
+          unit => <<"1⋅cm⁻³"/utf8>>
         },
         #{
           name => <<"PM4 number concentration">>,
-          convert => fun(X) -> lists:nth(8 + 1, X) / 10 end
+          convert => fun(X) -> lists:nth(8 + 1, X) / 10 end,
+          unit => <<"1⋅cm⁻³"/utf8>>
         },
         #{
           name => <<"PM10 number concentration">>,
-          convert => fun(X) -> lists:nth(9 + 1, X) / 10 end
+          convert => fun(X) -> lists:nth(9 + 1, X) / 10 end,
+          unit => <<"1⋅cm⁻³"/utf8>>
         }
       ]
     },

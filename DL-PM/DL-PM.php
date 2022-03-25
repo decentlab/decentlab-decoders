@@ -95,27 +95,27 @@ class DL_PM_Decoder extends DecentlabDecoder {
                     [
                         'name' => 'pm0_5_number_concentration',
                         'convert' => function ($x) { return $x[5] / 10; },
-                        'unit' => NULL,
+                        'unit' => '1⋅cm⁻³',
                     ],
                     [
                         'name' => 'pm1_0_number_concentration',
                         'convert' => function ($x) { return $x[6] / 10; },
-                        'unit' => NULL,
+                        'unit' => '1⋅cm⁻³',
                     ],
                     [
                         'name' => 'pm2_5_number_concentration',
                         'convert' => function ($x) { return $x[7] / 10; },
-                        'unit' => NULL,
+                        'unit' => '1⋅cm⁻³',
                     ],
                     [
                         'name' => 'pm4_number_concentration',
                         'convert' => function ($x) { return $x[8] / 10; },
-                        'unit' => NULL,
+                        'unit' => '1⋅cm⁻³',
                     ],
                     [
                         'name' => 'pm10_number_concentration',
                         'convert' => function ($x) { return $x[9] / 10; },
-                        'unit' => NULL,
+                        'unit' => '1⋅cm⁻³',
                     ],
                 ],
             ],

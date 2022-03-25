@@ -44,11 +44,11 @@ public class DecentlabDecoder
       new SensorValue("PM4 mass concentration", "µg⋅m⁻³", x => x[2] / 10),
       new SensorValue("PM10 mass concentration", "µg⋅m⁻³", x => x[3] / 10),
       new SensorValue("Typical particle size", "nm", x => x[4]),
-      new SensorValue("PM0.5 number concentration", null, x => x[5] / 10),
-      new SensorValue("PM1.0 number concentration", null, x => x[6] / 10),
-      new SensorValue("PM2.5 number concentration", null, x => x[7] / 10),
-      new SensorValue("PM4 number concentration", null, x => x[8] / 10),
-      new SensorValue("PM10 number concentration", null, x => x[9] / 10)
+      new SensorValue("PM0.5 number concentration", "1⋅cm⁻³", x => x[5] / 10),
+      new SensorValue("PM1.0 number concentration", "1⋅cm⁻³", x => x[6] / 10),
+      new SensorValue("PM2.5 number concentration", "1⋅cm⁻³", x => x[7] / 10),
+      new SensorValue("PM4 number concentration", "1⋅cm⁻³", x => x[8] / 10),
+      new SensorValue("PM10 number concentration", "1⋅cm⁻³", x => x[9] / 10)
     }),
     new Sensor(2, new List<SensorValue>() {
       new SensorValue("Air temperature", "°C", x => 175.72 * x[0] / 65536 - 46.85),
