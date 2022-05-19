@@ -45,6 +45,7 @@ Device | Name
 [DL-LP8P](DL-LP8P) | [CO₂, Temperature, Humidity and Barometric Pressure Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/co2-temperature-humidity-and-barometric-pressure-sensor-for-lorawan)
 [DL-LWS](DL-LWS) | [Leaf Wetness Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/leaf-wetness-sensor-for-lorawan)
 [DL-MBX](DL-MBX) | [Ultrasonic Distance / Level Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/ultrasonic-distance-/-level-sensor-for-lorawan)
+[DL-NTU](DL-NTU) | [Optical Turbidity and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/optical-turbidity-and-temperature-sensor-for-lorawan)
 [DL-OPTOD](DL-OPTOD) | [Optical Dissolved Oxygen and Temperature Sensor for LoRaWAN&reg;](https://decentlab.squarespace.com/products/optical-dissolved-oxygen-and-temperature-sensor-for-lorawan)
 [DL-PAR](DL-PAR) | [Photosynthetically Active Radiation Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/photosynthetically-active-radiation-sensor-for-lorawan)
 [DL-PM](DL-PM) | [Particulate Matter, Temperature, Humidity and Barometric Pressure Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/particulate-matter-temperature-humidity-and-barometric-pressure-sensor-for-lorawan)
