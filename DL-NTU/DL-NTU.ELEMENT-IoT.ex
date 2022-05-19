@@ -38,7 +38,7 @@ defmodule Parser do
                  :temperature => (x1 - 32768) / 100,
                  :turbidity_in_ntu => x2 / 10,
                  :turbidity_in_fnu => x3 / 10,
-                 :turbidity_in_mg/l => x4 / 10
+                 :turbidity_in_mg_l => x4 / 10
                })}
   end
   defp sensor0(result, _flags), do: result
