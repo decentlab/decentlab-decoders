@@ -14,7 +14,7 @@ defmodule Parser do
       %{field: "temperature", display: "Temperature", unit: "°C"},
       %{field: "turbidity_in_ntu", display: "Turbidity in NTU", unit: "NTU"},
       %{field: "turbidity_in_fnu", display: "Turbidity in FNU", unit: "FNU"},
-      %{field: "turbidity_in_mg/l", display: "Turbidity in mg/L", unit: "mg⋅L⁻¹"},
+      %{field: "turbidity_in_mg_l", display: "Turbidity in mg/L", unit: "mg⋅L⁻¹"},
       %{field: "battery_voltage", display: "Battery voltage", unit: "V"}
     ]
   end

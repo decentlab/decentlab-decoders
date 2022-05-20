@@ -78,7 +78,7 @@ class DL_NTU_Decoder extends DecentlabDecoder {
                         'unit' => 'FNU',
                     ],
                     [
-                        'name' => 'turbidity_in_mg/l',
+                        'name' => 'turbidity_in_mg_l',
                         'convert' => function ($x) { return $x[4] / 10; },
                         'unit' => 'mg⋅L⁻¹',
                     ],
