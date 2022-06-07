@@ -116,6 +116,10 @@ Copy example payload message from the datasheet, paste into `Byte payload` in `T
 
 :warning: The decoders may output a field named `device_id`, which may prohibit per-device querying in the TTN Data Storage integration.
 
+## Helium
+
+See a knowledge base article: https://zm.decentlab.com/help/en-us/22-helium/58-setup-decoder-for-a-device
+
 ## Chirpstack
 
 See a knowledge base article: https://zm.decentlab.com/help/en-us/17-chirpstack/37-set-decoder-for-a-device
