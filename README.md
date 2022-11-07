@@ -9,6 +9,7 @@ Supported platforms/environments are:
 - ELEMENT-IoT Elixir
 - Elixir
 - Erlang
+- Java
 - JavaScript
 - Lua
 - PHP
