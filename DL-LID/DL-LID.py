@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# https://decentlab.squarespace.com/products/laser-distance-level-sensor-for-lorawan
+# https://www.decentlab.com/products/laser-distance-level-sensor-for-lorawan
 
 from __future__ import absolute_import
 from __future__ import division

@@ -1,5 +1,5 @@
 
--- https://decentlab.squarespace.com/products/laser-distance-level-sensor-for-lorawan
+-- https://www.decentlab.com/products/laser-distance-level-sensor-for-lorawan
 
 local PROTOCOL_VERSION = 2
 

@@ -1,5 +1,5 @@
 
-/* https://decentlab.squarespace.com/products/optical-dissolved-oxygen-and-temperature-sensor-for-lorawan */
+/* https://www.decentlab.com/products/optical-dissolved-oxygen-and-temperature-sensor-for-lorawan */
 
 using System;
 using System.IO;
