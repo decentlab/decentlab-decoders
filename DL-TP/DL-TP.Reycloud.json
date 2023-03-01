@@ -1,0 +1,400 @@
+{
+  "testPayloads": ["023e3e00038abc8a928aa08a848ab38a898ac38aad8ab78a928aa1000000000000000000000afc", "023e3e00020afc"],
+  "useCache": false,
+  "outputVars": false,
+  "inputDecoders": {
+    "fports": [
+      {
+        "fport": 1,
+        "decoders": [
+          {
+            "conditions": [
+              {
+                "byte": "0",
+                "value": "2",
+                "operator": "="
+              },
+              {
+                "byte": "3",
+                "value": "0",
+                "operator": "="
+              },
+              {
+                "byte": "4",
+                "value": "3",
+                "operator": "="
+              }
+            ],
+            "fields": [
+              {
+                "byte": "1",
+                "lenght": "2",
+                "calc": "(x)",
+                "type": "dec",
+                "unit": "",
+                "label": "Device ID",
+                "byteSwap": false,
+                "fieldName": "device_id",
+                "boolInvert": false,
+                "description": {
+                  "en": "Device ID"
+                },
+                "dashboard_type": "int",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "5",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 0",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_0",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 0"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "7",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 1",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_1",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 1"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "9",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 2",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_2",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 2"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "11",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 3",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_3",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 3"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "13",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 4",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_4",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 4"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "15",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 5",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_5",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 5"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "17",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 6",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_6",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 6"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "19",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 7",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_7",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 7"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "21",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 8",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_8",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 8"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "23",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 9",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_9",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 9"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "25",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 10",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_10",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 10"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "27",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 11",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_11",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 11"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "29",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 12",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_12",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 12"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "31",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 13",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_13",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 13"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "33",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 14",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_14",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 14"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "35",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 15",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_15",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 15"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "37",
+                "lenght": "2",
+                "calc": "(x / 1000)",
+                "type": "dec",
+                "unit": "V",
+                "label": "Battery voltage",
+                "byteSwap": false,
+                "fieldName": "battery_voltage",
+                "boolInvert": false,
+                "description": {
+                  "en": "Battery voltage"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              }
+            ]
+          },
+          {
+            "conditions": [
+              {
+                "byte": "0",
+                "value": "2",
+                "operator": "="
+              },
+              {
+                "byte": "3",
+                "value": "0",
+                "operator": "="
+              },
+              {
+                "byte": "4",
+                "value": "2",
+                "operator": "="
+              }
+            ],
+            "fields": [
+              {
+                "byte": "1",
+                "lenght": "2",
+                "calc": "(x)",
+                "type": "dec",
+                "unit": "",
+                "label": "Device ID",
+                "byteSwap": false,
+                "fieldName": "device_id",
+                "boolInvert": false,
+                "description": {
+                  "en": "Device ID"
+                },
+                "dashboard_type": "int",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "5",
+                "lenght": "2",
+                "calc": "(x / 1000)",
+                "type": "dec",
+                "unit": "V",
+                "label": "Battery voltage",
+                "byteSwap": false,
+                "fieldName": "battery_voltage",
+                "boolInvert": false,
+                "description": {
+                  "en": "Battery voltage"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "configDownlink": false,
+  "swisscomProfile": "LORA/SwisscomA.1.0.2b_ETSI_Rx2-SF12",
+  "outputVarEncoders": [],
+  "profileConfigDownlink": []
+}

@@ -7,82 +7,82 @@ defmodule DecentlabDecoder do
         length: 16,
         values: [
           %{
-            :name => "CH0: Temperature",
+            :name => "Temperature at level 0",
             :convert => fn x -> (Enum.at(x, 0) - 32768) / 100 end,
             :unit => "°C"
           },
           %{
-            :name => "CH1: Temperature",
+            :name => "Temperature at level 1",
             :convert => fn x -> (Enum.at(x, 1) - 32768) / 100 end,
             :unit => "°C"
           },
           %{
-            :name => "CH2: Temperature",
+            :name => "Temperature at level 2",
             :convert => fn x -> (Enum.at(x, 2) - 32768) / 100 end,
             :unit => "°C"
           },
           %{
-            :name => "CH3: Temperature",
+            :name => "Temperature at level 3",
             :convert => fn x -> (Enum.at(x, 3) - 32768) / 100 end,
             :unit => "°C"
           },
           %{
-            :name => "CH4: Temperature",
+            :name => "Temperature at level 4",
             :convert => fn x -> (Enum.at(x, 4) - 32768) / 100 end,
             :unit => "°C"
           },
           %{
-            :name => "CH5: Temperature",
+            :name => "Temperature at level 5",
             :convert => fn x -> (Enum.at(x, 5) - 32768) / 100 end,
             :unit => "°C"
           },
           %{
-            :name => "CH6: Temperature",
+            :name => "Temperature at level 6",
             :convert => fn x -> (Enum.at(x, 6) - 32768) / 100 end,
             :unit => "°C"
           },
           %{
-            :name => "CH7: Temperature",
+            :name => "Temperature at level 7",
             :convert => fn x -> (Enum.at(x, 7) - 32768) / 100 end,
             :unit => "°C"
           },
           %{
-            :name => "CH8: Temperature",
+            :name => "Temperature at level 8",
             :convert => fn x -> (Enum.at(x, 8) - 32768) / 100 end,
             :unit => "°C"
           },
           %{
-            :name => "CH9: Temperature",
+            :name => "Temperature at level 9",
             :convert => fn x -> (Enum.at(x, 9) - 32768) / 100 end,
             :unit => "°C"
           },
           %{
-            :name => "CH10: Temperature",
+            :name => "Temperature at level 10",
             :convert => fn x -> (Enum.at(x, 10) - 32768) / 100 end,
             :unit => "°C"
           },
           %{
-            :name => "CH11: Temperature",
+            :name => "Temperature at level 11",
             :convert => fn x -> (Enum.at(x, 11) - 32768) / 100 end,
             :unit => "°C"
           },
           %{
-            :name => "CH12: Temperature",
+            :name => "Temperature at level 12",
             :convert => fn x -> (Enum.at(x, 12) - 32768) / 100 end,
             :unit => "°C"
           },
           %{
-            :name => "CH13: Temperature",
+            :name => "Temperature at level 13",
             :convert => fn x -> (Enum.at(x, 13) - 32768) / 100 end,
             :unit => "°C"
           },
           %{
-            :name => "CH14: Temperature",
+            :name => "Temperature at level 14",
             :convert => fn x -> (Enum.at(x, 14) - 32768) / 100 end,
             :unit => "°C"
           },
           %{
-            :name => "CH15: Temperature",
+            :name => "Temperature at level 15",
             :convert => fn x -> (Enum.at(x, 15) - 32768) / 100 end,
             :unit => "°C"
           }

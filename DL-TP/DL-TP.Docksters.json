@@ -5,86 +5,86 @@
   "displayName": "DL-TP Temperature Profile for LoRaWAN\u00ae",
   "manufacturer": "Decentlab",
   "organizationId": "9f014719-4add-4989-ba0f-fc7edc44d893",
-  "parser": "var decentlab_decoder = {\n  PROTOCOL_VERSION: 2,\n  SENSORS: [\n    {length: 16,\n     values: [{name: \u0027ch0_temperature\u0027,\n               displayName: \u0027CH0: Temperature\u0027,\n               convert: function (x) { return (x[0] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027ch1_temperature\u0027,\n               displayName: \u0027CH1: Temperature\u0027,\n               convert: function (x) { return (x[1] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027ch2_temperature\u0027,\n               displayName: \u0027CH2: Temperature\u0027,\n               convert: function (x) { return (x[2] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027ch3_temperature\u0027,\n               displayName: \u0027CH3: Temperature\u0027,\n               convert: function (x) { return (x[3] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027ch4_temperature\u0027,\n               displayName: \u0027CH4: Temperature\u0027,\n               convert: function (x) { return (x[4] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027ch5_temperature\u0027,\n               displayName: \u0027CH5: Temperature\u0027,\n               convert: function (x) { return (x[5] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027ch6_temperature\u0027,\n               displayName: \u0027CH6: Temperature\u0027,\n               convert: function (x) { return (x[6] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027ch7_temperature\u0027,\n               displayName: \u0027CH7: Temperature\u0027,\n               convert: function (x) { return (x[7] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027ch8_temperature\u0027,\n               displayName: \u0027CH8: Temperature\u0027,\n               convert: function (x) { return (x[8] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027ch9_temperature\u0027,\n               displayName: \u0027CH9: Temperature\u0027,\n               convert: function (x) { return (x[9] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027ch10_temperature\u0027,\n               displayName: \u0027CH10: Temperature\u0027,\n               convert: function (x) { return (x[10] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027ch11_temperature\u0027,\n               displayName: \u0027CH11: Temperature\u0027,\n               convert: function (x) { return (x[11] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027ch12_temperature\u0027,\n               displayName: \u0027CH12: Temperature\u0027,\n               convert: function (x) { return (x[12] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027ch13_temperature\u0027,\n               displayName: \u0027CH13: Temperature\u0027,\n               convert: function (x) { return (x[13] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027ch14_temperature\u0027,\n               displayName: \u0027CH14: Temperature\u0027,\n               convert: function (x) { return (x[14] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027ch15_temperature\u0027,\n               displayName: \u0027CH15: Temperature\u0027,\n               convert: function (x) { return (x[15] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027}]},\n    {length: 1,\n     values: [{name: \u0027battery_voltage\u0027,\n               displayName: \u0027Battery voltage\u0027,\n               convert: function (x) { return x[0] / 1000; },\n               unit: \u0027V\u0027}]}\n  ],\n\n  read_int: function (bytes, pos) {\n    return (bytes[pos] \u003c\u003c 8) + bytes[pos + 1];\n  },\n\n  decode: function (msg) {\n    var bytes = msg;\n    var i, j;\n    if (typeof msg === \u0027string\u0027) {\n      bytes = [];\n      for (i = 0; i \u003c msg.length; i += 2) {\n        bytes.push(parseInt(msg.substring(i, i + 2), 16));\n      }\n    }\n\n    var version = bytes[0];\n    if (version != this.PROTOCOL_VERSION) {\n      return {error: \"protocol version \" + version + \" doesn\u0027t match v2\"};\n    }\n\n    var deviceId = this.read_int(bytes, 1);\n    var flags = this.read_int(bytes, 3);\n    var result = {\u0027protocol_version\u0027: version, \u0027device_id\u0027: deviceId};\n    // decode payload\n    var pos = 5;\n    for (i = 0; i \u003c this.SENSORS.length; i++, flags \u003e\u003e= 1) {\n      if ((flags \u0026 1) !== 1)\n        continue;\n\n      var sensor = this.SENSORS[i];\n      var x = [];\n      // convert data to 16-bit integer array\n      for (j = 0; j \u003c sensor.length; j++) {\n        x.push(this.read_int(bytes, pos));\n        pos += 2;\n      }\n\n      // decode sensor values\n      for (j = 0; j \u003c sensor.values.length; j++) {\n        var value = sensor.values[j];\n        if (\u0027convert\u0027 in value) {\n          result[value.name] = {displayName: value.displayName,\n                                value: value.convert.bind(this)(x)};\n          if (\u0027unit\u0027 in value)\n            result[value.name][\u0027unit\u0027] = value.unit;\n        }\n      }\n    }\n    return result;\n  }\n};\n\nfunction parsePayload(payload) {\n  var decoded = decentlab_decoder.decode(payload);\n  Object.keys(decoded).map(function(key, index) { decoded[key] = decoded[key][\u0027value\u0027];});\n  return decoded;\n}",
+  "parser": "var decentlab_decoder = {\n  PROTOCOL_VERSION: 2,\n  SENSORS: [\n    {length: 16,\n     values: [{name: \u0027temperature_at_level_0\u0027,\n               displayName: \u0027Temperature at level 0\u0027,\n               convert: function (x) { return (x[0] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027temperature_at_level_1\u0027,\n               displayName: \u0027Temperature at level 1\u0027,\n               convert: function (x) { return (x[1] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027temperature_at_level_2\u0027,\n               displayName: \u0027Temperature at level 2\u0027,\n               convert: function (x) { return (x[2] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027temperature_at_level_3\u0027,\n               displayName: \u0027Temperature at level 3\u0027,\n               convert: function (x) { return (x[3] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027temperature_at_level_4\u0027,\n               displayName: \u0027Temperature at level 4\u0027,\n               convert: function (x) { return (x[4] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027temperature_at_level_5\u0027,\n               displayName: \u0027Temperature at level 5\u0027,\n               convert: function (x) { return (x[5] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027temperature_at_level_6\u0027,\n               displayName: \u0027Temperature at level 6\u0027,\n               convert: function (x) { return (x[6] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027temperature_at_level_7\u0027,\n               displayName: \u0027Temperature at level 7\u0027,\n               convert: function (x) { return (x[7] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027temperature_at_level_8\u0027,\n               displayName: \u0027Temperature at level 8\u0027,\n               convert: function (x) { return (x[8] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027temperature_at_level_9\u0027,\n               displayName: \u0027Temperature at level 9\u0027,\n               convert: function (x) { return (x[9] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027temperature_at_level_10\u0027,\n               displayName: \u0027Temperature at level 10\u0027,\n               convert: function (x) { return (x[10] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027temperature_at_level_11\u0027,\n               displayName: \u0027Temperature at level 11\u0027,\n               convert: function (x) { return (x[11] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027temperature_at_level_12\u0027,\n               displayName: \u0027Temperature at level 12\u0027,\n               convert: function (x) { return (x[12] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027temperature_at_level_13\u0027,\n               displayName: \u0027Temperature at level 13\u0027,\n               convert: function (x) { return (x[13] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027temperature_at_level_14\u0027,\n               displayName: \u0027Temperature at level 14\u0027,\n               convert: function (x) { return (x[14] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027temperature_at_level_15\u0027,\n               displayName: \u0027Temperature at level 15\u0027,\n               convert: function (x) { return (x[15] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027}]},\n    {length: 1,\n     values: [{name: \u0027battery_voltage\u0027,\n               displayName: \u0027Battery voltage\u0027,\n               convert: function (x) { return x[0] / 1000; },\n               unit: \u0027V\u0027}]}\n  ],\n\n  read_int: function (bytes, pos) {\n    return (bytes[pos] \u003c\u003c 8) + bytes[pos + 1];\n  },\n\n  decode: function (msg) {\n    var bytes = msg;\n    var i, j;\n    if (typeof msg === \u0027string\u0027) {\n      bytes = [];\n      for (i = 0; i \u003c msg.length; i += 2) {\n        bytes.push(parseInt(msg.substring(i, i + 2), 16));\n      }\n    }\n\n    var version = bytes[0];\n    if (version != this.PROTOCOL_VERSION) {\n      return {error: \"protocol version \" + version + \" doesn\u0027t match v2\"};\n    }\n\n    var deviceId = this.read_int(bytes, 1);\n    var flags = this.read_int(bytes, 3);\n    var result = {\u0027protocol_version\u0027: version, \u0027device_id\u0027: deviceId};\n    // decode payload\n    var pos = 5;\n    for (i = 0; i \u003c this.SENSORS.length; i++, flags \u003e\u003e= 1) {\n      if ((flags \u0026 1) !== 1)\n        continue;\n\n      var sensor = this.SENSORS[i];\n      var x = [];\n      // convert data to 16-bit integer array\n      for (j = 0; j \u003c sensor.length; j++) {\n        x.push(this.read_int(bytes, pos));\n        pos += 2;\n      }\n\n      // decode sensor values\n      for (j = 0; j \u003c sensor.values.length; j++) {\n        var value = sensor.values[j];\n        if (\u0027convert\u0027 in value) {\n          result[value.name] = {displayName: value.displayName,\n                                value: value.convert.bind(this)(x)};\n          if (\u0027unit\u0027 in value)\n            result[value.name][\u0027unit\u0027] = value.unit;\n        }\n      }\n    }\n    return result;\n  }\n};\n\nfunction parsePayload(payload) {\n  var decoded = decentlab_decoder.decode(payload);\n  Object.keys(decoded).map(function(key, index) { decoded[key] = decoded[key][\u0027value\u0027];});\n  return decoded;\n}",
   "sensors": [
     {
-      "name": "ch0_temperature",
-      "displayName": "CH0: Temperature",
+      "name": "temperature_at_level_0",
+      "displayName": "Temperature at level 0",
       "type": "tempC"
     },
     {
-      "name": "ch1_temperature",
-      "displayName": "CH1: Temperature",
+      "name": "temperature_at_level_1",
+      "displayName": "Temperature at level 1",
       "type": "tempC"
     },
     {
-      "name": "ch2_temperature",
-      "displayName": "CH2: Temperature",
+      "name": "temperature_at_level_2",
+      "displayName": "Temperature at level 2",
       "type": "tempC"
     },
     {
-      "name": "ch3_temperature",
-      "displayName": "CH3: Temperature",
+      "name": "temperature_at_level_3",
+      "displayName": "Temperature at level 3",
       "type": "tempC"
     },
     {
-      "name": "ch4_temperature",
-      "displayName": "CH4: Temperature",
+      "name": "temperature_at_level_4",
+      "displayName": "Temperature at level 4",
       "type": "tempC"
     },
     {
-      "name": "ch5_temperature",
-      "displayName": "CH5: Temperature",
+      "name": "temperature_at_level_5",
+      "displayName": "Temperature at level 5",
       "type": "tempC"
     },
     {
-      "name": "ch6_temperature",
-      "displayName": "CH6: Temperature",
+      "name": "temperature_at_level_6",
+      "displayName": "Temperature at level 6",
       "type": "tempC"
     },
     {
-      "name": "ch7_temperature",
-      "displayName": "CH7: Temperature",
+      "name": "temperature_at_level_7",
+      "displayName": "Temperature at level 7",
       "type": "tempC"
     },
     {
-      "name": "ch8_temperature",
-      "displayName": "CH8: Temperature",
+      "name": "temperature_at_level_8",
+      "displayName": "Temperature at level 8",
       "type": "tempC"
     },
     {
-      "name": "ch9_temperature",
-      "displayName": "CH9: Temperature",
+      "name": "temperature_at_level_9",
+      "displayName": "Temperature at level 9",
       "type": "tempC"
     },
     {
-      "name": "ch10_temperature",
-      "displayName": "CH10: Temperature",
+      "name": "temperature_at_level_10",
+      "displayName": "Temperature at level 10",
       "type": "tempC"
     },
     {
-      "name": "ch11_temperature",
-      "displayName": "CH11: Temperature",
+      "name": "temperature_at_level_11",
+      "displayName": "Temperature at level 11",
       "type": "tempC"
     },
     {
-      "name": "ch12_temperature",
-      "displayName": "CH12: Temperature",
+      "name": "temperature_at_level_12",
+      "displayName": "Temperature at level 12",
       "type": "tempC"
     },
     {
-      "name": "ch13_temperature",
-      "displayName": "CH13: Temperature",
+      "name": "temperature_at_level_13",
+      "displayName": "Temperature at level 13",
       "type": "tempC"
     },
     {
-      "name": "ch14_temperature",
-      "displayName": "CH14: Temperature",
+      "name": "temperature_at_level_14",
+      "displayName": "Temperature at level 14",
       "type": "tempC"
     },
     {
-      "name": "ch15_temperature",
-      "displayName": "CH15: Temperature",
+      "name": "temperature_at_level_15",
+      "displayName": "Temperature at level 15",
       "type": "tempC"
     },
     {

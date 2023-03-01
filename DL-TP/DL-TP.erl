@@ -8,82 +8,82 @@
       length => 16,
       values => [
         #{
-          name => <<"CH0: Temperature">>,
+          name => <<"Temperature at level 0">>,
           convert => fun(X) -> (lists:nth(0 + 1, X) - 32768) / 100 end,
           unit => <<"°C"/utf8>>
         },
         #{
-          name => <<"CH1: Temperature">>,
+          name => <<"Temperature at level 1">>,
           convert => fun(X) -> (lists:nth(1 + 1, X) - 32768) / 100 end,
           unit => <<"°C"/utf8>>
         },
         #{
-          name => <<"CH2: Temperature">>,
+          name => <<"Temperature at level 2">>,
           convert => fun(X) -> (lists:nth(2 + 1, X) - 32768) / 100 end,
           unit => <<"°C"/utf8>>
         },
         #{
-          name => <<"CH3: Temperature">>,
+          name => <<"Temperature at level 3">>,
           convert => fun(X) -> (lists:nth(3 + 1, X) - 32768) / 100 end,
           unit => <<"°C"/utf8>>
         },
         #{
-          name => <<"CH4: Temperature">>,
+          name => <<"Temperature at level 4">>,
           convert => fun(X) -> (lists:nth(4 + 1, X) - 32768) / 100 end,
           unit => <<"°C"/utf8>>
         },
         #{
-          name => <<"CH5: Temperature">>,
+          name => <<"Temperature at level 5">>,
           convert => fun(X) -> (lists:nth(5 + 1, X) - 32768) / 100 end,
           unit => <<"°C"/utf8>>
         },
         #{
-          name => <<"CH6: Temperature">>,
+          name => <<"Temperature at level 6">>,
           convert => fun(X) -> (lists:nth(6 + 1, X) - 32768) / 100 end,
           unit => <<"°C"/utf8>>
         },
         #{
-          name => <<"CH7: Temperature">>,
+          name => <<"Temperature at level 7">>,
           convert => fun(X) -> (lists:nth(7 + 1, X) - 32768) / 100 end,
           unit => <<"°C"/utf8>>
         },
         #{
-          name => <<"CH8: Temperature">>,
+          name => <<"Temperature at level 8">>,
           convert => fun(X) -> (lists:nth(8 + 1, X) - 32768) / 100 end,
           unit => <<"°C"/utf8>>
         },
         #{
-          name => <<"CH9: Temperature">>,
+          name => <<"Temperature at level 9">>,
           convert => fun(X) -> (lists:nth(9 + 1, X) - 32768) / 100 end,
           unit => <<"°C"/utf8>>
         },
         #{
-          name => <<"CH10: Temperature">>,
+          name => <<"Temperature at level 10">>,
           convert => fun(X) -> (lists:nth(10 + 1, X) - 32768) / 100 end,
           unit => <<"°C"/utf8>>
         },
         #{
-          name => <<"CH11: Temperature">>,
+          name => <<"Temperature at level 11">>,
           convert => fun(X) -> (lists:nth(11 + 1, X) - 32768) / 100 end,
           unit => <<"°C"/utf8>>
         },
         #{
-          name => <<"CH12: Temperature">>,
+          name => <<"Temperature at level 12">>,
           convert => fun(X) -> (lists:nth(12 + 1, X) - 32768) / 100 end,
           unit => <<"°C"/utf8>>
         },
         #{
-          name => <<"CH13: Temperature">>,
+          name => <<"Temperature at level 13">>,
           convert => fun(X) -> (lists:nth(13 + 1, X) - 32768) / 100 end,
           unit => <<"°C"/utf8>>
         },
         #{
-          name => <<"CH14: Temperature">>,
+          name => <<"Temperature at level 14">>,
           convert => fun(X) -> (lists:nth(14 + 1, X) - 32768) / 100 end,
           unit => <<"°C"/utf8>>
         },
         #{
-          name => <<"CH15: Temperature">>,
+          name => <<"Temperature at level 15">>,
           convert => fun(X) -> (lists:nth(15 + 1, X) - 32768) / 100 end,
           unit => <<"°C"/utf8>>
         }

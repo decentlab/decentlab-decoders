@@ -33,22 +33,22 @@ public class DecentlabDecoder
 
   private static readonly List<Sensor> SENSORS = new List<Sensor>() {
     new Sensor(16, new List<SensorValue>() {
-      new SensorValue("CH0: Temperature", "°C", x => (x[0] - 32768) / 100),
-      new SensorValue("CH1: Temperature", "°C", x => (x[1] - 32768) / 100),
-      new SensorValue("CH2: Temperature", "°C", x => (x[2] - 32768) / 100),
-      new SensorValue("CH3: Temperature", "°C", x => (x[3] - 32768) / 100),
-      new SensorValue("CH4: Temperature", "°C", x => (x[4] - 32768) / 100),
-      new SensorValue("CH5: Temperature", "°C", x => (x[5] - 32768) / 100),
-      new SensorValue("CH6: Temperature", "°C", x => (x[6] - 32768) / 100),
-      new SensorValue("CH7: Temperature", "°C", x => (x[7] - 32768) / 100),
-      new SensorValue("CH8: Temperature", "°C", x => (x[8] - 32768) / 100),
-      new SensorValue("CH9: Temperature", "°C", x => (x[9] - 32768) / 100),
-      new SensorValue("CH10: Temperature", "°C", x => (x[10] - 32768) / 100),
-      new SensorValue("CH11: Temperature", "°C", x => (x[11] - 32768) / 100),
-      new SensorValue("CH12: Temperature", "°C", x => (x[12] - 32768) / 100),
-      new SensorValue("CH13: Temperature", "°C", x => (x[13] - 32768) / 100),
-      new SensorValue("CH14: Temperature", "°C", x => (x[14] - 32768) / 100),
-      new SensorValue("CH15: Temperature", "°C", x => (x[15] - 32768) / 100)
+      new SensorValue("Temperature at level 0", "°C", x => (x[0] - 32768) / 100),
+      new SensorValue("Temperature at level 1", "°C", x => (x[1] - 32768) / 100),
+      new SensorValue("Temperature at level 2", "°C", x => (x[2] - 32768) / 100),
+      new SensorValue("Temperature at level 3", "°C", x => (x[3] - 32768) / 100),
+      new SensorValue("Temperature at level 4", "°C", x => (x[4] - 32768) / 100),
+      new SensorValue("Temperature at level 5", "°C", x => (x[5] - 32768) / 100),
+      new SensorValue("Temperature at level 6", "°C", x => (x[6] - 32768) / 100),
+      new SensorValue("Temperature at level 7", "°C", x => (x[7] - 32768) / 100),
+      new SensorValue("Temperature at level 8", "°C", x => (x[8] - 32768) / 100),
+      new SensorValue("Temperature at level 9", "°C", x => (x[9] - 32768) / 100),
+      new SensorValue("Temperature at level 10", "°C", x => (x[10] - 32768) / 100),
+      new SensorValue("Temperature at level 11", "°C", x => (x[11] - 32768) / 100),
+      new SensorValue("Temperature at level 12", "°C", x => (x[12] - 32768) / 100),
+      new SensorValue("Temperature at level 13", "°C", x => (x[13] - 32768) / 100),
+      new SensorValue("Temperature at level 14", "°C", x => (x[14] - 32768) / 100),
+      new SensorValue("Temperature at level 15", "°C", x => (x[15] - 32768) / 100)
     }),
     new Sensor(1, new List<SensorValue>() {
       new SensorValue("Battery voltage", "V", x => x[0] / 1000)
