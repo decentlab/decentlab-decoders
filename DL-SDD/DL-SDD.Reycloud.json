@@ -1,0 +1,740 @@
+{
+  "testPayloads": ["0243e300058000800080008000800080008741877b8749876c876c876600000000000000000000014a09e3", "0243e3000409e3"],
+  "useCache": false,
+  "outputVars": false,
+  "inputDecoders": {
+    "fports": [
+      {
+        "fport": 1,
+        "decoders": [
+          {
+            "conditions": [
+              {
+                "byte": "0",
+                "value": "2",
+                "operator": "="
+              },
+              {
+                "byte": "3",
+                "value": "0",
+                "operator": "="
+              },
+              {
+                "byte": "4",
+                "value": "7",
+                "operator": "="
+              }
+            ],
+            "fields": [
+              {
+                "byte": "1",
+                "lenght": "2",
+                "calc": "(x)",
+                "type": "dec",
+                "unit": "",
+                "label": "Device ID",
+                "byteSwap": false,
+                "fieldName": "device_id",
+                "boolInvert": false,
+                "description": {
+                  "en": "Device ID"
+                },
+                "dashboard_type": "int",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "5",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "%",
+                "label": "Moisture at level 0",
+                "byteSwap": false,
+                "fieldName": "moisture_at_level_0",
+                "boolInvert": false,
+                "description": {
+                  "en": "Moisture at level 0"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "7",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "%",
+                "label": "Moisture at level 1",
+                "byteSwap": false,
+                "fieldName": "moisture_at_level_1",
+                "boolInvert": false,
+                "description": {
+                  "en": "Moisture at level 1"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "9",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "%",
+                "label": "Moisture at level 2",
+                "byteSwap": false,
+                "fieldName": "moisture_at_level_2",
+                "boolInvert": false,
+                "description": {
+                  "en": "Moisture at level 2"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "11",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "%",
+                "label": "Moisture at level 3",
+                "byteSwap": false,
+                "fieldName": "moisture_at_level_3",
+                "boolInvert": false,
+                "description": {
+                  "en": "Moisture at level 3"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "13",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "%",
+                "label": "Moisture at level 4",
+                "byteSwap": false,
+                "fieldName": "moisture_at_level_4",
+                "boolInvert": false,
+                "description": {
+                  "en": "Moisture at level 4"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "15",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "%",
+                "label": "Moisture at level 5",
+                "byteSwap": false,
+                "fieldName": "moisture_at_level_5",
+                "boolInvert": false,
+                "description": {
+                  "en": "Moisture at level 5"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "17",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 0",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_0",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 0"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "19",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 1",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_1",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 1"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "21",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 2",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_2",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 2"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "23",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 3",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_3",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 3"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "25",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 4",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_4",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 4"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "27",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 5",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_5",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 5"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "29",
+                "lenght": "2",
+                "calc": "(x - 100)",
+                "type": "dec",
+                "unit": "",
+                "label": "Salinity at level 0",
+                "byteSwap": false,
+                "fieldName": "salinity_at_level_0",
+                "boolInvert": false,
+                "description": {
+                  "en": "Salinity at level 0"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "31",
+                "lenght": "2",
+                "calc": "(x - 100)",
+                "type": "dec",
+                "unit": "",
+                "label": "Salinity at level 1",
+                "byteSwap": false,
+                "fieldName": "salinity_at_level_1",
+                "boolInvert": false,
+                "description": {
+                  "en": "Salinity at level 1"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "33",
+                "lenght": "2",
+                "calc": "(x - 100)",
+                "type": "dec",
+                "unit": "",
+                "label": "Salinity at level 2",
+                "byteSwap": false,
+                "fieldName": "salinity_at_level_2",
+                "boolInvert": false,
+                "description": {
+                  "en": "Salinity at level 2"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "35",
+                "lenght": "2",
+                "calc": "(x - 100)",
+                "type": "dec",
+                "unit": "",
+                "label": "Salinity at level 3",
+                "byteSwap": false,
+                "fieldName": "salinity_at_level_3",
+                "boolInvert": false,
+                "description": {
+                  "en": "Salinity at level 3"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "37",
+                "lenght": "2",
+                "calc": "(x - 100)",
+                "type": "dec",
+                "unit": "",
+                "label": "Salinity at level 4",
+                "byteSwap": false,
+                "fieldName": "salinity_at_level_4",
+                "boolInvert": false,
+                "description": {
+                  "en": "Salinity at level 4"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "39",
+                "lenght": "2",
+                "calc": "(x - 100)",
+                "type": "dec",
+                "unit": "",
+                "label": "Salinity at level 5",
+                "byteSwap": false,
+                "fieldName": "salinity_at_level_5",
+                "boolInvert": false,
+                "description": {
+                  "en": "Salinity at level 5"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "41",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "%",
+                "label": "Moisture at level 6",
+                "byteSwap": false,
+                "fieldName": "moisture_at_level_6",
+                "boolInvert": false,
+                "description": {
+                  "en": "Moisture at level 6"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "43",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "%",
+                "label": "Moisture at level 7",
+                "byteSwap": false,
+                "fieldName": "moisture_at_level_7",
+                "boolInvert": false,
+                "description": {
+                  "en": "Moisture at level 7"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "45",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "%",
+                "label": "Moisture at level 8",
+                "byteSwap": false,
+                "fieldName": "moisture_at_level_8",
+                "boolInvert": false,
+                "description": {
+                  "en": "Moisture at level 8"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "47",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "%",
+                "label": "Moisture at level 9",
+                "byteSwap": false,
+                "fieldName": "moisture_at_level_9",
+                "boolInvert": false,
+                "description": {
+                  "en": "Moisture at level 9"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "49",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "%",
+                "label": "Moisture at level 10",
+                "byteSwap": false,
+                "fieldName": "moisture_at_level_10",
+                "boolInvert": false,
+                "description": {
+                  "en": "Moisture at level 10"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "51",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "%",
+                "label": "Moisture at level 11",
+                "byteSwap": false,
+                "fieldName": "moisture_at_level_11",
+                "boolInvert": false,
+                "description": {
+                  "en": "Moisture at level 11"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "53",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 6",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_6",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 6"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "55",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 7",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_7",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 7"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "57",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 8",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_8",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 8"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "59",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 9",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_9",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 9"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "61",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 10",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_10",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 10"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "63",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature at level 11",
+                "byteSwap": false,
+                "fieldName": "temperature_at_level_11",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature at level 11"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "65",
+                "lenght": "2",
+                "calc": "(x - 100)",
+                "type": "dec",
+                "unit": "",
+                "label": "Salinity at level 6",
+                "byteSwap": false,
+                "fieldName": "salinity_at_level_6",
+                "boolInvert": false,
+                "description": {
+                  "en": "Salinity at level 6"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "67",
+                "lenght": "2",
+                "calc": "(x - 100)",
+                "type": "dec",
+                "unit": "",
+                "label": "Salinity at level 7",
+                "byteSwap": false,
+                "fieldName": "salinity_at_level_7",
+                "boolInvert": false,
+                "description": {
+                  "en": "Salinity at level 7"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "69",
+                "lenght": "2",
+                "calc": "(x - 100)",
+                "type": "dec",
+                "unit": "",
+                "label": "Salinity at level 8",
+                "byteSwap": false,
+                "fieldName": "salinity_at_level_8",
+                "boolInvert": false,
+                "description": {
+                  "en": "Salinity at level 8"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "71",
+                "lenght": "2",
+                "calc": "(x - 100)",
+                "type": "dec",
+                "unit": "",
+                "label": "Salinity at level 9",
+                "byteSwap": false,
+                "fieldName": "salinity_at_level_9",
+                "boolInvert": false,
+                "description": {
+                  "en": "Salinity at level 9"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "73",
+                "lenght": "2",
+                "calc": "(x - 100)",
+                "type": "dec",
+                "unit": "",
+                "label": "Salinity at level 10",
+                "byteSwap": false,
+                "fieldName": "salinity_at_level_10",
+                "boolInvert": false,
+                "description": {
+                  "en": "Salinity at level 10"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "75",
+                "lenght": "2",
+                "calc": "(x - 100)",
+                "type": "dec",
+                "unit": "",
+                "label": "Salinity at level 11",
+                "byteSwap": false,
+                "fieldName": "salinity_at_level_11",
+                "boolInvert": false,
+                "description": {
+                  "en": "Salinity at level 11"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "77",
+                "lenght": "2",
+                "calc": "(x / 1000)",
+                "type": "dec",
+                "unit": "V",
+                "label": "Battery voltage",
+                "byteSwap": false,
+                "fieldName": "battery_voltage",
+                "boolInvert": false,
+                "description": {
+                  "en": "Battery voltage"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              }
+            ]
+          },
+          {
+            "conditions": [
+              {
+                "byte": "0",
+                "value": "2",
+                "operator": "="
+              },
+              {
+                "byte": "3",
+                "value": "0",
+                "operator": "="
+              },
+              {
+                "byte": "4",
+                "value": "4",
+                "operator": "="
+              }
+            ],
+            "fields": [
+              {
+                "byte": "1",
+                "lenght": "2",
+                "calc": "(x)",
+                "type": "dec",
+                "unit": "",
+                "label": "Device ID",
+                "byteSwap": false,
+                "fieldName": "device_id",
+                "boolInvert": false,
+                "description": {
+                  "en": "Device ID"
+                },
+                "dashboard_type": "int",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "5",
+                "lenght": "2",
+                "calc": "(x / 1000)",
+                "type": "dec",
+                "unit": "V",
+                "label": "Battery voltage",
+                "byteSwap": false,
+                "fieldName": "battery_voltage",
+                "boolInvert": false,
+                "description": {
+                  "en": "Battery voltage"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "configDownlink": false,
+  "swisscomProfile": "LORA/SwisscomA.1.0.2b_ETSI_Rx2-SF12",
+  "outputVarEncoders": [],
+  "profileConfigDownlink": []
+}
