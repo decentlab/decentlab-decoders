@@ -46,6 +46,7 @@ Device | Name
 [DL-KL66](DL-KL66) | [Strain / Weight Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/strain-/-weight-sensor-for-lorawan)
 [DL-LID](DL-LID) | [Laser Distance / Level Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/laser-distance-level-sensor-for-lorawan)
 [DL-LP8P](DL-LP8P) | [CO₂, Temperature, Humidity and Barometric Pressure Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/co2-temperature-humidity-and-barometric-pressure-sensor-for-lorawan)
+[DL-LPW](DL-LPW) | [Linear Position / Way for LoRaWAN&reg;](https://www.decentlab.com/products/linear-position-/-way-for-lorawan)
 [DL-LWS](DL-LWS) | [Leaf Wetness Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/leaf-wetness-sensor-for-lorawan)
 [DL-MBX](DL-MBX) | [Ultrasonic Distance / Level Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/ultrasonic-distance-/-level-sensor-for-lorawan)
 [DL-NTU](DL-NTU) | [Optical Turbidity and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/optical-turbidity-and-temperature-sensor-for-lorawan)
