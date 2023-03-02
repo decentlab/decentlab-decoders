@@ -1,0 +1,383 @@
+{
+  "testPayloads": ["023d0100030c290bab0c3e79707a1d78437991490845997e4cacdeaa6e00000000457e415a0b59", "023d0100020b59"],
+  "useCache": false,
+  "outputVars": false,
+  "inputDecoders": {
+    "fports": [
+      {
+        "fport": 1,
+        "decoders": [
+          {
+            "conditions": [
+              {
+                "byte": "0",
+                "value": "2",
+                "operator": "="
+              },
+              {
+                "byte": "3",
+                "value": "0",
+                "operator": "="
+              },
+              {
+                "byte": "4",
+                "value": "3",
+                "operator": "="
+              }
+            ],
+            "fields": [
+              {
+                "byte": "1",
+                "lenght": "2",
+                "calc": "(x)",
+                "type": "dec",
+                "unit": "",
+                "label": "Device ID",
+                "byteSwap": false,
+                "fieldName": "device_id",
+                "boolInvert": false,
+                "description": {
+                  "en": "Device ID"
+                },
+                "dashboard_type": "int",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "5",
+                "lenght": "2",
+                "calc": "((x * 16 - 50000) / 1000)",
+                "type": "dec",
+                "unit": "l⋅h⁻¹",
+                "label": "Sap flow",
+                "byteSwap": false,
+                "fieldName": "sap_flow",
+                "boolInvert": false,
+                "description": {
+                  "en": "Sap flow"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "7",
+                "lenght": "2",
+                "calc": "((x * 16 - 50000) / 1000)",
+                "type": "dec",
+                "unit": "cm⋅h⁻¹",
+                "label": "Heat velocity (outer)",
+                "byteSwap": false,
+                "fieldName": "heat_velocity_outer",
+                "boolInvert": false,
+                "description": {
+                  "en": "Heat velocity (outer)"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "9",
+                "lenght": "2",
+                "calc": "((x * 16 - 50000) / 1000)",
+                "type": "dec",
+                "unit": "cm⋅h⁻¹",
+                "label": "Heat velocity (inner)",
+                "byteSwap": false,
+                "fieldName": "heat_velocity_inner",
+                "boolInvert": false,
+                "description": {
+                  "en": "Heat velocity (inner)"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "11",
+                "lenght": "2",
+                "calc": "((x * 32 - 1000000) / 100000)",
+                "type": "dec",
+                "unit": "",
+                "label": "Alpha (outer)",
+                "byteSwap": false,
+                "fieldName": "alpha_outer",
+                "boolInvert": false,
+                "description": {
+                  "en": "Alpha (outer)"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "13",
+                "lenght": "2",
+                "calc": "((x * 32 - 1000000) / 100000)",
+                "type": "dec",
+                "unit": "",
+                "label": "Alpha (inner)",
+                "byteSwap": false,
+                "fieldName": "alpha_inner",
+                "boolInvert": false,
+                "description": {
+                  "en": "Alpha (inner)"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "15",
+                "lenght": "2",
+                "calc": "((x * 32 - 1000000) / 100000)",
+                "type": "dec",
+                "unit": "",
+                "label": "Beta (outer)",
+                "byteSwap": false,
+                "fieldName": "beta_outer",
+                "boolInvert": false,
+                "description": {
+                  "en": "Beta (outer)"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "17",
+                "lenght": "2",
+                "calc": "((x * 32 - 1000000) / 100000)",
+                "type": "dec",
+                "unit": "",
+                "label": "Beta (inner)",
+                "byteSwap": false,
+                "fieldName": "beta_inner",
+                "boolInvert": false,
+                "description": {
+                  "en": "Beta (inner)"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "19",
+                "lenght": "2",
+                "calc": "((x * 2) / 1000)",
+                "type": "dec",
+                "unit": "s",
+                "label": "Tmax (outer)",
+                "byteSwap": false,
+                "fieldName": "tmax_outer",
+                "boolInvert": false,
+                "description": {
+                  "en": "Tmax (outer)"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "21",
+                "lenght": "2",
+                "calc": "((x * 2) / 1000)",
+                "type": "dec",
+                "unit": "s",
+                "label": "Tmax (inner)",
+                "byteSwap": false,
+                "fieldName": "tmax_inner",
+                "boolInvert": false,
+                "description": {
+                  "en": "Tmax (inner)"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "23",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature (outer)",
+                "byteSwap": false,
+                "fieldName": "temperature_outer",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature (outer)"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "25",
+                "lenght": "2",
+                "calc": "((x - 32768) / 1000)",
+                "type": "dec",
+                "unit": "V",
+                "label": "Max voltage",
+                "byteSwap": false,
+                "fieldName": "max_voltage",
+                "boolInvert": false,
+                "description": {
+                  "en": "Max voltage"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "27",
+                "lenght": "2",
+                "calc": "((x - 32768) / 1000)",
+                "type": "dec",
+                "unit": "V",
+                "label": "Min voltage",
+                "byteSwap": false,
+                "fieldName": "min_voltage",
+                "boolInvert": false,
+                "description": {
+                  "en": "Min voltage"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "5",
+                "lenght": "32",
+                "calc": "(?)",
+                "type": "dec",
+                "unit": "",
+                "label": "Diagnostic",
+                "byteSwap": false,
+                "fieldName": "diagnostic",
+                "boolInvert": false,
+                "description": {
+                  "en": "Diagnostic"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "33",
+                "lenght": "2",
+                "calc": "((x * 2) / 1000)",
+                "type": "dec",
+                "unit": "s",
+                "label": "Upstream Tmax (outer)",
+                "byteSwap": false,
+                "fieldName": "upstream_tmax_outer",
+                "boolInvert": false,
+                "description": {
+                  "en": "Upstream Tmax (outer)"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "35",
+                "lenght": "2",
+                "calc": "((x * 2) / 1000)",
+                "type": "dec",
+                "unit": "s",
+                "label": "Upstream Tmax (inner)",
+                "byteSwap": false,
+                "fieldName": "upstream_tmax_inner",
+                "boolInvert": false,
+                "description": {
+                  "en": "Upstream Tmax (inner)"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "37",
+                "lenght": "2",
+                "calc": "(x / 1000)",
+                "type": "dec",
+                "unit": "V",
+                "label": "Battery voltage",
+                "byteSwap": false,
+                "fieldName": "battery_voltage",
+                "boolInvert": false,
+                "description": {
+                  "en": "Battery voltage"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              }
+            ]
+          },
+          {
+            "conditions": [
+              {
+                "byte": "0",
+                "value": "2",
+                "operator": "="
+              },
+              {
+                "byte": "3",
+                "value": "0",
+                "operator": "="
+              },
+              {
+                "byte": "4",
+                "value": "2",
+                "operator": "="
+              }
+            ],
+            "fields": [
+              {
+                "byte": "1",
+                "lenght": "2",
+                "calc": "(x)",
+                "type": "dec",
+                "unit": "",
+                "label": "Device ID",
+                "byteSwap": false,
+                "fieldName": "device_id",
+                "boolInvert": false,
+                "description": {
+                  "en": "Device ID"
+                },
+                "dashboard_type": "int",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "5",
+                "lenght": "2",
+                "calc": "(x / 1000)",
+                "type": "dec",
+                "unit": "V",
+                "label": "Battery voltage",
+                "byteSwap": false,
+                "fieldName": "battery_voltage",
+                "boolInvert": false,
+                "description": {
+                  "en": "Battery voltage"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "configDownlink": false,
+  "swisscomProfile": "LORA/SwisscomA.1.0.2b_ETSI_Rx2-SF12",
+  "outputVarEncoders": [],
+  "profileConfigDownlink": []
+}

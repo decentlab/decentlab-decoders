@@ -41,6 +41,7 @@ Device | Name
 [DL-DWS](DL-DWS) | [Weighing Scale for LoRaWAN&reg;](https://www.decentlab.com/products/weighing-scale-for-lorawan)
 [DL-GS3](DL-GS3) | [Legacy Ruggedized Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/support)
 [DL-IAM](DL-IAM) | [Indoor Ambiance Monitor including CO₂, TVOC and Motion Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/indoor-ambiance-monitor-including-co2-tvoc-and-motion-sensor-for-lorawan)
+[DL-ISF](DL-ISF) | [Sapflow Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/sapflow-sensor-for-lorawan)
 [DL-ITST](DL-ITST) | [Infrared Thermometer / Surface Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/infrared-thermometer-/-surface-temperature-sensor-for-lorawan)
 [DL-KL66](DL-KL66) | [Strain / Weight Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/strain-/-weight-sensor-for-lorawan)
 [DL-LID](DL-LID) | [Laser Distance / Level Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/laser-distance-level-sensor-for-lorawan)

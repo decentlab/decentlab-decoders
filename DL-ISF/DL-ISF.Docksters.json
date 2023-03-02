@@ -1,0 +1,100 @@
+{
+  "createdUTC": "2020-05-29T18:06:30.651Z",
+  "definitionIsPublic": false,
+  "definitionName": "DL-ISF",
+  "displayName": "DL-ISF Sapflow Sensor for LoRaWAN\u00ae",
+  "manufacturer": "Decentlab",
+  "organizationId": "9f014719-4add-4989-ba0f-fc7edc44d893",
+  "parser": "\n/* https://www.decentlab.com/products/sapflow-sensor-for-lorawan */\n\nvar decentlab_decoder = {\n  PROTOCOL_VERSION: 2,\n  SENSORS: [\n    {length: 16,\n     values: [{name: \u0027sap_flow\u0027,\n               displayName: \u0027Sap flow\u0027,\n               convert: function (x) { return (x[0] * 16 - 50000) / 1000; },\n               unit: \u0027l\u22c5h\u207b\u00b9\u0027},\n              {name: \u0027heat_velocity_outer\u0027,\n               displayName: \u0027Heat velocity (outer)\u0027,\n               convert: function (x) { return (x[1] * 16 - 50000) / 1000; },\n               unit: \u0027cm\u22c5h\u207b\u00b9\u0027},\n              {name: \u0027heat_velocity_inner\u0027,\n               displayName: \u0027Heat velocity (inner)\u0027,\n               convert: function (x) { return (x[2] * 16 - 50000) / 1000; },\n               unit: \u0027cm\u22c5h\u207b\u00b9\u0027},\n              {name: \u0027alpha_outer\u0027,\n               displayName: \u0027Alpha (outer)\u0027,\n               convert: function (x) { return (x[3] * 32 - 1000000) / 100000; }},\n              {name: \u0027alpha_inner\u0027,\n               displayName: \u0027Alpha (inner)\u0027,\n               convert: function (x) { return (x[4] * 32 - 1000000) / 100000; }},\n              {name: \u0027beta_outer\u0027,\n               displayName: \u0027Beta (outer)\u0027,\n               convert: function (x) { return (x[5] * 32 - 1000000) / 100000; }},\n              {name: \u0027beta_inner\u0027,\n               displayName: \u0027Beta (inner)\u0027,\n               convert: function (x) { return (x[6] * 32 - 1000000) / 100000; }},\n              {name: \u0027tmax_outer\u0027,\n               displayName: \u0027Tmax (outer)\u0027,\n               convert: function (x) { return (x[7] * 2) / 1000; },\n               unit: \u0027s\u0027},\n              {name: \u0027tmax_inner\u0027,\n               displayName: \u0027Tmax (inner)\u0027,\n               convert: function (x) { return (x[8] * 2) / 1000; },\n               unit: \u0027s\u0027},\n              {name: \u0027temperature_outer\u0027,\n               displayName: \u0027Temperature (outer)\u0027,\n               convert: function (x) { return (x[9] - 32768) / 100; },\n               unit: \u0027\u00b0C\u0027},\n              {name: \u0027max_voltage\u0027,\n               displayName: \u0027Max voltage\u0027,\n               convert: function (x) { return (x[10] - 32768) / 1000; },\n               unit: \u0027V\u0027},\n              {name: \u0027min_voltage\u0027,\n               displayName: \u0027Min voltage\u0027,\n               convert: function (x) { return (x[11] - 32768) / 1000; },\n               unit: \u0027V\u0027},\n              {name: \u0027diagnostic\u0027,\n               displayName: \u0027Diagnostic\u0027,\n               convert: function (x) { return x[12] + x[13] * 65536; }},\n              {name: \u0027upstream_tmax_outer\u0027,\n               displayName: \u0027Upstream Tmax (outer)\u0027,\n               convert: function (x) { return (x[14] * 2) / 1000; },\n               unit: \u0027s\u0027},\n              {name: \u0027upstream_tmax_inner\u0027,\n               displayName: \u0027Upstream Tmax (inner)\u0027,\n               convert: function (x) { return (x[15] * 2) / 1000; },\n               unit: \u0027s\u0027}]},\n    {length: 1,\n     values: [{name: \u0027battery_voltage\u0027,\n               displayName: \u0027Battery voltage\u0027,\n               convert: function (x) { return x[0] / 1000; },\n               unit: \u0027V\u0027}]}\n  ],\n\n  read_int: function (bytes, pos) {\n    return (bytes[pos] \u003c\u003c 8) + bytes[pos + 1];\n  },\n\n  decode: function (msg) {\n    var bytes = msg;\n    var i, j;\n    if (typeof msg === \u0027string\u0027) {\n      bytes = [];\n      for (i = 0; i \u003c msg.length; i += 2) {\n        bytes.push(parseInt(msg.substring(i, i + 2), 16));\n      }\n    }\n\n    var version = bytes[0];\n    if (version != this.PROTOCOL_VERSION) {\n      return {error: \"protocol version \" + version + \" doesn\u0027t match v2\"};\n    }\n\n    var deviceId = this.read_int(bytes, 1);\n    var flags = this.read_int(bytes, 3);\n    var result = {\u0027protocol_version\u0027: version, \u0027device_id\u0027: deviceId};\n    // decode payload\n    var pos = 5;\n    for (i = 0; i \u003c this.SENSORS.length; i++, flags \u003e\u003e= 1) {\n      if ((flags \u0026 1) !== 1)\n        continue;\n\n      var sensor = this.SENSORS[i];\n      var x = [];\n      // convert data to 16-bit integer array\n      for (j = 0; j \u003c sensor.length; j++) {\n        x.push(this.read_int(bytes, pos));\n        pos += 2;\n      }\n\n      // decode sensor values\n      for (j = 0; j \u003c sensor.values.length; j++) {\n        var value = sensor.values[j];\n        if (\u0027convert\u0027 in value) {\n          result[value.name] = {displayName: value.displayName,\n                                value: value.convert.bind(this)(x)};\n          if (\u0027unit\u0027 in value)\n            result[value.name][\u0027unit\u0027] = value.unit;\n        }\n      }\n    }\n    return result;\n  }\n};\n\nfunction parsePayload(payload) {\n  var decoded = decentlab_decoder.decode(payload);\n  Object.keys(decoded).map(function(key, index) { decoded[key] = decoded[key][\u0027value\u0027];});\n  return decoded;\n}",
+  "sensors": [
+    {
+      "name": "sap_flow",
+      "displayName": "Sap flow /l⋅h⁻¹/",
+      "type": "float"
+    },
+    {
+      "name": "heat_velocity_outer",
+      "displayName": "Heat velocity outer /cm⋅h⁻¹/",
+      "type": "float"
+    },
+    {
+      "name": "heat_velocity_inner",
+      "displayName": "Heat velocity inner /cm⋅h⁻¹/",
+      "type": "float"
+    },
+    {
+      "name": "alpha_outer",
+      "displayName": "Alpha outer",
+      "type": "int"
+    },
+    {
+      "name": "alpha_inner",
+      "displayName": "Alpha inner",
+      "type": "int"
+    },
+    {
+      "name": "beta_outer",
+      "displayName": "Beta outer",
+      "type": "int"
+    },
+    {
+      "name": "beta_inner",
+      "displayName": "Beta inner",
+      "type": "int"
+    },
+    {
+      "name": "tmax_outer",
+      "displayName": "Tmax outer /s/",
+      "type": "float"
+    },
+    {
+      "name": "tmax_inner",
+      "displayName": "Tmax inner /s/",
+      "type": "float"
+    },
+    {
+      "name": "temperature_outer",
+      "displayName": "Temperature outer",
+      "type": "tempC"
+    },
+    {
+      "name": "max_voltage",
+      "displayName": "Max voltage",
+      "type": "volts"
+    },
+    {
+      "name": "min_voltage",
+      "displayName": "Min voltage",
+      "type": "volts"
+    },
+    {
+      "name": "diagnostic",
+      "displayName": "Diagnostic",
+      "type": "int"
+    },
+    {
+      "name": "upstream_tmax_outer",
+      "displayName": "Upstream Tmax outer /s/",
+      "type": "float"
+    },
+    {
+      "name": "upstream_tmax_inner",
+      "displayName": "Upstream Tmax inner /s/",
+      "type": "float"
+    },
+    {
+      "displayName": "Battery voltage",
+      "name": "battery_voltage",
+      "thresholds": [
+        {
+          "name": "Battery voltage is low",
+          "type": "lessthan",
+          "warning": "2.2"
+        }
+      ],
+      "type": "volts"
+    }
+  ],
+  "updatedUTC": "2020-05-29T18:06:30.651Z",
+  "version": "v1.0"
+}
