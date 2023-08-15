@@ -34,6 +34,7 @@ Device | Name
 [DL-DLR2-005](DL-DLR2-005) | [Analog 0 … 3 V Sensor Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
 [DL-DLR2-006](DL-DLR2-006) | [Analog Potentiometer Sensor Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
 [DL-DLR2-008](DL-DLR2-008) | [Analog PT100 Sensor Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
+[DL-DLR2-009](DL-DLR2-009) | [Analog PT1000 Sensor Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
 [DL-DLR2-010](DL-DLR2-010) | [Dual Pulse Counter Dry Contact Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
 [DL-DLR2-011](DL-DLR2-011) | [Dual Digital Input Dry Contact Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
 [DL-DLR2-012](DL-DLR2-012) | [Analog Strain Gauge Sensor Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
