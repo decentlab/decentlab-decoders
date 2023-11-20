@@ -84,7 +84,7 @@ If you need to encode downlink commands to be sent to Decentlab devices, please 
 
 ## TTNv3
 
-Most Decentlab devices are supported by TTNv3 without the need of manual decoders.
+Most Decentlab devices are supported by TTNv3 without the need of manual decoders. See a knowledge base article: https://od.decentlab.com/knowledge/article/50
 
 For the newer devices that are not supported yet, see below.
 
@@ -122,15 +122,21 @@ Copy example payload message from the datasheet, paste into `Byte payload` in `T
 
 :warning: The decoders may output a field named `device_id`, which may prohibit per-device querying in the TTN Data Storage integration.
 
+## OrbiWise
+
+See a knowledge base article: https://od.decentlab.com/knowledge/article/149
+
 ## Helium
 
-See a knowledge base article: https://zm.decentlab.com/help/en-us/22-helium/58-setup-decoder-for-a-device
+See a knowledge base article: https://od.decentlab.com/knowledge/article/58
 
 ## Chirpstack
 
-See a knowledge base article: https://zm.decentlab.com/help/en-us/17-chirpstack/37-set-decoder-for-a-device
+See a knowledge base article: https://od.decentlab.com/knowledge/article/40
 
 ## ELEMENT IoT
+
+Some Decentlab devices are supported by ELEMENT IoT without the need of manual decoders. Please check it before using the manual decoders.
 
 Go to `Automation`, `Parser`, and create a new parser. Take *ELEMENT-IoT Elixir* implementation and paste into the `Code` window by overwriting its content. Test the provided payloads against the datasheet and save.
 
