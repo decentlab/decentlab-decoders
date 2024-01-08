@@ -15,7 +15,8 @@ PROTOCOL_VERSION = 2
 
 # device-specific parameters
 PARAMETERS = {
-  'kp': 8192
+  'kp': 8192,
+  'kec': 1024
 }
 
 SENSORS = [
@@ -30,7 +31,7 @@ SENSORS = [
                  'convert': lambda x: (x[2] - 32768) / 256,
                  'unit': '°C'},
                 {'name': 'Electrical conductivity',
-                 'convert': lambda x: (x[3] - 32768) / 1024,
+                 'convert': lambda x: (x[3] - 32768) / PARAMETERS['kec'],
                  'unit': 'mS⋅cm⁻¹'}]},
     {'length': 1,
      'values': [{'name': 'Battery voltage',

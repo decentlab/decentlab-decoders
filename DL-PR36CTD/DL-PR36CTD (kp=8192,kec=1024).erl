@@ -7,6 +7,7 @@
 
 % device-specific parameters
 -define(kp, 8192).
+-define(kec, 1024).
 
 -define(SENSOR_DEFS,
   [
@@ -30,7 +31,7 @@
         },
         #{
           name => <<"Electrical conductivity">>,
-          convert => fun(X) -> (lists:nth(3 + 1, X) - 32768) / 1024 end,
+          convert => fun(X) -> (lists:nth(3 + 1, X) - 32768) / ?kec end,
           unit => <<"mS⋅cm⁻¹"/utf8>>
         }
       ]

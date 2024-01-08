@@ -51,7 +51,7 @@ abstract class DecentlabDecoder
 
 class DL_PR36CTD_Decoder extends DecentlabDecoder {
     /* device-specific parameters */
-    public function __construct($kp)
+    public function __construct($kp, $kec)
     {
         $this->sensors = [
             [
@@ -59,22 +59,22 @@ class DL_PR36CTD_Decoder extends DecentlabDecoder {
                 'values' => [
                     [
                         'name' => 'pressure',
-                        'convert' => function ($x) use ($kp) { return ($x[0] - 32768) / $kp; },
+                        'convert' => function ($x) use ($kp, $kec) { return ($x[0] - 32768) / $kp; },
                         'unit' => 'bar',
                     ],
                     [
                         'name' => 'temperature_electronics',
-                        'convert' => function ($x) use ($kp) { return ($x[1] - 32768) / 256; },
+                        'convert' => function ($x) use ($kp, $kec) { return ($x[1] - 32768) / 256; },
                         'unit' => '°C',
                     ],
                     [
                         'name' => 'temperature_pt1000',
-                        'convert' => function ($x) use ($kp) { return ($x[2] - 32768) / 256; },
+                        'convert' => function ($x) use ($kp, $kec) { return ($x[2] - 32768) / 256; },
                         'unit' => '°C',
                     ],
                     [
                         'name' => 'electrical_conductivity',
-                        'convert' => function ($x) use ($kp) { return ($x[3] - 32768) / 1024; },
+                        'convert' => function ($x) use ($kp, $kec) { return ($x[3] - 32768) / $kec; },
                         'unit' => 'mS⋅cm⁻¹',
                     ],
                 ],
@@ -84,7 +84,7 @@ class DL_PR36CTD_Decoder extends DecentlabDecoder {
                 'values' => [
                     [
                         'name' => 'battery_voltage',
-                        'convert' => function ($x) use ($kp) { return $x[0] / 1000; },
+                        'convert' => function ($x) use ($kp, $kec) { return $x[0] / 1000; },
                         'unit' => 'V',
                     ],
                 ],
@@ -94,7 +94,7 @@ class DL_PR36CTD_Decoder extends DecentlabDecoder {
 }
 
 
-$decoder = new DL_PR36CTD_Decoder(8192);
+$decoder = new DL_PR36CTD_Decoder(8192, 1024);
 $payloads = [
     '020a17000380079786978180060c2b',
     '020a1700020c2b',

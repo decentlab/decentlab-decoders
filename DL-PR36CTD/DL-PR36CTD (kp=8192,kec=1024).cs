@@ -12,6 +12,7 @@ public class DecentlabDecoder
 
   /* device-specific parameters */
   public const double kp = 8192;
+  public const double kec = 1024;
 
   private class Sensor
   {
@@ -42,7 +43,7 @@ public class DecentlabDecoder
       new SensorValue("Pressure", "bar", x => (x[0] - 32768) / kp),
       new SensorValue("Temperature (electronics)", "°C", x => (x[1] - 32768) / 256),
       new SensorValue("Temperature (PT1000)", "°C", x => (x[2] - 32768) / 256),
-      new SensorValue("Electrical conductivity", "mS⋅cm⁻¹", x => (x[3] - 32768) / 1024)
+      new SensorValue("Electrical conductivity", "mS⋅cm⁻¹", x => (x[3] - 32768) / kec)
     }),
     new Sensor(1, new List<SensorValue>() {
       new SensorValue("Battery voltage", "V", x => x[0] / 1000)

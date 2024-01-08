@@ -6,6 +6,7 @@ defmodule DecentlabDecoder do
 
   # device-specific parameters
   @kp 8192
+  @kec 1024
 
   defp sensor_defs do
     [
@@ -29,7 +30,7 @@ defmodule DecentlabDecoder do
           },
           %{
             :name => "Electrical conductivity",
-            :convert => fn x -> (Enum.at(x, 3) - 32768) / 1024 end,
+            :convert => fn x -> (Enum.at(x, 3) - 32768) / @kec end,
             :unit => "mS⋅cm⁻¹"
           }
         ]

@@ -99,6 +99,7 @@ class DL_PR36CTD_Definition {
 
     /* device-specific parameters */
     public static final double kp = 8192;
+    public static final double kec = 1024;
     public static final Sensor SENSORS[] = new Sensor[] {
         new Sensor(4, new SensorValue[] {
             new SensorValue("Pressure", "bar", new Conversion() {
@@ -111,7 +112,7 @@ class DL_PR36CTD_Definition {
                 public double execute(double x[]) { return (x[2] - 32768) / 256; }
             }),
             new SensorValue("Electrical conductivity", "mS⋅cm⁻¹", new Conversion() {
-                public double execute(double x[]) { return (x[3] - 32768) / 1024; }
+                public double execute(double x[]) { return (x[3] - 32768) / kec; }
             })
         }),
         new Sensor(1, new SensorValue[] {

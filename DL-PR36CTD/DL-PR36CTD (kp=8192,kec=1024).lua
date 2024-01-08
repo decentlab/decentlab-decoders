@@ -5,7 +5,8 @@ local PROTOCOL_VERSION = 2
 
 -- device-specific parameters
 local PARAMETERS = {
-  ["kp"] = 8192
+  ["kp"] = 8192,
+  ["kec"] = 1024
 }
 
 -- sensor definitions
@@ -26,7 +27,7 @@ local SENSORS = {
       ["unit"] = "°C"},
      {["name"] = "electrical_conductivity",
       ["display_name"] = "Electrical conductivity",
-      ["convert"] = function (x) return (x[3 + 1] - 32768) / 1024 end,
+      ["convert"] = function (x) return (x[3 + 1] - 32768) / PARAMETERS["kec"] end,
       ["unit"] = "mS⋅cm⁻¹"}
    }},
   {["length"] = 1,

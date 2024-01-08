@@ -6,6 +6,7 @@ defmodule Parser do
 
   # device-specific parameters
   defp kp(), do: 8192
+  defp kec(), do: 1024
   
   ## test payloads
   # 020a17000380079786978180060c2b
@@ -39,7 +40,7 @@ defmodule Parser do
                  :pressure => (x0 - 32768) / kp(),
                  :temperature_electronics => (x1 - 32768) / 256,
                  :temperature_pt1000 => (x2 - 32768) / 256,
-                 :electrical_conductivity => (x3 - 32768) / 1024
+                 :electrical_conductivity => (x3 - 32768) / kec()
                })}
   end
   defp sensor0(result, _flags), do: result
