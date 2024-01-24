@@ -163,3 +163,6 @@ bytes_to_words(Bytes) -> bytes_to_words(Bytes, []).
 bytes_to_words(<<>>, Words) -> lists:reverse(Words);
 bytes_to_words(<<Word:16, Rest/binary>>, Words) ->
   bytes_to_words(Rest, [Word | Words]).
+
+where(true, IfTrue, _IfFalse) -> IfTrue;
+where(false, _IfTrue, IfFalse) -> IfFalse.

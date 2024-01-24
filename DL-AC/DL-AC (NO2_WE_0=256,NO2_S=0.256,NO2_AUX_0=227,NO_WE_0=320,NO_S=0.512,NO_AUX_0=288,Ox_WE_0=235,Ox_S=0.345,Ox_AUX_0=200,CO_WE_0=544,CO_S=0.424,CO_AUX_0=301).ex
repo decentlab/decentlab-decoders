@@ -194,6 +194,9 @@ defmodule DecentlabDecoder do
     |> Map.put(name, %{"unit" => unit, "value" => convert.(x)})
   end
 
+  defp where(true, if_true, _if_false), do: if_true
+  defp where(false, _if_true, if_false), do: if_false
+
 end
 
 IO.inspect(DecentlabDecoder.decode("020fa0003f66b49b8c8966803c8cf580238a68804c903783f4158a", :hex))

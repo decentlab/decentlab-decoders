@@ -45,6 +45,10 @@ local function fromhex(s)
   return arr
 end
 
+function where(condition, if_true, if_false)
+  if condition then return if_true else return if_false end
+end
+
 local function toint(b1, b2)
   return b1 * 256 + b2
 end

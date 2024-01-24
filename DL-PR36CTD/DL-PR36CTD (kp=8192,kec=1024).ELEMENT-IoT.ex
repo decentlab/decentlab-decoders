@@ -31,6 +31,9 @@ defmodule Parser do
     result
   end
 
+  defp where(true, if_true, _if_false), do: if_true
+  defp where(false, _if_true, if_false), do: if_false
+
   
   defp sensor0({<<x0::size(16), x1::size(16), x2::size(16), x3::size(16), remaining::binary>>, result},
                <<_::size(15), 1::size(1), _::size(0)>>) do
