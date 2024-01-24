@@ -9,17 +9,17 @@ abstract class DecentlabDecoder
 
     public function decode($payload = '')
     {
-        $this->bytes = hex2bin($payload);
-        $this->parts = [];
+        $bytes = hex2bin($payload);
+        $parts = [];
 
-        $this->parts['version'] = ord($this->bytes[0]);
-        if ($this->parts['version'] != self::PROTOCOL_VERSION) {
-            $this->parts['error'] = sprintf("protocol version %u doesn't match v2", $this->parts['version']);
-            return $this->parts;
+        $parts['version'] = ord($bytes[0]);
+        if ($parts['version'] != self::PROTOCOL_VERSION) {
+            $parts['error'] = sprintf("protocol version %u doesn't match v2", $parts['version']);
+            return $parts;
         }
 
-        $this->parts['device_id'] = unpack('n', substr($this->bytes, 1))[1];
-        $flags = unpack('n', substr($this->bytes, 3))[1];
+        $parts['device_id'] = unpack('n', substr($bytes, 1))[1];
+        $flags = unpack('n', substr($bytes, 3))[1];
 
         /* decode payload */
         $k = 5;
@@ -28,16 +28,16 @@ abstract class DecentlabDecoder
                 $x = [];
                 /* convert data to 16-bit integer array */
                 for ($j = 0; $j < $sensor['length']; $j++) {
-                    array_push($x, unpack('n', substr($this->bytes, $k))[1]);
+                    array_push($x, unpack('n', substr($bytes, $k))[1]);
                     $k += 2;
                 }
 
                 /* decode sensor values */
                 foreach ($sensor['values'] as $value) {
                     if ($value['convert'] != NULL) {
-                        $this->parts[$value['name'] . '_value'] = $value['convert']($x);
+                        $parts[$value['name'] . '_value'] = $value['convert']($x);
                         if ($value['unit'] != NULL) {
-                            $this->parts[$value['name'] . '_unit'] = $value['unit'];
+                            $parts[$value['name'] . '_unit'] = $value['unit'];
                         }
                     }
                 }
@@ -45,7 +45,7 @@ abstract class DecentlabDecoder
             $flags >>= 1;
         }
 
-        return $this->parts;
+        return $parts;
     }
 }
 

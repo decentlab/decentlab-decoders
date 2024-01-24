@@ -49,13 +49,13 @@ abstract class DecentlabDecoder
     }
 }
 
-class DL_LID_Decoder extends DecentlabDecoder {
+class DL_LID2_Decoder extends DecentlabDecoder {
     
     public function __construct()
     {
         $this->sensors = [
             [
-                'length' => 11,
+                'length' => 12,
                 'values' => [
                     [
                         'name' => 'distance_average',
@@ -103,7 +103,7 @@ class DL_LID_Decoder extends DecentlabDecoder {
                         'unit' => 'mm',
                     ],
                     [
-                        'name' => 'number_of_samples',
+                        'name' => 'number_of_valid_samples',
                         'convert' => function ($x) { return $x[9]; },
                         'unit' => NULL,
                     ],
@@ -111,6 +111,11 @@ class DL_LID_Decoder extends DecentlabDecoder {
                         'name' => 'total_acquisition_time',
                         'convert' => function ($x) { return $x[10] / 1.024; },
                         'unit' => 'ms',
+                    ],
+                    [
+                        'name' => 'number_of_total_samples',
+                        'convert' => function ($x) { return $x[11]; },
+                        'unit' => NULL,
                     ],
                 ],
             ],
@@ -129,10 +134,10 @@ class DL_LID_Decoder extends DecentlabDecoder {
 }
 
 
-$decoder = new DL_LID_Decoder();
+$decoder = new DL_LID2_Decoder();
 $payloads = [
-    '0211c90003119b117611bc119e118a119411a811a81194006401990abd',
-    '0211c900020abd',
+    '023ec50003067a06360686067c0636067c068606860686000a0053000a0be6',
+    '023ec500020be6',
 ];
 
 foreach($payloads as $payload) {

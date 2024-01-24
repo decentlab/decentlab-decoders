@@ -1,5 +1,4 @@
 <?php
-/* https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan */
 
 abstract class DecentlabDecoder
 {
@@ -49,7 +48,7 @@ abstract class DecentlabDecoder
     }
 }
 
-class DL_DLR2_003_Decoder extends DecentlabDecoder {
+class DL_UVA_Decoder extends DecentlabDecoder {
     
     public function __construct()
     {
@@ -58,9 +57,9 @@ class DL_DLR2_003_Decoder extends DecentlabDecoder {
                 'length' => 1,
                 'values' => [
                     [
-                        'name' => 'input',
-                        'convert' => function ($x) { return $x[0]; },
-                        'unit' => NULL,
+                        'name' => 'uv_a_radiation',
+                        'convert' => function ($x) { return 3 * ($x[0] / 32768 - 1) / 64 * 1000 * 10; },
+                        'unit' => 'W⋅m⁻²',
                     ],
                 ],
             ],
@@ -79,9 +78,10 @@ class DL_DLR2_003_Decoder extends DecentlabDecoder {
 }
 
 
-$decoder = new DL_DLR2_003_Decoder();
+$decoder = new DL_UVA_Decoder();
 $payloads = [
-    '02199b000300010c8d',
+    '024478000381cd0c41',
+    '02447800020c41',
 ];
 
 foreach($payloads as $payload) {

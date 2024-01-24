@@ -1,5 +1,4 @@
 <?php
-/* https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan */
 
 abstract class DecentlabDecoder
 {
@@ -49,18 +48,38 @@ abstract class DecentlabDecoder
     }
 }
 
-class DL_DLR2_003_Decoder extends DecentlabDecoder {
+class DL_MES5_Decoder extends DecentlabDecoder {
     
     public function __construct()
     {
         $this->sensors = [
             [
-                'length' => 1,
+                'length' => 5,
                 'values' => [
                     [
-                        'name' => 'input',
+                        'name' => 'status',
                         'convert' => function ($x) { return $x[0]; },
                         'unit' => NULL,
+                    ],
+                    [
+                        'name' => 'temperature',
+                        'convert' => function ($x) { return ($x[1] - 32768) / 100; },
+                        'unit' => '°C',
+                    ],
+                    [
+                        'name' => 'sludge_blanket',
+                        'convert' => function ($x) { return $x[2] / 100; },
+                        'unit' => '%',
+                    ],
+                    [
+                        'name' => 'suspended_solid',
+                        'convert' => function ($x) { return $x[3] / 100; },
+                        'unit' => 'g⋅L⁻¹',
+                    ],
+                    [
+                        'name' => 'turbidity',
+                        'convert' => function ($x) { return $x[4] / 10; },
+                        'unit' => 'FAU',
                     ],
                 ],
             ],
@@ -79,9 +98,10 @@ class DL_DLR2_003_Decoder extends DecentlabDecoder {
 }
 
 
-$decoder = new DL_DLR2_003_Decoder();
+$decoder = new DL_MES5_Decoder();
 $payloads = [
-    '02199b000300010c8d',
+    '024E030003000088e6210800f223650af5',
+    '024E0300020af5',
 ];
 
 foreach($payloads as $payload) {

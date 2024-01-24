@@ -1,5 +1,4 @@
 <?php
-/* https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan */
 
 abstract class DecentlabDecoder
 {
@@ -49,18 +48,18 @@ abstract class DecentlabDecoder
     }
 }
 
-class DL_DLR2_003_Decoder extends DecentlabDecoder {
-    
-    public function __construct()
+class DL_PMC1_Decoder extends DecentlabDecoder {
+    /* device-specific parameters */
+    public function __construct($Pmax)
     {
         $this->sensors = [
             [
-                'length' => 1,
+                'length' => 2,
                 'values' => [
                     [
-                        'name' => 'input',
-                        'convert' => function ($x) { return $x[0]; },
-                        'unit' => NULL,
+                        'name' => 'pressure',
+                        'convert' => function ($x) use ($Pmax) { return (($x[0] + $x[1]*65536) / 8388608 - 1) / 64 / 0.005 * $Pmax; },
+                        'unit' => 'bar',
                     ],
                 ],
             ],
@@ -69,7 +68,7 @@ class DL_DLR2_003_Decoder extends DecentlabDecoder {
                 'values' => [
                     [
                         'name' => 'battery_voltage',
-                        'convert' => function ($x) { return $x[0] / 1000; },
+                        'convert' => function ($x) use ($Pmax) { return $x[0] / 1000; },
                         'unit' => 'V',
                     ],
                 ],
@@ -79,9 +78,10 @@ class DL_DLR2_003_Decoder extends DecentlabDecoder {
 }
 
 
-$decoder = new DL_DLR2_003_Decoder();
+$decoder = new DL_PMC1_Decoder(1.0);
 $payloads = [
-    '02199b000300010c8d',
+    '02319e000376e400800c94',
+    '02319e00020c94',
 ];
 
 foreach($payloads as $payload) {
