@@ -1,0 +1,179 @@
+{
+  "testPayloads": ["0252850003809980220bd3", "02528500020bd3"],
+  "useCache": false,
+  "outputVars": false,
+  "inputDecoders": {
+    "fports": [
+      {
+        "fport": 1,
+        "decoders": [
+          {
+            "conditions": [
+              {
+                "byte": "0",
+                "value": "2",
+                "operator": "="
+              },
+              {
+                "byte": "3",
+                "value": "0",
+                "operator": "="
+              },
+              {
+                "byte": "4",
+                "value": "3",
+                "operator": "="
+              }
+            ],
+            "fields": [
+              {
+                "byte": "1",
+                "lenght": "2",
+                "calc": "(x)",
+                "type": "dec",
+                "unit": "",
+                "label": "Device ID",
+                "byteSwap": false,
+                "fieldName": "device_id",
+                "boolInvert": false,
+                "description": {
+                  "en": "Device ID"
+                },
+                "dashboard_type": "int",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "5",
+                "lenght": "2",
+                "calc": "((x - 32768) / 10)",
+                "type": "dec",
+                "unit": "W⋅m⁻²",
+                "label": "Incoming radiation",
+                "byteSwap": false,
+                "fieldName": "incoming_radiation",
+                "boolInvert": false,
+                "description": {
+                  "en": "Incoming radiation"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "7",
+                "lenght": "2",
+                "calc": "((x - 32768) / 10)",
+                "type": "dec",
+                "unit": "W⋅m⁻²",
+                "label": "Reflected radiation",
+                "byteSwap": false,
+                "fieldName": "reflected_radiation",
+                "boolInvert": false,
+                "description": {
+                  "en": "Reflected radiation"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "5",
+                "lenght": "4",
+                "calc": "(?)",
+                "type": "dec",
+                "unit": "",
+                "label": "albedo",
+                "byteSwap": false,
+                "fieldName": "albedo",
+                "boolInvert": false,
+                "description": {
+                  "en": "albedo"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "9",
+                "lenght": "2",
+                "calc": "(x / 1000)",
+                "type": "dec",
+                "unit": "V",
+                "label": "Battery voltage",
+                "byteSwap": false,
+                "fieldName": "battery_voltage",
+                "boolInvert": false,
+                "description": {
+                  "en": "Battery voltage"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              }
+            ]
+          },
+          {
+            "conditions": [
+              {
+                "byte": "0",
+                "value": "2",
+                "operator": "="
+              },
+              {
+                "byte": "3",
+                "value": "0",
+                "operator": "="
+              },
+              {
+                "byte": "4",
+                "value": "2",
+                "operator": "="
+              }
+            ],
+            "fields": [
+              {
+                "byte": "1",
+                "lenght": "2",
+                "calc": "(x)",
+                "type": "dec",
+                "unit": "",
+                "label": "Device ID",
+                "byteSwap": false,
+                "fieldName": "device_id",
+                "boolInvert": false,
+                "description": {
+                  "en": "Device ID"
+                },
+                "dashboard_type": "int",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "5",
+                "lenght": "2",
+                "calc": "(x / 1000)",
+                "type": "dec",
+                "unit": "V",
+                "label": "Battery voltage",
+                "byteSwap": false,
+                "fieldName": "battery_voltage",
+                "boolInvert": false,
+                "description": {
+                  "en": "Battery voltage"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "configDownlink": false,
+  "swisscomProfile": "LORA/SwisscomA.1.0.2b_ETSI_Rx2-SF12",
+  "outputVarEncoders": [],
+  "profileConfigDownlink": []
+}
