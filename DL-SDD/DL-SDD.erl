@@ -1,3 +1,6 @@
+
+% https://www.decentlab.com/soil-moisture-temperature-and-salinity-profile
+
 -module(decentlab_decoder).
 -define(PROTOCOL_VERSION, 2).
 -export([decode/1, start/0]).
