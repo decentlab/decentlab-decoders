@@ -1,3 +1,6 @@
+
+-- https://www.decentlab.com/albedometer-sensor-for-lorawan
+
 local PROTOCOL_VERSION = 2
 
 -- sensor definitions

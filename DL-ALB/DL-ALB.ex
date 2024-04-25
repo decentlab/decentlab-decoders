@@ -1,3 +1,6 @@
+
+# https://www.decentlab.com/albedometer-sensor-for-lorawan
+
 defmodule DecentlabDecoder do
   @protocol_version 2
 

@@ -1,3 +1,6 @@
+
+/* https://www.decentlab.com/albedometer-sensor-for-lorawan */
+
 using System;
 using System.IO;
 using System.Collections.Generic;

@@ -1,4 +1,5 @@
 <?php
+/* https://www.decentlab.com/albedometer-sensor-for-lorawan */
 
 abstract class DecentlabDecoder
 {

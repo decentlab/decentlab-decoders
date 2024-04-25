@@ -1,3 +1,6 @@
+
+/* https://www.decentlab.com/albedometer-sensor-for-lorawan */
+
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
   SENSORS: [

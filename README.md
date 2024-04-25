@@ -25,6 +25,7 @@ Device | Name
 [DL-5TE](DL-5TE) | [Legacy Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/support)
 [DL-5TM](DL-5TM) | [Legacy Soil Moisture and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/legacy-soil-moisture-and-temperature-sensor-for-lorawan)
 [DL-AC](DL-AC) | [Air Quality Station NO₂, NO, CO, Oₓ for LoRaWAN&reg;](https://www.decentlab.com/products/air-quality-station-no2-no-co-ox-for-lorawan)
+[DL-ALB](DL-ALB) | [Albedometer Sensor for LoRaWAN&reg;](https://www.decentlab.com/albedometer-sensor-for-lorawan)
 [DL-ATM22](DL-ATM22) | [Wind Speed, Wind Direction and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/wind-speed-wind-direction-and-temperature-sensor-for-lorawan)
 [DL-ATM41](DL-ATM41) | [Eleven Parameter Weather Station for LoRaWAN&reg;](https://www.decentlab.com/products/eleven-parameter-weather-station-for-lorawan)
 [DL-CTD10](DL-CTD10) | [Pressure / Liquid Level, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan)
