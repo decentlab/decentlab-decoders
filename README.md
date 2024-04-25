@@ -28,6 +28,7 @@ Device | Name
 [DL-ALB](DL-ALB) | [Albedometer Sensor for LoRaWAN&reg;](https://www.decentlab.com/albedometer-sensor-for-lorawan)
 [DL-ATM22](DL-ATM22) | [Wind Speed, Wind Direction and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/wind-speed-wind-direction-and-temperature-sensor-for-lorawan)
 [DL-ATM41](DL-ATM41) | [Eleven Parameter Weather Station for LoRaWAN&reg;](https://www.decentlab.com/products/eleven-parameter-weather-station-for-lorawan)
+[DL-BLG](DL-BLG) | [Black Globe Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/black-globe-temperature-sensor-for-lorawan)
 [DL-CTD10](DL-CTD10) | [Pressure / Liquid Level, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan)
 [DL-CWS](DL-CWS) | [High-Precision Winter Road Maintenance Sensor for LoRaWAN&reg;](https://www.decentlab.com/high-precision-winter-road-maintenance-sensor-for-lorawan)
 [DL-DLR2-002](DL-DLR2-002) | [Pulse Counter Dry Contact Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
