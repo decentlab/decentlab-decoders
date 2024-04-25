@@ -1,3 +1,6 @@
+
+-- https://www.decentlab.com/ph-orp-and-temperature-sensor-for-lorawan
+
 local PROTOCOL_VERSION = 2
 
 -- sensor definitions
