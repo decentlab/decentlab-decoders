@@ -53,6 +53,7 @@ Device | Name
 [DL-LPW](DL-LPW) | [Linear Position / Way for LoRaWAN&reg;](https://www.decentlab.com/products/linear-position-/-way-for-lorawan)
 [DL-LWS](DL-LWS) | [Leaf Wetness Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/leaf-wetness-sensor-for-lorawan)
 [DL-MBX](DL-MBX) | [Ultrasonic Distance / Level Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/ultrasonic-distance-/-level-sensor-for-lorawan)
+[DL-MES5](DL-MES5) | [Large-Range Optical Turbidity and Temperature Sensor For LoRaWAN&reg;](https://www.decentlab.com/large-range-optical-turbidity-and-temperature-sensor-for-lorawan)
 [DL-NTU](DL-NTU) | [Optical Turbidity and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/optical-turbidity-and-temperature-sensor-for-lorawan)
 [DL-OPTOD](DL-OPTOD) | [Optical Dissolved Oxygen and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/optical-dissolved-oxygen-and-temperature-sensor-for-lorawan)
 [DL-PAR](DL-PAR) | [Photosynthetically Active Radiation Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/photosynthetically-active-radiation-sensor-for-lorawan)
