@@ -1,3 +1,6 @@
+
+/* https://www.decentlab.com/soil-moisture-temperature-and-salinity-profile */
+
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
   SENSORS: [

@@ -1,4 +1,5 @@
 <?php
+/* https://www.decentlab.com/soil-moisture-temperature-and-salinity-profile */
 
 abstract class DecentlabDecoder
 {
