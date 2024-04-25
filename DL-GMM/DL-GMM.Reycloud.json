@@ -1,0 +1,247 @@
+{
+  "testPayloads": ["02532b00038726892081148297a57380cf81700bbc", "02528500020bbc"],
+  "useCache": false,
+  "outputVars": false,
+  "inputDecoders": {
+    "fports": [
+      {
+        "fport": 1,
+        "decoders": [
+          {
+            "conditions": [
+              {
+                "byte": "0",
+                "value": "2",
+                "operator": "="
+              },
+              {
+                "byte": "3",
+                "value": "0",
+                "operator": "="
+              },
+              {
+                "byte": "4",
+                "value": "3",
+                "operator": "="
+              }
+            ],
+            "fields": [
+              {
+                "byte": "1",
+                "lenght": "2",
+                "calc": "(x)",
+                "type": "dec",
+                "unit": "",
+                "label": "Device ID",
+                "byteSwap": false,
+                "fieldName": "device_id",
+                "boolInvert": false,
+                "description": {
+                  "en": "Device ID"
+                },
+                "dashboard_type": "int",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "5",
+                "lenght": "2",
+                "calc": "((x - 32768) / 10)",
+                "type": "dec",
+                "unit": "µmol⋅m⁻²⋅s⁻¹",
+                "label": "Photosynthetically active radiation",
+                "byteSwap": false,
+                "fieldName": "photosynthetically_active_radiation",
+                "boolInvert": false,
+                "description": {
+                  "en": "Photosynthetically active radiation"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "7",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Air temperature",
+                "byteSwap": false,
+                "fieldName": "air_temperature",
+                "boolInvert": false,
+                "description": {
+                  "en": "Air temperature"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "9",
+                "lenght": "2",
+                "calc": "((x - 32768) / 10)",
+                "type": "dec",
+                "unit": "%",
+                "label": "Air humidity",
+                "byteSwap": false,
+                "fieldName": "air_humidity",
+                "boolInvert": false,
+                "description": {
+                  "en": "Air humidity"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "11",
+                "lenght": "2",
+                "calc": "((x - 32768) / 1)",
+                "type": "dec",
+                "unit": "ppm",
+                "label": "CO2 concentration",
+                "byteSwap": false,
+                "fieldName": "co2_concentration",
+                "boolInvert": false,
+                "description": {
+                  "en": "CO2 concentration"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "13",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "kPa",
+                "label": "Atmospheric pressure",
+                "byteSwap": false,
+                "fieldName": "atmospheric_pressure",
+                "boolInvert": false,
+                "description": {
+                  "en": "Atmospheric pressure"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "15",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "kPa",
+                "label": "Vapor pressure deficit",
+                "byteSwap": false,
+                "fieldName": "vapor_pressure_deficit",
+                "boolInvert": false,
+                "description": {
+                  "en": "Vapor pressure deficit"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "17",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Dew point",
+                "byteSwap": false,
+                "fieldName": "dew_point",
+                "boolInvert": false,
+                "description": {
+                  "en": "Dew point"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "19",
+                "lenght": "2",
+                "calc": "(x / 1000)",
+                "type": "dec",
+                "unit": "V",
+                "label": "Battery voltage",
+                "byteSwap": false,
+                "fieldName": "battery_voltage",
+                "boolInvert": false,
+                "description": {
+                  "en": "Battery voltage"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              }
+            ]
+          },
+          {
+            "conditions": [
+              {
+                "byte": "0",
+                "value": "2",
+                "operator": "="
+              },
+              {
+                "byte": "3",
+                "value": "0",
+                "operator": "="
+              },
+              {
+                "byte": "4",
+                "value": "2",
+                "operator": "="
+              }
+            ],
+            "fields": [
+              {
+                "byte": "1",
+                "lenght": "2",
+                "calc": "(x)",
+                "type": "dec",
+                "unit": "",
+                "label": "Device ID",
+                "byteSwap": false,
+                "fieldName": "device_id",
+                "boolInvert": false,
+                "description": {
+                  "en": "Device ID"
+                },
+                "dashboard_type": "int",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "5",
+                "lenght": "2",
+                "calc": "(x / 1000)",
+                "type": "dec",
+                "unit": "V",
+                "label": "Battery voltage",
+                "byteSwap": false,
+                "fieldName": "battery_voltage",
+                "boolInvert": false,
+                "description": {
+                  "en": "Battery voltage"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "configDownlink": false,
+  "swisscomProfile": "LORA/SwisscomA.1.0.2b_ETSI_Rx2-SF12",
+  "outputVarEncoders": [],
+  "profileConfigDownlink": []
+}

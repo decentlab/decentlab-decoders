@@ -41,6 +41,7 @@ Device | Name
 [DL-DLR2-012](DL-DLR2-012) | [Analog Strain Gauge Sensor Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
 [DL-DS18](DL-DS18) | [Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/temperature-sensor-for-lorawan)
 [DL-DWS](DL-DWS) | [Weighing Scale for LoRaWAN&reg;](https://www.decentlab.com/products/weighing-scale-for-lorawan)
+[DL-GMM](DL-GMM) | [Greenhouse Multi Monitor for LoRaWAN&reg;](https://www.decentlab.com/greenhouse-multi-monitor-for-lorawan)
 [DL-GS3](DL-GS3) | [Legacy Ruggedized Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/support)
 [DL-IAM](DL-IAM) | [Indoor Ambiance Monitor including CO₂, TVOC and Motion Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/indoor-ambiance-monitor-including-co2-tvoc-and-motion-sensor-for-lorawan)
 [DL-ISF](DL-ISF) | [Sapflow Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/sapflow-sensor-for-lorawan)
