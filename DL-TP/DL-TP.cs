@@ -1,3 +1,6 @@
+
+/* https://www.decentlab.com/products/temperature-profile-for-lorawan */
+
 using System;
 using System.IO;
 using System.Collections.Generic;

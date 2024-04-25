@@ -69,6 +69,7 @@ Device | Name
 [DL-SHT35](DL-SHT35) | [Air Temperature and Humidity Sensor with Radiation Shield for LoRaWAN&reg;](https://www.decentlab.com/products/air-temperature-and-humidity-sensor-with-radiation-shield-for-lorawan)
 [DL-SMTP](DL-SMTP) | [Soil Moisture and Temperature Profile for LoRaWAN&reg;](https://www.decentlab.com/products/soil-moisture-and-temperature-profile-for-lorawan)
 [DL-TBRG](DL-TBRG) | [Tipping Bucket Rain Gauge for LoRaWAN&reg;](https://www.decentlab.com/products/tipping-bucket-rain-gauge-for-lorawan)
+[DL-TP](DL-TP) | [Temperature Profile for LoRaWAN&reg;](https://www.decentlab.com/products/temperature-profile-for-lorawan)
 [DL-TRS11](DL-TRS11) | [Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/soil-moisture-temperature-and-electrical-conductivity-sensor-for-lorawan)
 [DL-TRS12](DL-TRS12) | [Soil Moisture, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/soil-moisture-temperature-and-electrical-conductivity-sensor-for-lorawan)
 [DL-TRS21](DL-TRS21) | [Soil Water Potential and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/soil-water-potential-and-temperature-sensor-for-lorawan)

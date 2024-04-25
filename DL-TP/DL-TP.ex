@@ -1,3 +1,6 @@
+
+# https://www.decentlab.com/products/temperature-profile-for-lorawan
+
 defmodule DecentlabDecoder do
   @protocol_version 2
 
