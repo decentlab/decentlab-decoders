@@ -1,3 +1,6 @@
+
+-- https://www.decentlab.com/black-globe-temperature-sensor-for-lorawan
+
 local PROTOCOL_VERSION = 2
 
 -- sensor definitions

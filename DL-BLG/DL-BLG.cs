@@ -1,3 +1,6 @@
+
+/* https://www.decentlab.com/black-globe-temperature-sensor-for-lorawan */
+
 using System;
 using System.IO;
 using System.Collections.Generic;

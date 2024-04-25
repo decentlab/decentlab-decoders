@@ -1,3 +1,6 @@
+
+# https://www.decentlab.com/black-globe-temperature-sensor-for-lorawan
+
 defmodule Parser do
   use Platform.Parsing.Behaviour
   

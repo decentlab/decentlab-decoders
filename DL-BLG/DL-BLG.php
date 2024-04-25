@@ -1,4 +1,5 @@
 <?php
+/* https://www.decentlab.com/black-globe-temperature-sensor-for-lorawan */
 
 abstract class DecentlabDecoder
 {
