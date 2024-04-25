@@ -1,6 +1,3 @@
-
--- https://www.decentlab.com/products/laser-distance-level-sensor-for-lorawan
-
 local PROTOCOL_VERSION = 2
 
 -- sensor definitions

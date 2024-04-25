@@ -1,6 +1,3 @@
-
-% https://www.decentlab.com/products/laser-distance-level-sensor-for-lorawan
-
 -module(decentlab_decoder).
 -define(PROTOCOL_VERSION, 2).
 -export([decode/1, start/0]).
