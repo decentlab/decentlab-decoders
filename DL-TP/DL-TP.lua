@@ -1,3 +1,6 @@
+
+-- https://www.decentlab.com/products/temperature-profile-for-lorawan
+
 local PROTOCOL_VERSION = 2
 
 -- sensor definitions

@@ -1,4 +1,5 @@
 <?php
+/* https://www.decentlab.com/products/temperature-profile-for-lorawan */
 
 abstract class DecentlabDecoder
 {
