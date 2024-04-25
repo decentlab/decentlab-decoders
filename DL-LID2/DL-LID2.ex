@@ -1,6 +1,3 @@
-
-# https://www.decentlab.com/products/laser-distance-level-sensor-for-lorawan
-
 defmodule DecentlabDecoder do
   @protocol_version 2
 

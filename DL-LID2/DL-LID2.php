@@ -1,5 +1,4 @@
 <?php
-/* https://www.decentlab.com/products/laser-distance-level-sensor-for-lorawan */
 
 abstract class DecentlabDecoder
 {
