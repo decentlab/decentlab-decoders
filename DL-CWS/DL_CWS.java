@@ -1,5 +1,5 @@
 
-/* https://www.decentlab.com/support */
+/* https://www.decentlab.com/high-precision-winter-road-maintenance-sensor-for-lorawan */
 
 import java.io.InputStream;
 import java.io.ByteArrayInputStream;
