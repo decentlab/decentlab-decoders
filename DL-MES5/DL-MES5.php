@@ -1,4 +1,5 @@
 <?php
+/* https://www.decentlab.com/large-range-optical-turbidity-and-temperature-sensor-for-lorawan */
 
 abstract class DecentlabDecoder
 {
