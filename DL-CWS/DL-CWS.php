@@ -1,5 +1,5 @@
 <?php
-/* https://www.decentlab.com/high-precision-winter-road-maintenance-sensor-for-lorawan */
+/* https://www.decentlab.com/products/high-precision-winter-road-maintenance-sensor-for-lorawan */
 
 abstract class DecentlabDecoder
 {

@@ -1,5 +1,5 @@
 
-# https://www.decentlab.com/greenhouse-multi-monitor-for-lorawan
+# https://www.decentlab.com/products/greenhouse-multi-monitor-for-lorawan
 
 defmodule DecentlabDecoder do
   @protocol_version 2

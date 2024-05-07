@@ -1,5 +1,5 @@
 
-# https://www.decentlab.com/large-range-optical-turbidity-and-temperature-sensor-for-lorawan
+# https://www.decentlab.com/products/large-range-optical-turbidity-and-temperature-sensor-for-lorawan
 
 defmodule DecentlabDecoder do
   @protocol_version 2

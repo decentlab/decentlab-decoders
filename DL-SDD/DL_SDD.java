@@ -1,5 +1,5 @@
 
-/* https://www.decentlab.com/soil-moisture-temperature-and-salinity-profile */
+/* https://www.decentlab.com/products/soil-moisture-temperature-and-salinity-profile */
 
 import java.io.InputStream;
 import java.io.ByteArrayInputStream;

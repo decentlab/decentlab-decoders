@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# https://www.decentlab.com/ph-orp-and-temperature-sensor-for-lorawan
+# https://www.decentlab.com/products/ph-orp-and-temperature-sensor-for-lorawan
 
 from __future__ import absolute_import
 from __future__ import division

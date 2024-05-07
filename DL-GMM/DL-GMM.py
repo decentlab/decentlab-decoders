@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# https://www.decentlab.com/greenhouse-multi-monitor-for-lorawan
+# https://www.decentlab.com/products/greenhouse-multi-monitor-for-lorawan
 
 from __future__ import absolute_import
 from __future__ import division

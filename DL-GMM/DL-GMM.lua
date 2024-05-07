@@ -1,5 +1,5 @@
 
--- https://www.decentlab.com/greenhouse-multi-monitor-for-lorawan
+-- https://www.decentlab.com/products/greenhouse-multi-monitor-for-lorawan
 
 local PROTOCOL_VERSION = 2
 
