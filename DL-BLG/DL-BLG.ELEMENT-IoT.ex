@@ -1,5 +1,5 @@
 
-# https://www.decentlab.com/black-globe-temperature-sensor-for-lorawan
+# https://www.decentlab.com/products/black-globe-temperature-sensor-for-lorawan
 
 defmodule Parser do
   use Platform.Parsing.Behaviour

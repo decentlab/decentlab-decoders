@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# https://www.decentlab.com/soil-moisture-temperature-and-salinity-profile
+# https://www.decentlab.com/products/soil-moisture-temperature-and-salinity-profile
 
 from __future__ import absolute_import
 from __future__ import division

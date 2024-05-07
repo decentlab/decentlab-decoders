@@ -1,5 +1,5 @@
 
-/* https://www.decentlab.com/ph-orp-and-temperature-sensor-for-lorawan */
+/* https://www.decentlab.com/products/ph-orp-and-temperature-sensor-for-lorawan */
 
 using System;
 using System.IO;

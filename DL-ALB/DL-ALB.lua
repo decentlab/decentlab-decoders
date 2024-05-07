@@ -1,5 +1,5 @@
 
--- https://www.decentlab.com/albedometer-sensor-for-lorawan
+-- https://www.decentlab.com/products/albedometer-sensor-for-lorawan
 
 local PROTOCOL_VERSION = 2
 

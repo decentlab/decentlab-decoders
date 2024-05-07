@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# https://www.decentlab.com/albedometer-sensor-for-lorawan
+# https://www.decentlab.com/products/albedometer-sensor-for-lorawan
 
 from __future__ import absolute_import
 from __future__ import division

@@ -1,5 +1,5 @@
 
-# https://www.decentlab.com/soil-moisture-temperature-and-salinity-profile
+# https://www.decentlab.com/products/soil-moisture-temperature-and-salinity-profile
 
 defmodule DecentlabDecoder do
   @protocol_version 2
