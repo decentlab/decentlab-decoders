@@ -9,8 +9,9 @@ For example, within the folder './DL-DWS', the decoder file
 from pathlib import Path
 
 def clean_decoder_files():
+    decoder_folder_path = Path(f'{Path(__file__).parent}/decoders')
     # get all folders starting with DL-
-    decoder_folders = [x for x in Path(f'{Path(__file__).parent}').iterdir()
+    decoder_folders = [x for x in decoder_folder_path.iterdir()
                        if x.is_dir() and x.name.startswith('DL-')]
     
     for folder in decoder_folders:

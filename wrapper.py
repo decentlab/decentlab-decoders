@@ -4,7 +4,7 @@ from typing import Callable
 def get_decode_function(device_name: str) -> Callable[['str | list | bytearray', bool], dict]:
     """Get the decode function for the given device name."""
 
-    module_path = f".{device_name}.{device_name}"
+    module_path = f".decoders.{device_name}.{device_name}"
 
     try:
         module = importlib.import_module(module_path, package=__package__)
