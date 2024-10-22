@@ -91,7 +91,7 @@ If you need to encode downlink commands to be sent to Decentlab devices, please 
 
 ## TTNv3
 
-Most Decentlab devices are supported by TTNv3 without the need of manual decoders. See a knowledge base article: https://od.decentlab.com/knowledge/article/50
+Most Decentlab devices are supported by TTNv3 without the need of manual decoders. See a knowledge base article: https://kb.decentlab.com/knowledge/article/50
 
 For the newer devices that are not supported yet, see below.
 
@@ -131,15 +131,15 @@ Copy example payload message from the datasheet, paste into `Byte payload` in `T
 
 ## OrbiWise
 
-See a knowledge base article: https://od.decentlab.com/knowledge/article/149
+See a knowledge base article: https://kb.decentlab.com/knowledge/article/149
 
 ## Helium
 
-See a knowledge base article: https://od.decentlab.com/knowledge/article/58
+See a knowledge base article: https://kb.decentlab.com/knowledge/article/58
 
 ## Chirpstack
 
-See a knowledge base article: https://od.decentlab.com/knowledge/article/40
+See a knowledge base article: https://kb.decentlab.com/knowledge/article/40
 
 ## ELEMENT IoT
 
