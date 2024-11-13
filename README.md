@@ -31,6 +31,7 @@ Device | Name
 [DL-BLG](DL-BLG) | [Black Globe Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/black-globe-temperature-sensor-for-lorawan)
 [DL-CTD10](DL-CTD10) | [Pressure / Liquid Level, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan)
 [DL-CWS](DL-CWS) | [High-Precision Winter Road Maintenance Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/high-precision-winter-road-maintenance-sensor-for-lorawan)
+[DL-CWS2](DL-CWS2) | [High-Precision Winter Road Maintenance Sensor with Radiation Shield for LoRaWAN&reg;](https://www.decentlab.com/products/high-precision-winter-road-maintenance-sensor-with-radiation-shield-for-lorawan)
 [DL-DLR2-002](DL-DLR2-002) | [Pulse Counter Dry Contact Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
 [DL-DLR2-003](DL-DLR2-003) | [Digital Input Dry Contact Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
 [DL-DLR2-004](DL-DLR2-004) | [Analog 4 … 20 mA Sensor Transmitter for LoRaWAN&reg;](https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan)
