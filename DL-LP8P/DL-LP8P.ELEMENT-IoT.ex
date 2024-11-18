@@ -38,6 +38,8 @@ defmodule Parser do
     result
   end
 
+  def parse(_payload, _meta), do: nil
+
   defp where(true, if_true, _if_false), do: if_true
   defp where(false, _if_true, if_false), do: if_false
 
