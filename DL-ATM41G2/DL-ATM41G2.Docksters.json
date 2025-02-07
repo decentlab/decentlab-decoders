@@ -1,0 +1,105 @@
+{
+  "createdUTC": "2020-05-29T18:06:30.651Z",
+  "definitionIsPublic": false,
+  "definitionName": "DL-ATM41G2",
+  "displayName": "DL-ATM41G2 Eleven Parameter Weather Station for LoRaWAN®",
+  "manufacturer": "Decentlab",
+  "organizationId": "9f014719-4add-4989-ba0f-fc7edc44d893",
+  "parser": "\n/* https://www.decentlab.com/products/eleven-parameter-weather-station-for-lorawan */\n\nvar decentlab_decoder = {\n  PROTOCOL_VERSION: 2,\n  SENSORS: [\n    {length: 17,\n     values: [{name: 'solar_radiation',\n               displayName: 'Solar radiation',\n               convert: function (x) { return (x[0] - 32768) / 10; },\n               unit: 'W⋅m⁻²'},\n              {name: 'precipitation',\n               displayName: 'Precipitation',\n               convert: function (x) { return x[1] / 1000; },\n               unit: 'mm'},\n              {name: 'lightning_strike_count',\n               displayName: 'Lightning strike count',\n               convert: function (x) { return x[2] - 32768; },\n               unit: 'None'},\n              {name: 'lightning_average_distance',\n               displayName: 'Lightning average distance',\n               convert: function (x) { return x[3] - 32768; },\n               unit: 'km'},\n              {name: 'wind_speed',\n               displayName: 'Wind speed',\n               convert: function (x) { return (x[4] - 32768) / 100; },\n               unit: 'm⋅s⁻¹'},\n              {name: 'wind_direction',\n               displayName: 'Wind direction',\n               convert: function (x) { return (x[5] - 32768) / 10; },\n               unit: '°'},\n              {name: 'maximum_wind_speed',\n               displayName: 'Maximum wind speed',\n               convert: function (x) { return (x[6] - 32768) / 100; },\n               unit: 'm⋅s⁻¹'},\n              {name: 'air_temperature',\n               displayName: 'Air temperature',\n               convert: function (x) { return (x[7] - 32768) / 10; },\n               unit: '°C'},\n              {name: 'vapor_pressure',\n               displayName: 'Vapor pressure',\n               convert: function (x) { return (x[8] - 32768) / 100; },\n               unit: 'kPa'},\n              {name: 'barometric_pressure',\n               displayName: 'Barometric pressure',\n               convert: function (x) { return (x[9] - 32768) / 100; },\n               unit: 'kPa'},\n              {name: 'relative_humidity',\n               displayName: 'Relative humidity',\n               convert: function (x) { return (x[10] - 32768) / 10; },\n               unit: '%'},\n              {name: 'internal_temperature',\n               displayName: 'Internal temperature',\n               convert: function (x) { return (x[11] - 32768) / 10; },\n               unit: '°C'},\n              {name: 'tilt_angle_x_orientation',\n               displayName: 'Tilt angle, X orientation',\n               convert: function (x) { return (x[12] - 32768) / 10; },\n               unit: '°'},\n              {name: 'tilt_angle_y_orientation',\n               displayName: 'Tilt angle, Y orientation',\n               convert: function (x) { return (x[13] - 32768) / 10; },\n               unit: '°'},\n              {name: 'precipitation_electrical_conductivity',\n               displayName: 'Precipitation electrical conductivity',\n               convert: function (x) { return x[14] - 32768; },\n               unit: 'µS⋅cm⁻¹'},\n              {name: 'cumulative_precipitation',\n               displayName: 'Cumulative precipitation',\n               convert: function (x) { return (x[15] + x[16] * 65536) / 1000; },\n               unit: 'mm'}]},\n    {length: 1,\n     values: [{name: 'battery_voltage',\n               displayName: 'Battery voltage',\n               convert: function (x) { return x[0] / 1000; },\n               unit: 'V'}]}\n  ],\n\n  read_int: function (bytes, pos) {\n    return (bytes[pos] << 8) + bytes[pos + 1];\n  },\n\n  decode: function (msg) {\n    var bytes = msg;\n    var i, j;\n    if (typeof msg === 'string') {\n      bytes = [];\n      for (i = 0; i < msg.length; i += 2) {\n        bytes.push(parseInt(msg.substring(i, i + 2), 16));\n      }\n    }\n\n    var version = bytes[0];\n    if (version != this.PROTOCOL_VERSION) {\n      return {error: \"protocol version \" + version + \" doesn't match v2\"};\n    }\n\n    var deviceId = this.read_int(bytes, 1);\n    var flags = this.read_int(bytes, 3);\n    var result = {'protocol_version': version, 'device_id': deviceId};\n    // decode payload\n    var pos = 5;\n    for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {\n      if ((flags & 1) !== 1)\n        continue;\n\n      var sensor = this.SENSORS[i];\n      var x = [];\n      // convert data to 16-bit integer array\n      for (j = 0; j < sensor.length; j++) {\n        x.push(this.read_int(bytes, pos));\n        pos += 2;\n      }\n\n      // decode sensor values\n      for (j = 0; j < sensor.values.length; j++) {\n        var value = sensor.values[j];\n        if ('convert' in value) {\n          result[value.name] = {displayName: value.displayName,\n                                value: value.convert.bind(this)(x)};\n          if ('unit' in value)\n            result[value.name]['unit'] = value.unit;\n        }\n      }\n    }\n    return result;\n  }\n};\n\nfunction parsePayload(payload) {\n  var decoded = decentlab_decoder.decode(payload);\n  Object.keys(decoded).map(function(key, index) { decoded[key] = decoded[key]['value'];});\n  return decoded;\n}",
+  "sensors": [
+    {
+      "name": "solar_radiation",
+      "displayName": "Solar radiation /W⋅m⁻²/",
+      "type": "float"
+    },
+    {
+      "name": "precipitation",
+      "displayName": "Precipitation /mm/",
+      "type": "float"
+    },
+    {
+      "name": "lightning_strike_count",
+      "displayName": "Lightning strike count",
+      "type": "int"
+    },
+    {
+      "name": "lightning_average_distance",
+      "displayName": "Lightning average distance",
+      "type": "kilometers"
+    },
+    {
+      "name": "wind_speed",
+      "displayName": "Wind speed /m⋅s⁻¹/",
+      "type": "float"
+    },
+    {
+      "name": "wind_direction",
+      "displayName": "Wind direction",
+      "type": "angle"
+    },
+    {
+      "name": "maximum_wind_speed",
+      "displayName": "Maximum wind speed /m⋅s⁻¹/",
+      "type": "float"
+    },
+    {
+      "name": "air_temperature",
+      "displayName": "Air temperature",
+      "type": "tempC"
+    },
+    {
+      "name": "vapor_pressure",
+      "displayName": "Vapor pressure",
+      "type": "kPa"
+    },
+    {
+      "name": "barometric_pressure",
+      "displayName": "Barometric pressure",
+      "type": "kPa"
+    },
+    {
+      "name": "relative_humidity",
+      "displayName": "Relative humidity",
+      "type": "relativeHumidity"
+    },
+    {
+      "name": "internal_temperature",
+      "displayName": "Internal temperature",
+      "type": "tempC"
+    },
+    {
+      "name": "tilt_angle_x_orientation",
+      "displayName": "Tilt angle, X orientation",
+      "type": "angle"
+    },
+    {
+      "name": "tilt_angle_y_orientation",
+      "displayName": "Tilt angle, Y orientation",
+      "type": "angle"
+    },
+    {
+      "name": "precipitation_electrical_conductivity",
+      "displayName": "Precipitation electrical conductivity /µS⋅cm⁻¹/",
+      "type": "float"
+    },
+    {
+      "name": "cumulative_precipitation",
+      "displayName": "Cumulative precipitation /mm/",
+      "type": "float"
+    },
+    {
+      "displayName": "Battery voltage",
+      "name": "battery_voltage",
+      "thresholds": [
+        {
+          "name": "Battery voltage is low",
+          "type": "lessthan",
+          "warning": "2.2"
+        }
+      ],
+      "type": "volts"
+    }
+  ],
+  "updatedUTC": "2020-05-29T18:06:30.651Z",
+  "version": "v1.0"
+}
