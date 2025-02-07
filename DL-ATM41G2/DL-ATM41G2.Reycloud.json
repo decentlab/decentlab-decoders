@@ -1,0 +1,400 @@
+{
+  "testPayloads": ["025ef80003805c000080008000803484b3803680e78086a60181d680ed81c9809f8000117000010adc", "025ef800020adc"],
+  "useCache": false,
+  "outputVars": false,
+  "inputDecoders": {
+    "fports": [
+      {
+        "fport": 1,
+        "decoders": [
+          {
+            "conditions": [
+              {
+                "byte": "0",
+                "value": "2",
+                "operator": "="
+              },
+              {
+                "byte": "3",
+                "value": "0",
+                "operator": "="
+              },
+              {
+                "byte": "4",
+                "value": "3",
+                "operator": "="
+              }
+            ],
+            "fields": [
+              {
+                "byte": "1",
+                "lenght": "2",
+                "calc": "(x)",
+                "type": "dec",
+                "unit": "",
+                "label": "Device ID",
+                "byteSwap": false,
+                "fieldName": "device_id",
+                "boolInvert": false,
+                "description": {
+                  "en": "Device ID"
+                },
+                "dashboard_type": "int",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "5",
+                "lenght": "2",
+                "calc": "((x - 32768) / 10)",
+                "type": "dec",
+                "unit": "W⋅m⁻²",
+                "label": "Solar radiation",
+                "byteSwap": false,
+                "fieldName": "solar_radiation",
+                "boolInvert": false,
+                "description": {
+                  "en": "Solar radiation"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "7",
+                "lenght": "2",
+                "calc": "(x / 1000)",
+                "type": "dec",
+                "unit": "mm",
+                "label": "Precipitation",
+                "byteSwap": false,
+                "fieldName": "precipitation",
+                "boolInvert": false,
+                "description": {
+                  "en": "Precipitation"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "9",
+                "lenght": "2",
+                "calc": "(x - 32768)",
+                "type": "dec",
+                "unit": "None",
+                "label": "Lightning strike count",
+                "byteSwap": false,
+                "fieldName": "lightning_strike_count",
+                "boolInvert": false,
+                "description": {
+                  "en": "Lightning strike count"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "11",
+                "lenght": "2",
+                "calc": "(x - 32768)",
+                "type": "dec",
+                "unit": "km",
+                "label": "Lightning average distance",
+                "byteSwap": false,
+                "fieldName": "lightning_average_distance",
+                "boolInvert": false,
+                "description": {
+                  "en": "Lightning average distance"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "13",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "m⋅s⁻¹",
+                "label": "Wind speed",
+                "byteSwap": false,
+                "fieldName": "wind_speed",
+                "boolInvert": false,
+                "description": {
+                  "en": "Wind speed"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "15",
+                "lenght": "2",
+                "calc": "((x - 32768) / 10)",
+                "type": "dec",
+                "unit": "°",
+                "label": "Wind direction",
+                "byteSwap": false,
+                "fieldName": "wind_direction",
+                "boolInvert": false,
+                "description": {
+                  "en": "Wind direction"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "17",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "m⋅s⁻¹",
+                "label": "Maximum wind speed",
+                "byteSwap": false,
+                "fieldName": "maximum_wind_speed",
+                "boolInvert": false,
+                "description": {
+                  "en": "Maximum wind speed"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "19",
+                "lenght": "2",
+                "calc": "((x - 32768) / 10)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Air temperature",
+                "byteSwap": false,
+                "fieldName": "air_temperature",
+                "boolInvert": false,
+                "description": {
+                  "en": "Air temperature"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "21",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "kPa",
+                "label": "Vapor pressure",
+                "byteSwap": false,
+                "fieldName": "vapor_pressure",
+                "boolInvert": false,
+                "description": {
+                  "en": "Vapor pressure"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "23",
+                "lenght": "2",
+                "calc": "((x - 32768) / 100)",
+                "type": "dec",
+                "unit": "kPa",
+                "label": "Barometric pressure",
+                "byteSwap": false,
+                "fieldName": "barometric_pressure",
+                "boolInvert": false,
+                "description": {
+                  "en": "Barometric pressure"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "25",
+                "lenght": "2",
+                "calc": "((x - 32768) / 10)",
+                "type": "dec",
+                "unit": "%",
+                "label": "Relative humidity",
+                "byteSwap": false,
+                "fieldName": "relative_humidity",
+                "boolInvert": false,
+                "description": {
+                  "en": "Relative humidity"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "27",
+                "lenght": "2",
+                "calc": "((x - 32768) / 10)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Internal temperature",
+                "byteSwap": false,
+                "fieldName": "internal_temperature",
+                "boolInvert": false,
+                "description": {
+                  "en": "Internal temperature"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "29",
+                "lenght": "2",
+                "calc": "((x - 32768) / 10)",
+                "type": "dec",
+                "unit": "°",
+                "label": "Tilt angle, X orientation",
+                "byteSwap": false,
+                "fieldName": "tilt_angle_x_orientation",
+                "boolInvert": false,
+                "description": {
+                  "en": "Tilt angle, X orientation"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "31",
+                "lenght": "2",
+                "calc": "((x - 32768) / 10)",
+                "type": "dec",
+                "unit": "°",
+                "label": "Tilt angle, Y orientation",
+                "byteSwap": false,
+                "fieldName": "tilt_angle_y_orientation",
+                "boolInvert": false,
+                "description": {
+                  "en": "Tilt angle, Y orientation"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "33",
+                "lenght": "2",
+                "calc": "(x - 32768)",
+                "type": "dec",
+                "unit": "µS⋅cm⁻¹",
+                "label": "Precipitation electrical conductivity",
+                "byteSwap": false,
+                "fieldName": "precipitation_electrical_conductivity",
+                "boolInvert": false,
+                "description": {
+                  "en": "Precipitation electrical conductivity"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "5",
+                "lenght": "34",
+                "calc": "(?)",
+                "type": "dec",
+                "unit": "mm",
+                "label": "Cumulative precipitation",
+                "byteSwap": false,
+                "fieldName": "cumulative_precipitation",
+                "boolInvert": false,
+                "description": {
+                  "en": "Cumulative precipitation"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "39",
+                "lenght": "2",
+                "calc": "(x / 1000)",
+                "type": "dec",
+                "unit": "V",
+                "label": "Battery voltage",
+                "byteSwap": false,
+                "fieldName": "battery_voltage",
+                "boolInvert": false,
+                "description": {
+                  "en": "Battery voltage"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              }
+            ]
+          },
+          {
+            "conditions": [
+              {
+                "byte": "0",
+                "value": "2",
+                "operator": "="
+              },
+              {
+                "byte": "3",
+                "value": "0",
+                "operator": "="
+              },
+              {
+                "byte": "4",
+                "value": "2",
+                "operator": "="
+              }
+            ],
+            "fields": [
+              {
+                "byte": "1",
+                "lenght": "2",
+                "calc": "(x)",
+                "type": "dec",
+                "unit": "",
+                "label": "Device ID",
+                "byteSwap": false,
+                "fieldName": "device_id",
+                "boolInvert": false,
+                "description": {
+                  "en": "Device ID"
+                },
+                "dashboard_type": "int",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "5",
+                "lenght": "2",
+                "calc": "(x / 1000)",
+                "type": "dec",
+                "unit": "V",
+                "label": "Battery voltage",
+                "byteSwap": false,
+                "fieldName": "battery_voltage",
+                "boolInvert": false,
+                "description": {
+                  "en": "Battery voltage"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "configDownlink": false,
+  "swisscomProfile": "LORA/SwisscomA.1.0.2b_ETSI_Rx2-SF12",
+  "outputVarEncoders": [],
+  "profileConfigDownlink": []
+}
