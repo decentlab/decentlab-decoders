@@ -1,0 +1,196 @@
+{
+  "testPayloads": ["0207d9000390888081006400000c60", "0207d900020c60"],
+  "useCache": false,
+  "outputVars": false,
+  "inputDecoders": {
+    "fports": [
+      {
+        "fport": 1,
+        "decoders": [
+          {
+            "conditions": [
+              {
+                "byte": "0",
+                "value": "2",
+                "operator": "="
+              },
+              {
+                "byte": "3",
+                "value": "0",
+                "operator": "="
+              },
+              {
+                "byte": "4",
+                "value": "3",
+                "operator": "="
+              }
+            ],
+            "fields": [
+              {
+                "byte": "1",
+                "lenght": "2",
+                "calc": "(x)",
+                "type": "dec",
+                "unit": "",
+                "label": "Device ID",
+                "byteSwap": false,
+                "fieldName": "device_id",
+                "boolInvert": false,
+                "description": {
+                  "en": "Device ID"
+                },
+                "dashboard_type": "int",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "5",
+                "lenght": "2",
+                "calc": "(x - 32768)",
+                "type": "dec",
+                "unit": "mm",
+                "label": "Water depth",
+                "byteSwap": false,
+                "fieldName": "water_depth",
+                "boolInvert": false,
+                "description": {
+                  "en": "Water depth"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "7",
+                "lenght": "2",
+                "calc": "((x - 32768) / 10)",
+                "type": "dec",
+                "unit": "°C",
+                "label": "Temperature",
+                "byteSwap": false,
+                "fieldName": "temperature",
+                "boolInvert": false,
+                "description": {
+                  "en": "Temperature"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "9",
+                "lenght": "2",
+                "calc": "(x * 2)",
+                "type": "dec",
+                "unit": "µS⋅cm⁻¹",
+                "label": "Electrical conductivity",
+                "byteSwap": false,
+                "fieldName": "electrical_conductivity",
+                "boolInvert": false,
+                "description": {
+                  "en": "Electrical conductivity"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "11",
+                "lenght": "2",
+                "calc": "(x)",
+                "type": "dec",
+                "unit": "",
+                "label": "Freezing flag",
+                "byteSwap": false,
+                "fieldName": "freezing_flag",
+                "boolInvert": false,
+                "description": {
+                  "en": "Freezing flag"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "13",
+                "lenght": "2",
+                "calc": "(x / 1000)",
+                "type": "dec",
+                "unit": "V",
+                "label": "Battery voltage",
+                "byteSwap": false,
+                "fieldName": "battery_voltage",
+                "boolInvert": false,
+                "description": {
+                  "en": "Battery voltage"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              }
+            ]
+          },
+          {
+            "conditions": [
+              {
+                "byte": "0",
+                "value": "2",
+                "operator": "="
+              },
+              {
+                "byte": "3",
+                "value": "0",
+                "operator": "="
+              },
+              {
+                "byte": "4",
+                "value": "2",
+                "operator": "="
+              }
+            ],
+            "fields": [
+              {
+                "byte": "1",
+                "lenght": "2",
+                "calc": "(x)",
+                "type": "dec",
+                "unit": "",
+                "label": "Device ID",
+                "byteSwap": false,
+                "fieldName": "device_id",
+                "boolInvert": false,
+                "description": {
+                  "en": "Device ID"
+                },
+                "dashboard_type": "int",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              },
+              {
+                "byte": "5",
+                "lenght": "2",
+                "calc": "(x / 1000)",
+                "type": "dec",
+                "unit": "V",
+                "label": "Battery voltage",
+                "byteSwap": false,
+                "fieldName": "battery_voltage",
+                "boolInvert": false,
+                "description": {
+                  "en": "Battery voltage"
+                },
+                "dashboard_type": "real",
+                "visual_representation": "",
+                "visual_representation_invert": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "configDownlink": false,
+  "swisscomProfile": "LORA/SwisscomA.1.0.2b_ETSI_Rx2-SF12",
+  "outputVarEncoders": [],
+  "profileConfigDownlink": []
+}
