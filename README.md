@@ -87,11 +87,11 @@ Device | Name
 
 # Testing payload
 
-If you need to test a particular payload received from Decentlab devices, please follow this link: https://htmlpreview.github.io/?https://github.com/decentlab/decentlab-decoders/blob/master/payload-test.html
+If you need to test a particular payload received from Decentlab devices, please follow this link: https://html-preview.github.io/?url=https://github.com/decentlab/decentlab-decoders/blob/master/payload-test.html
 
 # Encoding downlink commands
 
-If you need to encode downlink commands to be sent to Decentlab devices, please follow this link: https://htmlpreview.github.io/?https://github.com/decentlab/decentlab-decoders/blob/master/downlink-command-encoder.html
+If you need to encode downlink commands to be sent to Decentlab devices, please follow this link: https://html-preview.github.io/?url=https://github.com/decentlab/decentlab-decoders/blob/master/downlink-command-encoder.html
 
 # Integration guide for some platforms
 
