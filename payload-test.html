@@ -6484,7 +6484,7 @@ var decentlab_decoder = {
         var paramsHtml = "";
         if (typeof params !== "undefined") {
           paramsHtml = Object.keys(params).map(p => {
-            return `<span class="params-container"><label for="${p}">${p}</label>=<input id="${p}" type="text" onkeyup="forceClick(event)" value="${params[p]}" size="${Math.max(String(params[p]).length - 2, 1)}"/></span>`;
+            return `<span class="params-container"><label for="${p}">${p}</label> = <input id="${p}" type="text" onkeyup="forceClick(event)" value="${params[p]}" size="10"/></span>`;
           }).join(' ');
         }
         document.getElementById("params").innerHTML = paramsHtml;
