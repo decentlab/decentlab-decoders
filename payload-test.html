@@ -6533,25 +6533,30 @@ var decentlab_decoder = {
       }
 
       function decode() {
-        var device = document.getElementById("device");
-        var selectedDevice = device.options[device.selectedIndex].value;
-        var encoding = document.getElementById("encoding");
-        var selectedEncoding = encoding.options[encoding.selectedIndex].value;
-        var bytes = document.getElementById("bytes").value;
-        if (selectedEncoding === "base64") {
-          var binary = atob(bytes)
-          var bytes = new Uint8Array(binary.length)
-          for( var i = 0; i < binary.length; i++ ) {
-            bytes[i] = binary.charCodeAt(i)
+        var decoded = {};
+        try {
+          var device = document.getElementById("device");
+          var selectedDevice = device.options[device.selectedIndex].value;
+          var encoding = document.getElementById("encoding");
+          var selectedEncoding = encoding.options[encoding.selectedIndex].value;
+          var bytes = document.getElementById("bytes").value;
+          if (selectedEncoding === "base64") {
+            var binary = atob(bytes);
+            var bytes = new Uint8Array(binary.length);
+            for (var i = 0; i < binary.length; i++) {
+              bytes[i] = binary.charCodeAt(i);
+            }
           }
+          var params = decoders[selectedDevice].PARAMETERS;
+          if (typeof params !== "undefined") {
+            Object.keys(params).map(p => {
+              params[p] = Number(document.getElementById(p).value);
+            });
+          }
+          decoded = decoders[selectedDevice].decode(bytes, selectedDevice);
+        } catch (err) {
+          decoded = {error: `${err.name}: ${err.message}`};
         }
-        var params = decoders[selectedDevice].PARAMETERS;
-        if (typeof params !== "undefined") {
-          Object.keys(params).map(p => {
-            params[p] = Number(document.getElementById(p).value);
-          });
-        }
-        var decoded = decoders[selectedDevice].decode(bytes, selectedDevice);
         var json = JSON.stringify(decoded, undefined, 2);
         document.getElementById("output").innerHTML = syntaxHighlight(json);
       }
