@@ -87,7 +87,6 @@ defmodule DecentlabDecoder do
 
   defp where(true, if_true, _if_false), do: if_true
   defp where(false, _if_true, if_false), do: if_false
-
 end
 
 IO.inspect(DecentlabDecoder.decode("0252850003809980220bd3", :hex))
