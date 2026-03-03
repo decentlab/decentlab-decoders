@@ -82,7 +82,7 @@
                 "lenght": "2",
                 "calc": "(x - 32768)",
                 "type": "dec",
-                "unit": "None",
+                "unit": "",
                 "label": "Lightning strike count",
                 "byteSwap": false,
                 "fieldName": "lightning_strike_count",

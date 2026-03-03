@@ -104,7 +104,7 @@ class DL_ATM41G2_Definition {
             new SensorValue("Precipitation", "mm", new Conversion() {
                 public double execute(double x[]) { return x[1] / 1000; }
             }),
-            new SensorValue("Lightning strike count", "None", new Conversion() {
+            new SensorValue("Lightning strike count", null, new Conversion() {
                 public double execute(double x[]) { return x[2] - 32768; }
             }),
             new SensorValue("Lightning average distance", "km", new Conversion() {

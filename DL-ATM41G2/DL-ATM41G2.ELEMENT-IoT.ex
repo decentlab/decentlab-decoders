@@ -12,7 +12,7 @@ defmodule Parser do
     [
       %{field: "solar_radiation", display: "Solar radiation", unit: "W⋅m⁻²"},
       %{field: "precipitation", display: "Precipitation", unit: "mm"},
-      %{field: "lightning_strike_count", display: "Lightning strike count", unit: "None"},
+      %{field: "lightning_strike_count", display: "Lightning strike count", unit: ""},
       %{field: "lightning_average_distance", display: "Lightning average distance", unit: "km"},
       %{field: "wind_speed", display: "Wind speed", unit: "m⋅s⁻¹"},
       %{field: "wind_direction", display: "Wind direction", unit: "°"},
