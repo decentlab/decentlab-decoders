@@ -30,6 +30,7 @@ Device | Name
 [DL-ATM41](DL-ATM41) | [Eleven Parameter Weather Station for LoRaWAN&reg;](https://www.decentlab.com/products/eleven-parameter-weather-station-for-lorawan)
 [DL-ATM41G2](DL-ATM41G2) | [Eleven Parameter Weather Station for LoRaWAN&reg;](https://www.decentlab.com/products/eleven-parameter-weather-station-for-lorawan)
 [DL-BLG](DL-BLG) | [Black Globe Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/black-globe-temperature-sensor-for-lorawan)
+[DL-C4E](DL-C4E) | [Conductivity, Salinity and Temperature Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/conductivity-salinity-and-temperature-sensor-for-lorawan)
 [DL-CTD10](DL-CTD10) | [Pressure / Liquid Level, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan)
 [DL-CTD10B](DL-CTD10B) | [Pressure / Liquid Level, Temperature and Electrical Conductivity Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan)
 [DL-CWS](DL-CWS) | [High-Precision Winter Road Maintenance Sensor for LoRaWAN&reg;](https://www.decentlab.com/products/high-precision-winter-road-maintenance-sensor-for-lorawan)
