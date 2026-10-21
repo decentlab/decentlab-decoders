@@ -1,5 +1,5 @@
 
-/* https://www.decentlab.com/leaf-temperature-sensor-for-lorawan */
+/* https://www.decentlab.com/products/leaf-temperature-sensor-for-lorawan */
 
 import java.io.InputStream;
 import java.io.ByteArrayInputStream;

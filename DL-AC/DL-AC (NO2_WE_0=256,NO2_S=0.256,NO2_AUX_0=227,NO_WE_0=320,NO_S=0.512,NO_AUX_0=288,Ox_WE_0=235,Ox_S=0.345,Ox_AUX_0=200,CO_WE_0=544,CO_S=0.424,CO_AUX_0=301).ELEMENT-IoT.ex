@@ -1,5 +1,5 @@
 
-# https://www.decentlab.com/products/air-quality-station-no2-no-co-ox-for-lorawan
+# https://www.decentlab.com/support
 
 defmodule Parser do
   use Platform.Parsing.Behaviour

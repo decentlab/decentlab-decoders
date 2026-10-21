@@ -1,5 +1,5 @@
 <?php
-/* https://www.decentlab.com/leaf-temperature-sensor-for-lorawan */
+/* https://www.decentlab.com/products/leaf-temperature-sensor-for-lorawan */
 
 abstract class DecentlabDecoder
 {

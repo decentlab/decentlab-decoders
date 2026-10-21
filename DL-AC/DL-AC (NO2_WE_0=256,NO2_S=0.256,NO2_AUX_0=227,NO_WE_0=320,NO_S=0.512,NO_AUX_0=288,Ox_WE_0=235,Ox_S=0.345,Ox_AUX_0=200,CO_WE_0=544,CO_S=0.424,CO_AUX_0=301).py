@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# https://www.decentlab.com/products/air-quality-station-no2-no-co-ox-for-lorawan
+# https://www.decentlab.com/support
 
 from __future__ import absolute_import
 from __future__ import division

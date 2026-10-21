@@ -1,5 +1,5 @@
 
--- https://www.decentlab.com/stem-dendrometer-sensor-for-lorawan
+-- https://www.decentlab.com/products/stem-dendrometer-sensor-for-lorawan
 
 local PROTOCOL_VERSION = 2
 

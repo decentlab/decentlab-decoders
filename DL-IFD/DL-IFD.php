@@ -1,5 +1,5 @@
 <?php
-/* https://www.decentlab.com/fruit-dendrometer-sensor-for-lorawan */
+/* https://www.decentlab.com/products/fruit-dendrometer-sensor-for-lorawan */
 
 abstract class DecentlabDecoder
 {

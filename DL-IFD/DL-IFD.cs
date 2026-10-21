@@ -1,5 +1,5 @@
 
-/* https://www.decentlab.com/fruit-dendrometer-sensor-for-lorawan */
+/* https://www.decentlab.com/products/fruit-dendrometer-sensor-for-lorawan */
 
 using System;
 using System.IO;

@@ -1,5 +1,5 @@
 
-% https://www.decentlab.com/leaf-temperature-sensor-for-lorawan
+% https://www.decentlab.com/products/leaf-temperature-sensor-for-lorawan
 
 -module(decentlab_decoder).
 -define(PROTOCOL_VERSION, 2).
